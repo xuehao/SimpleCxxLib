@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>../include/gmath.h</title>
+<link rel="stylesheet" type="text/css" href="cppdoc.css" />
+</head>
+<body>
+<pre class=code>
+<scan class=comment>/*
+ * File: gmath.h
+ * -------------
+ * This file exports several functions for working with graphical geometry
+ * along with the mathematical constants PI and E.
+ */
+</scan>
+<scan class=comment>/*************************************************************************/</scan>
+<scan class=comment>/* Stanford Portable Library                                             */</scan>
+<scan class=comment>/* Copyright (c) 2014 by Eric Roberts &lt;eroberts@cs.stanford.edu&gt;         */</scan>
+<scan class=comment>/*                                                                       */</scan>
+<scan class=comment>/* This program is free software: you can redistribute it and/or modify  */</scan>
+<scan class=comment>/* it under the terms of the GNU General Public License as published by  */</scan>
+<scan class=comment>/* the Free Software Foundation, either version 3 of the License, or     */</scan>
+<scan class=comment>/* (at your option) any later version.                                   */</scan>
+<scan class=comment>/*                                                                       */</scan>
+<scan class=comment>/* This program is distributed in the hope that it will be useful,       */</scan>
+<scan class=comment>/* but WITHOUT ANY WARRANTY; without even the implied warranty of        */</scan>
+<scan class=comment>/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         */</scan>
+<scan class=comment>/* GNU General Public License for more details.                          */</scan>
+<scan class=comment>/*                                                                       */</scan>
+<scan class=comment>/* You should have received a copy of the GNU General Public License     */</scan>
+/* along with this program.  If not, see &lt;http:<scan class=comment>//www.gnu.org/licenses/&gt;. */</scan>
+<scan class=comment>/*************************************************************************/</scan>
+
+#ifndef _gmath_h
+#define _gmath_h
+
+#include "gtypes.h"
+
+<a name="Constant:PI"><scan class=comment>/*
+ * Constant: PI
+ * ------------
+ * The mathematical constant pi, which is the ratio of the circumference of
+ * a circle to its diameter.
+ */
+</scan>
+extern const double PI;
+
+<a name="Constant:E"><scan class=comment>/*
+ * Constant: E
+ * -----------
+ * The mathematical constant e, which is the base of natural logarithms.
+ */
+</scan>
+extern const double E;
+
+<a name="Function:sinDegrees"><scan class=comment>/*
+ * Function: sinDegrees
+ * Usage: double sine = sinDegrees(angle);
+ * ---------------------------------------
+ * Returns the trigonometric sine of angle, which is expressed in degrees.
+ */
+</scan>
+double sinDegrees(double angle);
+
+<a name="Function:cosDegrees"><scan class=comment>/*
+ * Function: cosDegrees
+ * Usage: double cosine = cosDegrees(angle);
+ * -----------------------------------------
+ * Returns the trigonometric cosine of angle, which is expressed in
+ * degrees.
+ */
+</scan>
+double cosDegrees(double angle);
+
+<a name="Function:tanDegrees"><scan class=comment>/*
+ * Function: tanDegrees
+ * Usage: double tangent = tanDegrees(angle);
+ * ------------------------------------------
+ * Returns the trigonometric tangent of angle, which is expressed in
+ * degrees.
+ */
+</scan>
+double tanDegrees(double angle);
+
+<a name="Function:toDegrees"><scan class=comment>/*
+ * Function: toDegrees
+ * Usage: double degrees = toDegrees(radians);
+ * -------------------------------------------
+ * Converts an angle from radians to degrees.
+ */
+</scan>
+double toDegrees(double radians);
+
+<a name="Function:toRadians"><scan class=comment>/*
+ * Function: toRadians
+ * Usage: double radians = toRadians(degrees);
+ * -------------------------------------------
+ * Converts an angle from degrees to radians.
+ */
+</scan>
+double toRadians(double degrees);
+
+<a name="Function:vectorDistance"><scan class=comment>/*
+ * Function: vectorDistance
+ * Usage: double r = vectorDistance(pt);
+ *        double r = vectorDistance(x, y);
+ * ---------------------------------------
+ * Computes the distance between the origin and the specified point.
+ */
+</scan>
+double vectorDistance(const GPoint &amp; pt);
+double vectorDistance(double x, double y);
+
+<a name="Function:vectorAngle"><scan class=comment>/*
+ * Function: vectorAngle
+ * Usage: double angle = vectorAngle(pt);
+ *        double angle = vectorAngle(x, y);
+ * ----------------------------------------
+ * Returns the angle in degrees from the origin to the specified point. 
+ * This function takes account of the fact that the graphics coordinate
+ * system is flipped in the y direction from the traditional Cartesian
+ * plane.
+ */
+</scan>
+double vectorAngle(const GPoint &amp; pt);
+double vectorAngle(double x, double y);
+
+#endif
+</pre>
+</body>
+</html>

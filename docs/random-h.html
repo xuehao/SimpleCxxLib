@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>../include/random.h</title>
+<link rel="stylesheet" type="text/css" href="cppdoc.css" />
+</head>
+<body>
+<pre class=code>
+<scan class=comment>/*
+ * File: random.h
+ * --------------
+ * This file exports functions for generating pseudorandom numbers.
+ */
+</scan>
+<scan class=comment>/*************************************************************************/</scan>
+<scan class=comment>/* Stanford Portable Library                                             */</scan>
+<scan class=comment>/* Copyright (c) 2014 by Eric Roberts &lt;eroberts@cs.stanford.edu&gt;         */</scan>
+<scan class=comment>/*                                                                       */</scan>
+<scan class=comment>/* This program is free software: you can redistribute it and/or modify  */</scan>
+<scan class=comment>/* it under the terms of the GNU General Public License as published by  */</scan>
+<scan class=comment>/* the Free Software Foundation, either version 3 of the License, or     */</scan>
+<scan class=comment>/* (at your option) any later version.                                   */</scan>
+<scan class=comment>/*                                                                       */</scan>
+<scan class=comment>/* This program is distributed in the hope that it will be useful,       */</scan>
+<scan class=comment>/* but WITHOUT ANY WARRANTY; without even the implied warranty of        */</scan>
+<scan class=comment>/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         */</scan>
+<scan class=comment>/* GNU General Public License for more details.                          */</scan>
+<scan class=comment>/*                                                                       */</scan>
+<scan class=comment>/* You should have received a copy of the GNU General Public License     */</scan>
+/* along with this program.  If not, see &lt;http:<scan class=comment>//www.gnu.org/licenses/&gt;. */</scan>
+<scan class=comment>/*************************************************************************/</scan>
+
+#ifndef _random_h
+#define _random_h
+
+<a name="Function:randomInteger"><scan class=comment>/*
+ * Function: randomInteger
+ * Usage: int n = randomInteger(low, high);
+ * ----------------------------------------
+ * Returns a random integer in the range low to high, inclusive.
+ */
+</scan>
+int randomInteger(int low, int high);
+
+<a name="Function:randomReal"><scan class=comment>/*
+ * Function: randomReal
+ * Usage: double d = randomReal(low, high);
+ * ----------------------------------------
+ * Returns a random real number in the half-open interval [low, high).  A
+ * half-open interval includes the first endpoint but not the second, which
+ * means that the result is always greater than or equal to low but
+ * strictly less than high.
+ */
+</scan>
+double randomReal(double low, double high);
+
+<a name="Function:randomChance"><scan class=comment>/*
+ * Function: randomChance
+ * Usage: if (randomChance(p)) ...
+ * -------------------------------
+ * Returns true with the probability indicated by p.  The argument p must
+ * be a floating-point number between 0 (never) and 1 (always).  For
+ * example, calling randomChance(.30) returns true 30 percent of the time.
+ */
+</scan>
+bool randomChance(double p);
+
+<a name="Function:setRandomSeed"><scan class=comment>/*
+ * Function: setRandomSeed
+ * Usage: setRandomSeed(seed);
+ * ---------------------------
+ * Sets the internal random number seed to the specified value.  You can
+ * use this function to set a specific starting point for the pseudorandom
+ * sequence or to ensure that program behavior is repeatable during the
+ * debugging phase.
+ */
+</scan>
+void setRandomSeed(int seed);
+
+#endif
+</pre>
+</body>
+</html>

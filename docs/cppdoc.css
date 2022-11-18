@@ -1,0 +1,115 @@
+body {
+   font-family: "Candara", "Calibri", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+   font-size:1.1rem;
+   margin-top: 1%;
+   margin-right: 3%;
+   margin-bottom: 3%;
+   margin-left: 3%;
+}
+
+h1 {
+   font-size:1.5em;
+   font-weight:bold;
+}
+
+h2 {
+   font-size:1.4em;
+   font-weight:bold;
+   margin-bottom:0px;
+}
+
+.header, .include {
+   font-size:125%;
+}
+
+pre, code, .code {
+   font-family: Consolas, Inconsolata, "Lucida Console", Menlo, Courier, monospace;
+   font-weight:bold;
+   font-size:90%;
+}
+
+.comment {
+   color:blue;
+}
+
+.it {
+   font-family:"Times New Roman", "Times", "serif";
+   font-weight:normal;
+   font-style:italic;
+   font-size:90%;
+}
+
+.banner {
+   border:0;
+}
+
+.sansserif {
+   font-family:"Helvetica Neue", "Helvetica", "Arial", "sansserif";
+}
+
+.bannerText {
+   font-family:"Helvetica Neue", "Helvetica", "Arial", "sansserif";
+   font-size:1.6em;
+   font-weight:bold;
+}
+
+.bannerText > a {
+   text-decoration: none;
+}
+
+.index {
+   border-collapse:collapse;
+   margin-top:1px;
+}
+
+.indexHead {
+   font-family:"Times New Roman", "Times", "serif";
+   font-size:1.4em;
+   font-weight:bold;
+   padding-top:1em;
+}
+
+.indexKey {
+   border:1px solid black;
+   padding:3px 5px;
+   font-family: Consolas, Inconsolata, "Lucida Console", Menlo, Courier, monospace;
+   font-weight:bold;
+   font-size:90%;
+   vertical-align: top;
+}
+
+.indexSynopsis {
+   border:1px solid black;
+   padding:3px 5px;
+   vertical-align: top;
+}
+
+.include {
+   font-family: Consolas, Inconsolata, "Lucida Console", Menlo, Courier, monospace;
+   font-weight:bold;
+   font-size:100%;
+}
+
+.detailCode {
+   padding:0px;
+   font-family: Consolas, Inconsolata, "Lucida Console", Menlo, Courier, monospace;
+   font-weight:bold;
+   font-size:100%;
+}
+
+.detailHTML {
+   font-family:"Times New Roman", "Times", "serif";
+   font-size:1em;
+   margin-left:20px;
+}
+
+.inset {
+   margin-left:36px;
+}
+
+.usageCode {
+   font-family: Consolas, Inconsolata, "Lucida Console", Menlo, Courier, monospace;
+   font-weight:bold;
+   font-size:100%;
+   margin-left:40px;
+}
