@@ -1,0 +1,825 @@
+<html>
+
+<head>
+    <title>The Simple C++ Libraries</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="xuehao" />
+    <meta name="description" content="SimpleCxxLib - A simple C++ library for introductory CS which is currently being used in CS101 course. Inspired by Stanford CS106B" />
+    <meta property="og:site_name" content="SimpleCxxLib - A simple C++ library for introductory CS. A fork from StanfordCPPLib." />
+    <meta property="og:type" content="programming" />
+    <meta property="og:title" content="The Simple C++ Libraries" />
+    <meta property="og:description" content="SimpleCxxLib - A simple C++ library for introductory CS which is currently being used in CS101 course. Inspired by Stanford CS106B" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://cppdoc.stickmind.com" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="DD98B25645E2E9562D94DA0F37C16840" />
+    <meta name="robots" content="" />
+    <link rel="stylesheet" type="text/css" href="cppdoc.css" />
+    <link rel="shortcut icon" href="images/favicon.png">
+</head>
+
+<body>
+    <h1>The <code><a href=".">SimpleCxxLib</a></code> package</h1>
+    <hr />
+    <h2>Description:</h2>
+    <p>
+        The <code>SimpleCxxLib</code> package is a simple C++ library for
+        introductory CS which is currently being used in
+        <a href="https://cs101.stickmind.com">CS101: Programming Abstractions in C++</a> course.
+        This is a fork from
+        <a href="https://cs.stanford.edu/people/eroberts/StanfordCPPLib/">the Stanford C++ libraries</a>
+        originally developed by Eric Roberts and Keith Schwarz. This unofficial modified version is
+        written and maintained by Xue Hao(<a href="mailto:xuehao0618@outlook.com">xuehao0618@outlook.com</a>).
+    </p>
+    <p>
+        This package is free software: you can redistribute it and/or modify it
+        under the terms of <a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a> as published by
+        the Free
+        Software Foundation.
+    </p>
+
+    <p>
+        This program is distributed in the hope that it will be useful, but
+        WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+        or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+        for more details.
+    </p>
+
+    <hr />
+    <h2>Downloads:</h2>
+    <p>
+        Download the latest version here:</p>
+    <p>
+    <ul>
+        <li>
+            <b><a href="./samples/sample-project.zip">sample-project.zip</a></b> - strongly recommend Qt Creator for
+            projects based on these libraries
+        </li>
+        <li>
+            <a href="https://github.com/xuehao/SimpleCxxLib">Github Repository</a>
+        </li>
+    </ul>
+    </p>
+    <hr />
+    <h2>Documentation:</h2>
+    <p>
+        The <code>SimpleCxxLib</code> package defines a set of libraries that make
+        it easier to write programs in C++. The facilities provided by these
+        libraries can be broken down into the following groups:</p>
+    <p>
+    <ol>
+        <li>
+            <b><i>Function libraries.</i></b> Several of the interfaces (<a
+                href="console.html"><code>console.h</code></a>, <a href="direction.html"><code>direction.h</code></a>,
+            <a href="error.html"><code>error.h</code></a>, <a href="filelib.html"><code>filelib.h</code></a>, <a
+                href="gmath.html"><code>gmath.h</code></a>, <a href="random.html"><code>random.h</code></a>, <a
+                href="simpio.html"><code>simpio.h</code></a>, <a href="strlib.html"><code>strlib.h</code></a>, <a
+                href="thread.html"><code>thread.h</code></a>) export
+            collections of free functions instead of classes.
+
+            <p>
+        <li>
+            <b><i>Collection classes.</i></b> Several of the classes (<a href="Graph-class.html"><code>Graph</code></a>,
+            <a href="Grid-class.html"><code>Grid</code></a>, <a href="HashMap-class.html"><code>HashMap</code></a>, <a
+                href="HashSet-class.html"><code>HashSet</code></a>, <a
+                href="Lexicon-class.html"><code>Lexicon</code></a>, <a href="Map-class.html"><code>Map</code></a>, <a
+                href="PriorityQueue-class.html"><code>PriorityQueue</code></a>, <a
+                href="Queue-class.html"><code>Queue</code></a>, <a href="Set-class.html"><code>Set</code></a>, <a
+                href="Stack-class.html"><code>Stack</code></a>, <a href="Vector-class.html"><code>Vector</code></a>)
+            represent collections of other objects. These collections work in
+            much the same way as the similar classes in the Standard Template
+            Library (STL).
+
+            <p>
+        <li>
+            <b><i>Graphics classes.</i></b> Most of the classes in the
+            <code>SimpleCxxLib</code> package are used to support
+            graphics. These classes can themselves be broken down into the
+            following categories:
+
+            <ul>
+                <li>
+                    The
+                    <a href="GWindow-class.html"><code>GWindow</code></a> class,
+                    which represents a window that appears on the display screen
+                </li>
+
+                <li>
+                    A collection of graphics objects, each of which is a
+                    subclass of
+                    <a href="GObject-class.html"><code>GObject</code></a>
+                    (<a href="GArc-class.html"><code>GArc</code></a>, <a
+                        href="GCompound-class.html"><code>GCompound</code></a>, <a
+                        href="GImage-class.html"><code>GImage</code></a>, <a
+                        href="GLabel-class.html"><code>GLabel</code></a>, <a
+                        href="GLine-class.html"><code>GLine</code></a>, <a
+                        href="GOval-class.html"><code>GOval</code></a>, <a
+                        href="GPolygon-class.html"><code>GPolygon</code></a>, <a
+                        href="GRect-class.html"><code>GRect</code></a>, <a
+                        href="G3DRect-class.html"><code>G3DRect</code></a>,
+                    <a href="GRoundRect-class.html"><code>GRoundRect</code></a>)
+                </li>
+
+                <li>
+                    A set of onscreen interactors (<a href="GCheckBox-class.html"><code>GCheckBox</code></a>, <a
+                        href="GChooser-class.html"><code>GChooser</code></a>, <a
+                        href="GSlider-class.html"><code>GSlider</code></a>,
+                    <a href="GTextField-class.html"><code>GTextField</code></a>, <a
+                        href="GButton-class.html"><code>GButton</code></a>)
+                </li>
+
+                <li>
+                    A hierarchical set of classes for fielding events (<a
+                        href="GEvent-class.html"><code>GEvent</code></a>,
+                    <a href="GActionEvent-class.html"><code>GActionEvent</code></a>, <a
+                        href="GKeyEvent-class.html"><code>GKeyEvent</code></a>,
+                    <a href="GMouseEvent-class.html"><code>GMouseEvent</code></a>,
+                    <a href="GTimerEvent-class.html"><code>GTimerEvent</code></a>,
+                    <a href="GWindowEvent-class.html"><code>GWindowEvent</code></a>)
+                </li>
+
+                <li>
+                    A set of classes to encapsulate geometric information (<a
+                        href="GDimension-class.html"><code>GDimension</code></a>, <a
+                        href="GPoint-class.html"><code>GPoint</code></a>,
+                    <a href="GRectangle-class.html"><code>GRectangle</code></a>)
+                </li>
+            </ul>
+
+            <br />
+        </li>
+
+        <li>
+            <b><i>Utility classes.</i></b> The libraries also export several
+            utility classes that don't fit easily into the other
+            categories (<a href="ErrorException-class.html"><code>ErrorException</code></a>, <a
+                href="Lock-class.html"><code>Lock</code></a>, <a href="Point-class.html"><code>Point</code></a>, <a
+                href="Sound-class.html"><code>Sound</code></a>, <a href="Thread-class.html"><code>Thread</code></a>,
+            <a href="TokenScanner-class.html"><code>TokenScanner</code></a>).
+        </li>
+        </p>
+        </li>
+        </p>
+        </li>
+    </ol>
+    </p>
+    <p>
+        Additional documentation appears in the web pages for the individual
+        classes, along with sample code.
+    </p>
+
+    <table class="index" width="100%">
+        <tr>
+            <td class="indexHead" colspan="2">Classes</td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="ErrorException-class.html">ErrorException</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This exception is thrown by calls to the <code>error</code> function.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="G3DRect-class.html">G3DRect</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass represents a rectangular box that can
+                be raised or lowered.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GActionEvent-class.html">GActionEvent</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This event subclass represents an action event.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GArc-class.html">GArc</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass represents an elliptical arc.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GButton-class.html">GButton</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This interactor subclass represents an onscreen button.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GCheckBox-class.html">GCheckBox</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This interactor subclass represents an onscreen check box.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GChooser-class.html">GChooser</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This interactor subclass represents a selectable list.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GCompound-class.html">GCompound</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass consists of a collection of other
+                graphical objects.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GDimension-class.html">GDimension</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class contains real-valued width and height fields.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GEvent-class.html">GEvent</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class is the root of the hierarchy for all events.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GImage-class.html">GImage</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass represents an image from a file.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GInteractor-class.html">GInteractor</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This abstract class is the superclass for all graphical interactors.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GKeyEvent-class.html">GKeyEvent</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This event subclass represents a key event.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GLabel-class.html">GLabel</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass represents a text string.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GLine-class.html">GLine</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass represents a line segment.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GMouseEvent-class.html">GMouseEvent</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This event subclass represents a mouse event.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GObject-class.html">GObject</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class is the common superclass of all graphical objects that can
+                be displayed on a graphical window.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GOval-class.html">GOval</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass represents an oval inscribed in a
+                rectangular box.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GPoint-class.html">GPoint</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class contains real-valued x and y fields.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GPolygon-class.html">GPolygon</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This graphical object subclass represents a polygon bounded by line
+                segments.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Graph-class.html">Graph&lt;NodeType,ArcType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class represents a graph with the specified node and arc types.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GRect-class.html">GRect</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class represents a graphical object whose appearance consists of
+                a rectangular box.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GRectangle-class.html">GRectangle</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This type contains real-valued x, y, width, and height fields.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Grid-class.html">Grid&lt;ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class stores an indexed, two-dimensional array.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GRoundRect-class.html">GRoundRect</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class represents a graphical object whose appearance consists of
+                a rectangular box with rounded corners.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GSlider-class.html">GSlider</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This interactor subclass represents an onscreen slider.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GTextField-class.html">GTextField</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This interactor subclass represents a text field for entering short
+                text strings.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GTimer-class.html">GTimer</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class implements a simple interval timer that generates a
+                <code>GTimerEvent</code> with a specified frequency.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GTimerEvent-class.html">GTimerEvent</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This event subclass represents a timer event.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GWindow-class.html">GWindow</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class represents a graphics window that supports simple graphics.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="GWindowEvent-class.html">GWindowEvent</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This event subclass represents a window event.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="HashMap-class.html">HashMap&lt;KeyType,ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class implements an efficient association between
+                <b><i>keys</i></b> and <b><i>values</i></b>.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="HashSet-class.html">HashSet&lt;ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class implements an efficient abstraction for storing sets of
+                distinct elements.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Lexicon-class.html">Lexicon</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class is used to represent a <b><i>lexicon,</i></b> or word list.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Lock-class.html">Lock</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class represents a simple lock used to control concurrency.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Map-class.html">Map&lt;KeyType,ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class maintains an association between <b><i>keys</i></b> and
+                <b><i>values</i></b>.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Point-class.html">Point</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class represents an <i>x</i>-<i>y</i> coordinate point on a
+                two-dimensional integer grid.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="PriorityQueue-class.html">PriorityQueue&lt;ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class models a structure called a
+                <b><i>priority&nbsp;queue</i></b> in which values are processed in
+                order of priority.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Queue-class.html">Queue&lt;ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class models a linear structure called a <b><i>queue</i></b> in
+                which values are added at one end and removed from the other.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Set-class.html">Set&lt;ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class stores a collection of distinct elements.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Sound-class.html">Sound</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class encapsulates a sound file.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Stack-class.html">Stack&lt;ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class models a linear structure called a <b><i>stack</i></b> in
+                which values are added and removed only from one end.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Thread-class.html">Thread</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class encapsulates a lightweight process running in the same
+                address space as the creator.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="TokenScanner-class.html">TokenScanner</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class divides a string into individual tokens.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="Vector-class.html">Vector&lt;ValueType&gt;</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This class stores an ordered list of values similar to an array.
+            </td>
+        </tr>
+    </table>
+    <table class="index" width="100%">
+        <tr>
+            <td class="indexHead" colspan="2">Interface files</td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="console.html">console.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file redirects the <code>cin</code>, <code>cout</code>, and
+                <code>cerr</code> channels to use a console window.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="direction.html">direction.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports an enumerated type called
+                <code>Direction</code> whose elements are the four compass points:
+                <code>NORTH</code>, <code>EAST</code>, <code>SOUTH</code>, and
+                <code>WEST</code>.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="error.html">error.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file defines the <code>ErrorException</code> class and the
+                <code>error</code> function.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="filelib.html">filelib.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a standardized set of tools for working with files.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="gevents.html">gevents.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file defines the event types used in the SimpleCxxLib graphics
+                libraries.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="ginteractors.html">ginteractors.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a hierarchy of graphical interactors similar to
+                those provided in the Java Swing libraries.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="gmath.html">gmath.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports several functions for working with graphical
+                geometry along with the mathematical constants <code>PI</code> and
+                <code>E</code>.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="gobjects.html">gobjects.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a hierarchy of graphical shapes based on the model
+                developed for the ACM Java Graphics.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="graph.html">graph.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a parameterized <code>Graph</code> class used to
+                represent <b><i>graphs,</i></b> which consist of a set of
+                <b><i>nodes</i></b> and a set of <b><i>arcs</i></b>.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="grid.html">grid.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>Grid</code> class, which offers a
+                convenient abstraction for representing a two-dimensional array.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="gtimer.html">gtimer.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file defines the <code>GTimer</code> class, which implements a
+                general interval timer.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="gtypes.html">gtypes.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file defines classes for representing points, dimensions, and
+                rectangles.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="gwindow.html">gwindow.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file defines the <code>GWindow</code> class which supports
+                drawing graphical objects on the screen.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="hashmap.html">hashmap.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>HashMap</code> class, which stores a set
+                of <i>key</i>-<i>value</i> pairs.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="hashset.html">hashset.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>HashSet</code> class, which implements an
+                efficient abstraction for storing sets of values.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="lexicon.html">lexicon.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>Lexicon</code> class, which is a compact
+                structure for storing a list of words.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="map.html">map.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the template class <code>Map</code>, which maintains
+                a collection of <i>key</i>-<i>value</i> pairs.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="point.html">point.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a class representing an integer-valued <i>x</i>-<i>y</i>
+                pair.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="pqueue.html">pqueue.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>PriorityQueue</code> class, a collection
+                in which values are processed in priority order.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="queue.html">queue.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>Queue</code> class, a collection in which
+                values are ordinarily processed in a first-in/first-out (FIFO) order.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="random.html">random.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports functions for generating pseudorandom numbers.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="set.html">set.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>Set</code> class, which implements a
+                collection for storing a set of distinct elements.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="simpio.html">simpio.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a set of functions that simplify input/output
+                operations in C++ and provide some error-checking on console input.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="sound.html">sound.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file defines a class that represents a sound.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="stack.html">stack.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>Stack</code> class, which implements a
+                collection that processes values in a last-in/first-out (LIFO) order.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="strlib.html">strlib.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports several useful string functions that are not
+                included in the C++ string library.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="thread.html">thread.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a simple, platform-independent thread abstraction,
+                along with simple tools for concurrency control.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="tokenscanner.html">tokenscanner.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports a <code>TokenScanner</code> class that divides a
+                string into individual logical units called <b><i>tokens</i></b>.
+            </td>
+        </tr>
+        <tr>
+            <td class="indexKey">
+                <nobr><a href="vector.html">vector.h</a>&nbsp;</nobr>
+            </td>
+            <td class="indexSynopsis" width="100%">
+                This file exports the <code>Vector</code> class, which provides an
+                efficient, safe, convenient replacement for the array type in C++.
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

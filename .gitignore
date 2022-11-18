@@ -1,3 +1,7 @@
+build
+.clang-format
+.vscode
+
 # Prerequisites
 *.d
 
