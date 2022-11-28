@@ -1,11 +1,10 @@
 # SimpleCxxLib
 
-A simple C++ library for introductory CS.
+ The `SimpleCxxLib` package is a simple C++ library for introductory CS which is currently being used in [CSE-CS101](https://www.stickmind.com/courses.html) course. This is a fork from [the Stanford C++ libraries](https://cs.stanford.edu/people/eroberts/StanfordCPPLib/) originally developed by Eric Roberts and Keith Schwarz.
 
 ## Documentation
 
-- [Main Page](https://cppdoc.stickmind.com/)
-- [Backup Page](https://stickmind.gitee.io/simplecxxlib/)
+- [The Simple C++ Libraries](https://cppdoc.stickmind.com/)
 
 ## Environment
 
@@ -13,6 +12,14 @@ A simple C++ library for introductory CS.
 
 - [Install Qt Creator](https://www.qt.io/download-qt-installer)
 
-`SimpleCxxLib` libraries also interact with Java, so `Java 8` is needed for running programs properly.
+The `SimpleCxxLib` libraries also interact with Java, so `Java 8` is needed for running programs properly.
 
 - [Install JDK 8](https://adoptium.net/temurin/releases/?version=8)
+
+## How to use it
+
+Using this libary, you can test all the examples in the excellent book [**Programming Abstractions in C++**](https://cs.stanford.edu/people/eroberts/books/ProgrammingAbstractionsInC++/) by Eric Roberts.
+
+You can check those demos here:
+
+- [textbook-src](https://github.com/xuehao/cs101-programming-with-cpp/tree/main/textbook-src) - a CMake-version source code
