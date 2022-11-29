@@ -28,7 +28,6 @@
 
 #include <string>
 #include "gtypes.h"
-#include "vector.h"
 
 class GCompound;
 class GInteractor;

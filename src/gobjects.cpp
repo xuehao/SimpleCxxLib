@@ -26,7 +26,6 @@
 #include <cmath>
 #include <iostream>
 #include <sstream>
-#include "gevents.h"
 #include "gmath.h"
 #include "gtypes.h"
 #include "gwindow.h"
@@ -616,7 +615,7 @@ bool GArc::contains(double x, double y) const {
             return false;
     } else {
         double t = ARC_TOLERANCE / ((rx + ry) / 2);
-        if (abs(1.0 - r) > t)
+        if (abs(static_cast<int>(1.0 - r)) > t)
             return false;
     }
     return containsAngle(atan2(-dy, dx) * 180 / PI);
@@ -644,7 +643,7 @@ GPoint GArc::getArcPoint(double theta) const {
 
 bool GArc::containsAngle(double theta) const {
     double start = std::min(this->start, this->start + this->sweep);
-    double sweep = abs(this->sweep);
+    double sweep = abs(static_cast<int>(this->sweep));
     if (sweep >= 360)
         return true;
     theta = (theta < 0) ? 360 - fmod(-theta, 360) : fmod(theta, 360);
@@ -715,7 +714,7 @@ GRectangle GCompound::getBounds() const {
         xMin = std::min(xMin, bounds.getX());
         yMin = std::min(yMin, bounds.getY());
         xMax = std::max(xMax, bounds.getX() + bounds.getWidth());
-        yMin = std::min(yMax, bounds.getY() + bounds.getHeight());
+        yMax = std::max(yMax, bounds.getY() + bounds.getHeight());
     }
     return GRectangle(xMin, yMin, xMax - xMin, yMax - yMin);
 }
@@ -941,7 +940,7 @@ GRectangle GLine::getBounds() const {
         return pp->getBounds(this);
     double x0 = (dx < 0) ? x + dx : x;
     double y0 = (dy < 0) ? y + dy : y;
-    return GRectangle(x0, y0, abs(dx), abs(dy));
+    return GRectangle(x0, y0, abs(static_cast<int>(dx)), abs(static_cast<int>(dy)));
 }
 
 bool GLine::contains(double x, double y) const {
