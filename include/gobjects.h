@@ -514,7 +514,7 @@ class GRect : public GObject {
     /* Protected methods */
 
     GRect();
-    virtual void create(double width, double height);
+    void create(double width, double height);
 };
 
 /*
