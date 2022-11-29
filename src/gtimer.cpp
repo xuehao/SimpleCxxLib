@@ -27,16 +27,12 @@
 #include <string>
 #include "platform.h"
 
-/* Global variables */
-
-static Platform* pp = getPlatform();
-
 /* Implementation of the GTimer class */
 
 GTimer::GTimer(double milliseconds) {
     gtd = new GTimerData();
     gtd->refCount = 1;
-    pp->createTimer(*this, milliseconds);
+    getPlatform()->createTimer(*this, milliseconds);
 }
 
 GTimer::~GTimer() {
@@ -45,11 +41,11 @@ GTimer::~GTimer() {
 }
 
 void GTimer::start() {
-    pp->startTimer(*this);
+    getPlatform()->startTimer(*this);
 }
 
 void GTimer::stop() {
-    pp->stopTimer(*this);
+    getPlatform()->stopTimer(*this);
 }
 
 bool GTimer::operator==(GTimer t2) {

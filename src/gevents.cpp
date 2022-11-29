@@ -45,10 +45,6 @@
 #include "map.h"
 #include "platform.h"
 
-/* Global variables */
-
-static Platform* pp = getPlatform();
-
 /* Implementation of GEvent class */
 
 GEvent::GEvent() {
@@ -373,9 +369,9 @@ void waitForClick() {
 }
 
 GEvent waitForEvent(int mask) {
-    return pp->waitForEvent(mask);
+    return getPlatform()->waitForEvent(mask);
 }
 
 GEvent getNextEvent(int mask) {
-    return pp->getNextEvent(mask);
+    return getPlatform()->getNextEvent(mask);
 }

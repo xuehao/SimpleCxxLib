@@ -31,8 +31,6 @@
 #include "gwindow.h"
 #include "platform.h"
 
-static Platform* pp = getPlatform();
-
 /*
  * Implementation notes: GInteractor class
  * ---------------------------------------
@@ -44,7 +42,7 @@ GInteractor::GInteractor() {
 
 void GInteractor::setActionCommand(std::string cmd) {
     actionCommand = cmd;
-    pp->setActionCommand(this, cmd);
+    getPlatform()->setActionCommand(this, cmd);
 }
 
 std::string GInteractor::getActionCommand() {
@@ -56,7 +54,7 @@ void GInteractor::setSize(const GDimension& size) {
 }
 
 void GInteractor::setSize(double width, double height) {
-    pp->setSize(this, width, height);
+    getPlatform()->setSize(this, width, height);
 }
 
 void GInteractor::setBounds(const GRectangle& rect) {
@@ -70,7 +68,7 @@ void GInteractor::setBounds(double x, double y, double width, double height) {
 }
 
 GRectangle GInteractor::getBounds() const {
-    GDimension size = pp->getSize((GObject*)this);
+    GDimension size = getPlatform()->getSize((GObject*)this);
     return GRectangle(x, y, size.getWidth(), size.getHeight());
 }
 
@@ -81,7 +79,7 @@ GRectangle GInteractor::getBounds() const {
 
 GButton::GButton(std::string label) {
     this->label = label;
-    pp->createGButton(this, label);
+    getPlatform()->createGButton(this, label);
 }
 
 std::string GButton::getType() const {
@@ -101,15 +99,15 @@ std::string GButton::toString() const {
 
 GCheckBox::GCheckBox(std::string label) {
     this->label = label;
-    pp->createGCheckBox(this, label);
+    getPlatform()->createGCheckBox(this, label);
 }
 
 bool GCheckBox::isSelected() {
-    return pp->isSelected(this);
+    return getPlatform()->isSelected(this);
 }
 
 void GCheckBox::setSelected(bool state) {
-    pp->setSelected(this, state);
+    getPlatform()->setSelected(this, state);
 }
 
 std::string GCheckBox::getType() const {
@@ -136,11 +134,11 @@ GSlider::GSlider(int min, int max, int value) {
 }
 
 int GSlider::getValue() {
-    return pp->getValue(this);
+    return getPlatform()->getValue(this);
 }
 
 void GSlider::setValue(int value) {
-    pp->setValue(this, value);
+    getPlatform()->setValue(this, value);
 }
 
 std::string GSlider::getType() const {
@@ -156,7 +154,7 @@ std::string GSlider::toString() const {
 void GSlider::create(int min, int max, int value) {
     this->min = min;
     this->max = max;
-    pp->createGSlider(this, min, max, value);
+    getPlatform()->createGSlider(this, min, max, value);
 }
 
 /*
@@ -165,19 +163,19 @@ void GSlider::create(int min, int max, int value) {
  */
 
 GTextField::GTextField() {
-    pp->createGTextField(this, 10);
+    getPlatform()->createGTextField(this, 10);
 }
 
 GTextField::GTextField(int nChars) {
-    pp->createGTextField(this, nChars);
+    getPlatform()->createGTextField(this, nChars);
 }
 
 std::string GTextField::getText() {
-    return pp->getText(this);
+    return getPlatform()->getText(this);
 }
 
 void GTextField::setText(std::string str) {
-    pp->setText(this, str);
+    getPlatform()->setText(this, str);
 }
 
 std::string GTextField::getType() const {
@@ -196,19 +194,19 @@ std::string GTextField::toString() const {
  */
 
 GChooser::GChooser() {
-    pp->createGChooser(this);
+    getPlatform()->createGChooser(this);
 }
 
 void GChooser::addItem(std::string item) {
-    pp->addItem(this, item);
+    getPlatform()->addItem(this, item);
 }
 
 std::string GChooser::getSelectedItem() {
-    return pp->getSelectedItem(this);
+    return getPlatform()->getSelectedItem(this);
 }
 
 void GChooser::setSelectedItem(std::string item) {
-    pp->setSelectedItem(this, item);
+    getPlatform()->setSelectedItem(this, item);
 }
 
 std::string GChooser::getType() const {

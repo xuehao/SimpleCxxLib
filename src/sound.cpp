@@ -26,21 +26,16 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "gevents.h"
-#include "gtypes.h"
 #include "platform.h"
-#include "vector.h"
-
-static Platform* pp = getPlatform();
 
 Sound::Sound(std::string filename) {
-    pp->createSound(this, filename);
+    getPlatform()->createSound(this, filename);
 }
 
 Sound::~Sound() {
-    pp->deleteSound(this);
+    getPlatform()->deleteSound(this);
 }
 
 void Sound::play() {
-    pp->playSound(this);
+    getPlatform()->playSound(this);
 }

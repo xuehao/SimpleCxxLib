@@ -35,8 +35,6 @@
 #include "strlib.h"
 #include "vector.h"
 
-static Platform* pp = getPlatform();
-
 /* Prototypes */
 
 static void splitPath(std::string path, Vector<std::string> list);
@@ -95,7 +93,7 @@ std::string openFileDialog(std::ifstream& stream, std::string title) {
 }
 
 std::string openFileDialog(std::ifstream& stream, std::string title, std::string path) {
-    std::string filename = pp->openFileDialog(title, "load", path);
+    std::string filename = getPlatform()->openFileDialog(title, "load", path);
     if (filename == "")
         return "";
     stream.open(filename.c_str());
@@ -111,7 +109,7 @@ std::string openFileDialog(std::ofstream& stream, std::string title) {
 }
 
 std::string openFileDialog(std::ofstream& stream, std::string title, std::string path) {
-    std::string filename = pp->openFileDialog(title, "save", path);
+    std::string filename = getPlatform()->openFileDialog(title, "save", path);
     if (filename == "")
         return "";
     stream.open(filename.c_str());
@@ -285,43 +283,43 @@ bool matchFilenamePattern(std::string filename, std::string pattern) {
 }
 
 bool fileExists(std::string filename) {
-    return pp->fileExists(filename);
+    return getPlatform()->fileExists(filename);
 }
 
 bool isFile(std::string filename) {
-    return pp->isFile(filename);
+    return getPlatform()->isFile(filename);
 }
 
 bool isSymbolicLink(std::string filename) {
-    return pp->isSymbolicLink(filename);
+    return getPlatform()->isSymbolicLink(filename);
 }
 
 bool isDirectory(std::string filename) {
-    return pp->isDirectory(filename);
+    return getPlatform()->isDirectory(filename);
 }
 
 void setCurrentDirectory(std::string path) {
-    return pp->setCurrentDirectory(path);
+    return getPlatform()->setCurrentDirectory(path);
 }
 
 std::string getCurrentDirectory() {
-    return pp->getCurrentDirectory();
+    return getPlatform()->getCurrentDirectory();
 }
 
 void createDirectory(std::string path) {
-    return pp->createDirectory(path);
+    return getPlatform()->createDirectory(path);
 }
 
 std::string getDirectoryPathSeparator() {
-    return pp->getDirectoryPathSeparator();
+    return getPlatform()->getDirectoryPathSeparator();
 }
 
 std::string getSearchPathSeparator() {
-    return pp->getSearchPathSeparator();
+    return getPlatform()->getSearchPathSeparator();
 }
 
 std::string expandPathname(std::string filename) {
-    return pp->expandPathname(filename);
+    return getPlatform()->expandPathname(filename);
 }
 
 void listDirectory(std::string path, Vector<std::string>& list) {
@@ -334,7 +332,7 @@ void listDirectory(std::string path, Vector<std::string>& list) {
 }
 
 void listDirectory(std::string path, std::vector<std::string>& list) {
-    return pp->listDirectory(path, list);
+    return getPlatform()->listDirectory(path, list);
 }
 
 /* Private functions */

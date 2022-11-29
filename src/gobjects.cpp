@@ -32,12 +32,10 @@
 #include "platform.h"
 #include "vector.h"
 
-static Platform* pp = getPlatform();
-
-const double LINE_TOLERANCE = 1.5;
-const double ARC_TOLERANCE = 2.5;
-const double DEFAULT_CORNER = 10;
-const std::string DEFAULT_GLABEL_FONT = "Dialog-13";
+static const double LINE_TOLERANCE = 1.5;
+static const double ARC_TOLERANCE = 2.5;
+static const double DEFAULT_CORNER = 10;
+static const std::string DEFAULT_GLABEL_FONT = "Dialog-13";
 
 static double dsq(double x0, double y0, double x1, double y1);
 
@@ -60,7 +58,7 @@ void GObject::setLocation(const GPoint& pt) {
 void GObject::setLocation(double x, double y) {
     this->x = x;
     this->y = y;
-    pp->setLocation(this, x, y);
+    getPlatform()->setLocation(this, x, y);
 }
 
 void GObject::move(double dx, double dy) {
@@ -82,7 +80,7 @@ GDimension GObject::getSize() const {
 
 void GObject::setLineWidth(double lineWidth) {
     this->lineWidth = lineWidth;
-    pp->setLineWidth(this, lineWidth);
+    getPlatform()->setLineWidth(this, lineWidth);
 }
 
 double GObject::getLineWidth() const {
@@ -91,7 +89,7 @@ double GObject::getLineWidth() const {
 
 void GObject::setColor(std::string color) {
     this->color = color;
-    pp->setColor(this, this->color);
+    getPlatform()->setColor(this, this->color);
 }
 
 void GObject::setColor(int rgb) {
@@ -109,18 +107,18 @@ void GObject::scale(double sf) {
 void GObject::scale(double sx, double sy) {
     // Apply local transform
     transformed = true;
-    pp->scale(this, sx, sy);
+    getPlatform()->scale(this, sx, sy);
 }
 
 void GObject::rotate(double theta) {
     // Apply local transform
     transformed = true;
-    pp->rotate(this, theta);
+    getPlatform()->rotate(this, theta);
 }
 
 void GObject::setVisible(bool flag) {
     visible = flag;
-    pp->setVisible(this, flag);
+    getPlatform()->setVisible(this, flag);
 }
 
 bool GObject::isVisible() const {
@@ -157,7 +155,7 @@ bool GObject::contains(GPoint pt) const {
 
 bool GObject::contains(double x, double y) const {
     if (transformed)
-        return pp->contains(this, x, y);
+        return getPlatform()->contains(this, x, y);
     return getBounds().contains(x, y);
 }
 
@@ -175,7 +173,7 @@ GObject::GObject() {
 }
 
 GObject::~GObject() {
-    pp->deleteGObject(this);
+    getPlatform()->deleteGObject(this);
 }
 
 /*
@@ -206,7 +204,7 @@ void GRect::setSize(double width, double height) {
         error("setSize: Object has been transformed");
     this->width = width;
     this->height = height;
-    pp->setSize(this, width, height);
+    getPlatform()->setSize(this, width, height);
 }
 
 void GRect::setBounds(const GRectangle& bounds) {
@@ -221,13 +219,13 @@ void GRect::setBounds(double x, double y, double width, double height) {
 
 GRectangle GRect::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     return GRectangle(x, y, width, height);
 }
 
 void GRect::setFilled(bool flag) {
     fillFlag = flag;
-    pp->setFilled(this, flag);
+    getPlatform()->setFilled(this, flag);
 }
 
 bool GRect::isFilled() const {
@@ -239,12 +237,12 @@ void GRect::setFillColor(std::string color) {
     if (fillColor != "") {
         fillColor = convertRGBToColor(convertColorToRGB(color));
     }
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 void GRect::setFillColor(int rgb) {
     fillColor = convertRGBToColor(rgb);
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 std::string GRect::getFillColor() const {
@@ -272,7 +270,7 @@ void GRect::create(double width, double height) {
     this->height = height;
     fillFlag = false;
     fillColor = "";
-    pp->createGRect(this, width, height);
+    getPlatform()->createGRect(this, width, height);
 }
 
 /*
@@ -322,7 +320,7 @@ void GRoundRect::createRoundRect(double width, double height, double corner) {
     this->corner = corner;
     fillFlag = false;
     fillColor = "";
-    pp->createGRoundRect(this, width, height, corner);
+    getPlatform()->createGRoundRect(this, width, height, corner);
 }
 
 /*
@@ -355,7 +353,7 @@ G3DRect::~G3DRect() {
 
 void G3DRect::setRaised(bool raised) {
     this->raised = raised;
-    pp->setRaised(this, raised);
+    getPlatform()->setRaised(this, raised);
 }
 
 bool G3DRect::isRaised() const {
@@ -381,7 +379,7 @@ void G3DRect::create3DRect(double width, double height, bool raised) {
     this->raised = raised;
     fillFlag = false;
     fillColor = "";
-    pp->createG3DRect(this, width, height, raised);
+    getPlatform()->createG3DRect(this, width, height, raised);
 }
 
 GOval::GOval(double width, double height) {
@@ -406,7 +404,7 @@ void GOval::setSize(double width, double height) {
         error("setSize: Object has been transformed");
     this->width = width;
     this->height = height;
-    pp->setSize(this, width, height);
+    getPlatform()->setSize(this, width, height);
 }
 
 void GOval::setBounds(const GRectangle& bounds) {
@@ -421,13 +419,13 @@ void GOval::setBounds(double x, double y, double width, double height) {
 
 GRectangle GOval::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     return GRectangle(x, y, width, height);
 }
 
 bool GOval::contains(double x, double y) const {
     if (transformed)
-        return pp->contains(this, x, y);
+        return getPlatform()->contains(this, x, y);
     double rx = width / 2;
     double ry = height / 2;
     if (rx == 0 || ry == 0)
@@ -439,7 +437,7 @@ bool GOval::contains(double x, double y) const {
 
 void GOval::setFilled(bool flag) {
     fillFlag = true;
-    pp->setFilled(this, flag);
+    getPlatform()->setFilled(this, flag);
 }
 
 bool GOval::isFilled() const {
@@ -451,12 +449,12 @@ void GOval::setFillColor(std::string color) {
     if (fillColor != "") {
         fillColor = convertRGBToColor(convertColorToRGB(color));
     }
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 void GOval::setFillColor(int color) {
     fillColor = convertRGBToColor(color);
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 std::string GOval::getFillColor() const {
@@ -480,7 +478,7 @@ void GOval::create(double width, double height) {
     this->height = height;
     fillFlag = false;
     fillColor = "";
-    pp->createGOval(this, width, height);
+    getPlatform()->createGOval(this, width, height);
 }
 
 /*
@@ -500,7 +498,7 @@ GArc::GArc(double x, double y, double width, double height, double start, double
 
 void GArc::setStartAngle(double start) {
     this->start = start;
-    pp->setStartAngle(this, start);
+    getPlatform()->setStartAngle(this, start);
 }
 
 double GArc::getStartAngle() const {
@@ -509,7 +507,7 @@ double GArc::getStartAngle() const {
 
 void GArc::setSweepAngle(double sweep) {
     this->sweep = sweep;
-    pp->setSweepAngle(this, sweep);
+    getPlatform()->setSweepAngle(this, sweep);
 }
 
 double GArc::getSweepAngle() const {
@@ -533,7 +531,7 @@ void GArc::setFrameRectangle(double x, double y, double width, double height) {
     this->y = y;
     frameWidth = width;
     frameHeight = height;
-    pp->setFrameRectangle(this, x, y, width, height);
+    getPlatform()->setFrameRectangle(this, x, y, width, height);
 }
 
 GRectangle GArc::getFrameRectangle() const {
@@ -542,7 +540,7 @@ GRectangle GArc::getFrameRectangle() const {
 
 void GArc::setFilled(bool flag) {
     fillFlag = true;
-    pp->setFilled(this, flag);
+    getPlatform()->setFilled(this, flag);
 }
 
 bool GArc::isFilled() const {
@@ -554,12 +552,12 @@ void GArc::setFillColor(std::string color) {
     if (fillColor != "") {
         fillColor = convertRGBToColor(convertColorToRGB(color));
     }
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 void GArc::setFillColor(int color) {
     fillColor = convertRGBToColor(color);
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 std::string GArc::getFillColor() const {
@@ -568,7 +566,7 @@ std::string GArc::getFillColor() const {
 
 GRectangle GArc::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     double rx = frameWidth / 2;
     double ry = frameHeight / 2;
     double cx = x + rx;
@@ -602,7 +600,7 @@ GRectangle GArc::getBounds() const {
 
 bool GArc::contains(double x, double y) const {
     if (transformed)
-        return pp->contains(this, x, y);
+        return getPlatform()->contains(this, x, y);
     double rx = frameWidth / 2;
     double ry = frameHeight / 2;
     if (rx == 0 || ry == 0)
@@ -664,15 +662,15 @@ void GArc::create(double width, double height, double start, double sweep) {
     this->sweep = sweep;
     fillFlag = false;
     fillColor = "";
-    pp->createGArc(this, width, height, start, sweep);
+    getPlatform()->createGArc(this, width, height, start, sweep);
 }
 
 GCompound::GCompound() {
-    pp->createGCompound(this);
+    getPlatform()->createGCompound(this);
 }
 
 void GCompound::add(GObject* gobj) {
-    pp->add(this, gobj);
+    getPlatform()->add(this, gobj);
     contents.add(gobj);
     gobj->parent = this;
 }
@@ -704,7 +702,7 @@ GObject* GCompound::getElement(int index) {
 
 GRectangle GCompound::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     double xMin = +1E20;
     double yMin = +1E20;
     double xMax = -1E20;
@@ -721,7 +719,7 @@ GRectangle GCompound::getBounds() const {
 
 bool GCompound::contains(double x, double y) const {
     if (transformed)
-        return pp->contains(this, x, y);
+        return getPlatform()->contains(this, x, y);
     for (int i = 0; i < contents.size(); i++) {
         if (contents.get(i)->contains(x, y))
             return true;
@@ -744,7 +742,7 @@ void GCompound::sendForward(GObject* gobj) {
     if (index != contents.size() - 1) {
         contents.remove(index);
         contents.insert(index + 1, gobj);
-        pp->sendForward(gobj);
+        getPlatform()->sendForward(gobj);
     }
 }
 
@@ -755,7 +753,7 @@ void GCompound::sendToFront(GObject* gobj) {
     if (index != contents.size() - 1) {
         contents.remove(index);
         contents.add(gobj);
-        pp->sendToFront(gobj);
+        getPlatform()->sendToFront(gobj);
     }
 }
 
@@ -766,7 +764,7 @@ void GCompound::sendBackward(GObject* gobj) {
     if (index != 0) {
         contents.remove(index);
         contents.insert(index - 1, gobj);
-        pp->sendBackward(gobj);
+        getPlatform()->sendBackward(gobj);
     }
 }
 
@@ -777,7 +775,7 @@ void GCompound::sendToBack(GObject* gobj) {
     if (index != 0) {
         contents.remove(index);
         contents.insert(0, gobj);
-        pp->sendToBack(gobj);
+        getPlatform()->sendToBack(gobj);
     }
 }
 
@@ -793,7 +791,7 @@ int GCompound::findGObject(GObject* gobj) {
 void GCompound::removeAt(int index) {
     GObject* gobj = contents[index];
     contents.remove(index);
-    pp->remove(gobj);
+    getPlatform()->remove(gobj);
     gobj->parent = nullptr;
 }
 
@@ -808,7 +806,7 @@ GImage::GImage(std::string filename, double x, double y) {
 
 GRectangle GImage::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     return GRectangle(x, y, width, height);
 }
 
@@ -822,7 +820,7 @@ std::string GImage::toString() const {
 
 void GImage::create(std::string filename) {
     this->filename = filename;
-    GDimension size = pp->createGImage(this, filename);
+    GDimension size = getPlatform()->createGImage(this, filename);
     width = size.getWidth();
     height = size.getHeight();
 }
@@ -843,23 +841,23 @@ GLabel::GLabel(std::string str, double x, double y) {
 
 void GLabel::create(const std::string& str) {
     this->str = str;
-    pp->createGLabel(this, str);
+    getPlatform()->createGLabel(this, str);
     setFont(DEFAULT_GLABEL_FONT);
-    GDimension size = pp->getGLabelSize(this);
+    GDimension size = getPlatform()->getGLabelSize(this);
     width = size.getWidth();
     height = size.getHeight();
-    ascent = pp->getFontAscent(this);
-    descent = pp->getFontDescent(this);
+    ascent = getPlatform()->getFontAscent(this);
+    descent = getPlatform()->getFontDescent(this);
 }
 
 void GLabel::setFont(std::string font) {
     this->font = font;
-    pp->setFont(this, font);
-    GDimension size = pp->getGLabelSize(this);
+    getPlatform()->setFont(this, font);
+    GDimension size = getPlatform()->getGLabelSize(this);
     width = size.getWidth();
     height = size.getHeight();
-    ascent = pp->getFontAscent(this);
-    descent = pp->getFontDescent(this);
+    ascent = getPlatform()->getFontAscent(this);
+    descent = getPlatform()->getFontDescent(this);
 }
 
 std::string GLabel::getFont() const {
@@ -868,8 +866,8 @@ std::string GLabel::getFont() const {
 
 void GLabel::setLabel(std::string str) {
     this->str = str;
-    pp->setLabel(this, str);
-    GDimension size = pp->getGLabelSize(this);
+    getPlatform()->setLabel(this, str);
+    GDimension size = getPlatform()->getGLabelSize(this);
     width = size.getWidth();
     height = size.getHeight();
 }
@@ -888,7 +886,7 @@ double GLabel::getFontDescent() const {
 
 GRectangle GLabel::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     return GRectangle(x, y - ascent, width, height);
 }
 
@@ -906,7 +904,7 @@ std::string GLabel::toString() const {
  */
 
 GLine::GLine(double x0, double y0, double x1, double y1) {
-    pp->createGLine(this, x0, y0, x1, y1);
+    getPlatform()->createGLine(this, x0, y0, x1, y1);
     x = x0;
     y = y0;
     dx = x1 - x0;
@@ -918,7 +916,7 @@ void GLine::setStartPoint(double x, double y) {
     dy += this->y - y;
     this->x = x;
     this->y = y;
-    pp->setStartPoint(this, x, y);
+    getPlatform()->setStartPoint(this, x, y);
 }
 
 GPoint GLine::getStartPoint() const {
@@ -928,7 +926,7 @@ GPoint GLine::getStartPoint() const {
 void GLine::setEndPoint(double x, double y) {
     dx = x - this->x;
     dy = y - this->y;
-    pp->setEndPoint(this, x, y);
+    getPlatform()->setEndPoint(this, x, y);
 }
 
 GPoint GLine::getEndPoint() const {
@@ -937,7 +935,7 @@ GPoint GLine::getEndPoint() const {
 
 GRectangle GLine::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     double x0 = (dx < 0) ? x + dx : x;
     double y0 = (dy < 0) ? y + dy : y;
     return GRectangle(x0, y0, abs(static_cast<int>(dx)), abs(static_cast<int>(dy)));
@@ -945,7 +943,7 @@ GRectangle GLine::getBounds() const {
 
 bool GLine::contains(double x, double y) const {
     if (transformed)
-        return pp->contains(this, x, y);
+        return getPlatform()->contains(this, x, y);
     double x0 = getX();
     double y0 = getY();
     double x1 = x0 + dx;
@@ -987,14 +985,14 @@ std::string GLine::toString() const {
 GPolygon::GPolygon() {
     fillFlag = false;
     fillColor = "";
-    pp->createGPolygon(this);
+    getPlatform()->createGPolygon(this);
 }
 
 void GPolygon::addVertex(double x, double y) {
     cx = x;
     cy = y;
     vertices.add(GPoint(cx, cy));
-    pp->addVertex(this, cx, cy);
+    getPlatform()->addVertex(this, cx, cy);
 }
 
 void GPolygon::addEdge(double dx, double dy) {
@@ -1011,7 +1009,7 @@ Vector<GPoint> GPolygon::getVertices() const {
 
 void GPolygon::setFilled(bool flag) {
     fillFlag = true;
-    pp->setFilled(this, flag);
+    getPlatform()->setFilled(this, flag);
 }
 
 bool GPolygon::isFilled() const {
@@ -1023,12 +1021,12 @@ void GPolygon::setFillColor(std::string color) {
     if (fillColor != "") {
         fillColor = convertRGBToColor(convertColorToRGB(color));
     }
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 void GPolygon::setFillColor(int rgb) {
     fillColor = convertRGBToColor(rgb);
-    pp->setFillColor(this, fillColor);
+    getPlatform()->setFillColor(this, fillColor);
 }
 
 std::string GPolygon::getFillColor() const {
@@ -1037,7 +1035,7 @@ std::string GPolygon::getFillColor() const {
 
 GRectangle GPolygon::getBounds() const {
     if (transformed)
-        return pp->getBounds(this);
+        return getPlatform()->getBounds(this);
     double xMin = 0;
     double yMin = 0;
     double xMax = 0;
@@ -1059,7 +1057,7 @@ GRectangle GPolygon::getBounds() const {
 
 bool GPolygon::contains(double x, double y) const {
     if (transformed)
-        return pp->contains(this, x, y);
+        return getPlatform()->contains(this, x, y);
     int crossings = 0;
     int n = vertices.size();
     if (n < 2)

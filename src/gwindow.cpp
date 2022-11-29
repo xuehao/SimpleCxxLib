@@ -29,13 +29,11 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "gevents.h"
 #include "gmath.h"
 #include "gobjects.h"
 #include "gtypes.h"
 #include "map.h"
 #include "platform.h"
-#include "strlib.h"
 #include "vector.h"
 
 /* Constants */
@@ -47,14 +45,6 @@ static const int DEFAULT_HEIGHT = 300;
 
 static void initColorTable();
 static std::string canonicalColorName(std::string str);
-
-/*
- * Global variable: pp
- * -------------------
- * This variable points to a singleton of the Platform class.
- */
-
-static Platform* pp = getPlatform();
 
 /*
  * Global variable: colorTable
@@ -92,7 +82,7 @@ void GWindow::initGWindow(double width, double height, bool visible) {
     gwd->windowWidth = width;
     gwd->windowHeight = height;
     gwd->top = new GCompound();
-    pp->createGWindow(*this, width, height, gwd->top);
+    getPlatform()->createGWindow(*this, width, height, gwd->top);
     setColor("BLACK");
     setVisible(visible);
 }
@@ -103,26 +93,26 @@ GWindow::~GWindow() {
 }
 
 void GWindow::close() {
-    pp->close(*this);
-    pp->deleteGWindow(*this);
+    getPlatform()->close(*this);
+    getPlatform()->deleteGWindow(*this);
 }
 
 void GWindow::requestFocus() {
-    pp->requestFocus(*this);
+    getPlatform()->requestFocus(*this);
 }
 
 void GWindow::clear() {
     gwd->top->removeAll();
-    pp->clear(*this);
+    getPlatform()->clear(*this);
 }
 
 void GWindow::repaint() {
-    pp->repaint(*this);
+    getPlatform()->repaint(*this);
 }
 
 void GWindow::setVisible(bool flag) {
     gwd->visible = flag;
-    pp->setVisible(*this, flag);
+    getPlatform()->setVisible(*this, flag);
 }
 
 bool GWindow::isVisible() {
@@ -214,7 +204,7 @@ double GWindow::getHeight() {
 
 void GWindow::setWindowTitle(std::string title) {
     gwd->windowTitle = title;
-    pp->setWindowTitle(*this, title);
+    getPlatform()->setWindowTitle(*this, title);
 }
 
 std::string GWindow::getWindowTitle() {
@@ -226,11 +216,11 @@ void GWindow::draw(const GObject& gobj) {
 }
 
 void GWindow::draw(GObject* gobj) {
-    pp->draw(*this, gobj);
+    getPlatform()->draw(*this, gobj);
 }
 
 void GWindow::draw(const GObject* gobj) {
-    pp->draw(*this, gobj);
+    getPlatform()->draw(*this, gobj);
 }
 
 void GWindow::draw(GObject& gobj, double x, double y) {
@@ -239,7 +229,7 @@ void GWindow::draw(GObject& gobj, double x, double y) {
 
 void GWindow::draw(GObject* gobj, double x, double y) {
     gobj->setLocation(x, y);
-    pp->draw(*this, gobj);
+    getPlatform()->draw(*this, gobj);
 }
 
 void GWindow::add(GObject* gobj) {
@@ -252,19 +242,19 @@ void GWindow::add(GObject* gobj, double x, double y) {
 }
 
 void GWindow::addToRegion(GInteractor* gobj, std::string region) {
-    pp->addToRegion(*this, (GObject*)gobj, region);
+    getPlatform()->addToRegion(*this, (GObject*)gobj, region);
 }
 
 void GWindow::addToRegion(GLabel* gobj, std::string region) {
-    pp->addToRegion(*this, (GObject*)gobj, region);
+    getPlatform()->addToRegion(*this, (GObject*)gobj, region);
 }
 
 void GWindow::removeFromRegion(GInteractor* gobj, std::string region) {
-    pp->removeFromRegion(*this, (GObject*)gobj, region);
+    getPlatform()->removeFromRegion(*this, (GObject*)gobj, region);
 }
 
 void GWindow::removeFromRegion(GLabel* gobj, std::string region) {
-    pp->removeFromRegion(*this, (GObject*)gobj, region);
+    getPlatform()->removeFromRegion(*this, (GObject*)gobj, region);
 }
 
 void GWindow::remove(GObject* gobj) {
@@ -282,7 +272,7 @@ GObject* GWindow::getGObjectAt(double x, double y) {
 }
 
 void GWindow::setRegionAlignment(std::string region, std::string align) {
-    pp->setRegionAlignment(*this, region, align);
+    getPlatform()->setRegionAlignment(*this, region, align);
 }
 
 bool GWindow::operator==(GWindow w2) {
@@ -298,15 +288,15 @@ GWindow::GWindow(GWindowData* gwd) {
 }
 
 void pause(double milliseconds) {
-    pp->pause(milliseconds);
+    getPlatform()->pause(milliseconds);
 }
 
 double getScreenWidth() {
-    return pp->getScreenWidth();
+    return getPlatform()->getScreenWidth();
 }
 
 double getScreenHeight() {
-    return pp->getScreenHeight();
+    return getPlatform()->getScreenHeight();
 }
 
 int convertColorToRGB(std::string colorName) {
@@ -343,7 +333,7 @@ std::string convertRGBToColor(int rgb) {
 }
 
 void exitGraphics() {
-    pp->exitGraphics();
+    getPlatform()->exitGraphics();
     exit(0);
 }
 

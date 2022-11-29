@@ -26,16 +26,14 @@
 #include <string>
 #include "platform.h"
 
-static Platform* pp = getPlatform();
-
 void clearConsole() {
-    pp->clearConsole();
+    getPlatform()->clearConsole();
 }
 
 void setConsoleFont(const std::string& font) {
-    pp->setConsoleFont(font);
+    getPlatform()->setConsoleFont(font);
 }
 
 void setConsoleSize(double width, double height) {
-    pp->setConsoleSize(width, height);
+    getPlatform()->setConsoleSize(width, height);
 }
