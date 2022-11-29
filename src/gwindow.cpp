@@ -98,7 +98,8 @@ void GWindow::initGWindow(double width, double height, bool visible) {
 }
 
 GWindow::~GWindow() {
-    /* Empty */
+    delete gwd->top;
+    delete gwd;
 }
 
 void GWindow::close() {
