@@ -42,7 +42,7 @@ std::string ErrorException::getMessage() const {
 }
 
 const char* ErrorException::what() const throw() {
-    return std::move("Error: " + msg).c_str();
+    return msg.c_str();
 }
 
 /*
