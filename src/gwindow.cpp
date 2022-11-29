@@ -85,11 +85,16 @@ void GWindow::initGWindow(double width, double height, bool visible) {
     getPlatform()->createGWindow(*this, width, height, gwd->top);
     setColor("BLACK");
     setVisible(visible);
+    EVENT_FLAG = false;
 }
 
 GWindow::~GWindow() {
-    delete gwd->top;
-    delete gwd;
+    if (!EVENT_FLAG) {
+        if (gwd != nullptr) {
+            delete gwd->top;
+            delete gwd;
+        }
+    }
 }
 
 void GWindow::close() {
@@ -285,6 +290,7 @@ bool GWindow::operator!=(GWindow w2) {
 
 GWindow::GWindow(GWindowData* gwd) {
     this->gwd = gwd;
+    EVENT_FLAG = true;
 }
 
 void pause(double milliseconds) {

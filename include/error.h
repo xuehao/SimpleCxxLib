@@ -49,13 +49,13 @@
  */
 
 class ErrorException : public std::exception {
-  public:
+public:
     ErrorException(std::string msg);
     virtual ~ErrorException() throw();
     virtual std::string getMessage() const;
     virtual const char* what() const throw();
 
-  private:
+private:
     std::string msg;
 };
 

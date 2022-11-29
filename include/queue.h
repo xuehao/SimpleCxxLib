@@ -40,106 +40,105 @@
 
 template <typename ValueType>
 class Queue {
-
-  public:
+public:
     /*
- * Constructor: Queue
- * Usage: Queue<ValueType> queue;
- * ------------------------------
- * Initializes a new empty queue.
- */
+     * Constructor: Queue
+     * Usage: Queue<ValueType> queue;
+     * ------------------------------
+     * Initializes a new empty queue.
+     */
 
     Queue();
 
     /*
- * Destructor: ~Queue
- * ------------------
- * Frees any heap storage associated with this queue.
- */
+     * Destructor: ~Queue
+     * ------------------
+     * Frees any heap storage associated with this queue.
+     */
 
     virtual ~Queue();
 
     /*
- * Method: size
- * Usage: int n = queue.size();
- * ----------------------------
- * Returns the number of values in the queue.
- */
+     * Method: size
+     * Usage: int n = queue.size();
+     * ----------------------------
+     * Returns the number of values in the queue.
+     */
 
     int size() const;
 
     /*
- * Method: isEmpty
- * Usage: if (queue.isEmpty()) ...
- * -------------------------------
- * Returns <code>true</code> if the queue contains no elements.
- */
+     * Method: isEmpty
+     * Usage: if (queue.isEmpty()) ...
+     * -------------------------------
+     * Returns <code>true</code> if the queue contains no elements.
+     */
 
     bool isEmpty() const;
 
     /*
- * Method: clear
- * Usage: queue.clear();
- * ---------------------
- * Removes all elements from the queue.
- */
+     * Method: clear
+     * Usage: queue.clear();
+     * ---------------------
+     * Removes all elements from the queue.
+     */
 
     void clear();
 
     /*
- * Method: enqueue
- * Usage: queue.enqueue(value);
- * ----------------------------
- * Adds <code>value</code> to the end of the queue.
- */
+     * Method: enqueue
+     * Usage: queue.enqueue(value);
+     * ----------------------------
+     * Adds <code>value</code> to the end of the queue.
+     */
 
     void enqueue(ValueType value);
 
     /*
- * Method: dequeue
- * Usage: ValueType first = queue.dequeue();
- * -----------------------------------------
- * Removes and returns the first item in the queue.
- */
+     * Method: dequeue
+     * Usage: ValueType first = queue.dequeue();
+     * -----------------------------------------
+     * Removes and returns the first item in the queue.
+     */
 
     ValueType dequeue();
 
     /*
- * Method: peek
- * Usage: ValueType first = queue.peek();
- * --------------------------------------
- * Returns the first value in the queue, without removing it.  For
- * compatibility with the STL classes, this method is also exported
- * under the name <code>front</code>, in which case it returns the
- * value by reference.
- */
+     * Method: peek
+     * Usage: ValueType first = queue.peek();
+     * --------------------------------------
+     * Returns the first value in the queue, without removing it.  For
+     * compatibility with the STL classes, this method is also exported
+     * under the name <code>front</code>, in which case it returns the
+     * value by reference.
+     */
 
     ValueType peek() const;
 
     /*
- * Method: front
- * Usage: ValueType first = queue.front();
- * ---------------------------------------
- * Returns the first value in the queue by reference.
- */
+     * Method: front
+     * Usage: ValueType first = queue.front();
+     * ---------------------------------------
+     * Returns the first value in the queue by reference.
+     */
 
     ValueType& front();
 
     /*
- * Method: back
- * Usage: ValueType last = queue.back();
- * -------------------------------------
- * Returns the last value in the queue by reference.
- */
+     * Method: back
+     * Usage: ValueType last = queue.back();
+     * -------------------------------------
+     * Returns the last value in the queue by reference.
+     */
 
     ValueType& back();
 
     /*
- * Method: toString
- * Usage: string str = queue.toString();
- * -------------------------------------
- * Converts the queue to a printable string representation.
- */
+     * Method: toString
+     * Usage: string str = queue.toString();
+     * -------------------------------------
+     * Converts the queue to a printable string representation.
+     */
 
     std::string toString();
 
@@ -151,12 +150,12 @@ class Queue {
     /**********************************************************************/
 
     /*
- * Implementation notes: Queue data structure
- * ------------------------------------------
- * The Queue class is implemented using a ring buffer.
- */
+     * Implementation notes: Queue data structure
+     * ------------------------------------------
+     * The Queue class is implemented using a ring buffer.
+     */
 
-  private:
+private:
     /* Instance variables */
 
     Vector<ValueType> ringBuffer;

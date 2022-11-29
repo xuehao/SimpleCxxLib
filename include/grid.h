@@ -49,130 +49,129 @@
 
 template <typename ValueType>
 class Grid {
-
-  public:
+public:
     /* Forward reference */
     class GridRow;
 
     /*
- * Constructor: Grid
- * Usage: Grid<ValueType> grid;
- *        Grid<ValueType> grid(nRows, nCols);
- * ------------------------------------------
- * Initializes a new grid.  The second form of the constructor is
- * more common and creates a grid with the specified number of rows
- * and columns.  Each element of the grid is initialized to the
- * default value for the type.  The default constructor creates an
- * empty grid for which the client must call <code>resize</code> to
- * set the dimensions.
- */
+     * Constructor: Grid
+     * Usage: Grid<ValueType> grid;
+     *        Grid<ValueType> grid(nRows, nCols);
+     * ------------------------------------------
+     * Initializes a new grid.  The second form of the constructor is
+     * more common and creates a grid with the specified number of rows
+     * and columns.  Each element of the grid is initialized to the
+     * default value for the type.  The default constructor creates an
+     * empty grid for which the client must call <code>resize</code> to
+     * set the dimensions.
+     */
 
     Grid();
     Grid(int nRows, int nCols);
 
     /*
- * Destructor: ~Grid
- * -----------------
- * Frees any heap storage associated with this grid.
- */
+     * Destructor: ~Grid
+     * -----------------
+     * Frees any heap storage associated with this grid.
+     */
 
     virtual ~Grid();
 
     /*
- * Method: numRows
- * Usage: int nRows = grid.numRows();
- * ----------------------------------
- * Returns the number of rows in the grid.
- */
+     * Method: numRows
+     * Usage: int nRows = grid.numRows();
+     * ----------------------------------
+     * Returns the number of rows in the grid.
+     */
 
     int numRows() const;
 
     /*
- * Method: numCols
- * Usage: int nCols = grid.numCols();
- * ----------------------------------
- * Returns the number of columns in the grid.
- */
+     * Method: numCols
+     * Usage: int nCols = grid.numCols();
+     * ----------------------------------
+     * Returns the number of columns in the grid.
+     */
 
     int numCols() const;
 
     /*
- * Method: resize
- * Usage: grid.resize(nRows, nCols);
- * ---------------------------------
- * Reinitializes the grid to have the specified number of rows
- * and columns.  Any previous grid contents are discarded.
- */
+     * Method: resize
+     * Usage: grid.resize(nRows, nCols);
+     * ---------------------------------
+     * Reinitializes the grid to have the specified number of rows
+     * and columns.  Any previous grid contents are discarded.
+     */
 
     void resize(int nRows, int nCols);
 
     /*
- * Method: inBounds
- * Usage: if (grid.inBounds(row, col)) ...
- * ---------------------------------------
- * Returns <code>true</code> if the specified row and column position
- * is inside the bounds of the grid.
- */
+     * Method: inBounds
+     * Usage: if (grid.inBounds(row, col)) ...
+     * ---------------------------------------
+     * Returns <code>true</code> if the specified row and column position
+     * is inside the bounds of the grid.
+     */
 
     bool inBounds(int row, int col) const;
 
     /*
- * Method: get
- * Usage: ValueType value = grid.get(row, col);
- * --------------------------------------------
- * Returns the element at the specified <code>row</code>/<code>col</code>
- * position in this grid.  This method signals an error if the
- * <code>row</code> and <code>col</code> arguments are outside
- * the grid boundaries.
- */
+     * Method: get
+     * Usage: ValueType value = grid.get(row, col);
+     * --------------------------------------------
+     * Returns the element at the specified <code>row</code>/<code>col</code>
+     * position in this grid.  This method signals an error if the
+     * <code>row</code> and <code>col</code> arguments are outside
+     * the grid boundaries.
+     */
 
     ValueType get(int row, int col);
     const ValueType& get(int row, int col) const;
 
     /*
- * Method: set
- * Usage: grid.set(row, col, value);
- * ---------------------------------
- * Replaces the element at the specified <code>row</code>/<code>col</code>
- * location in this grid with a new value.  This method signals an error
- * if the <code>row</code> and <code>col</code> arguments are outside
- * the grid boundaries.
- */
+     * Method: set
+     * Usage: grid.set(row, col, value);
+     * ---------------------------------
+     * Replaces the element at the specified <code>row</code>/<code>col</code>
+     * location in this grid with a new value.  This method signals an error
+     * if the <code>row</code> and <code>col</code> arguments are outside
+     * the grid boundaries.
+     */
 
     void set(int row, int col, ValueType value);
 
     /*
- * Operator: []
- * Usage:  grid[row][col]
- * ----------------------
- * Overloads <code>[]</code> to select elements from this grid.
- * This extension enables the use of traditional array notation to
- * get or set individual elements.  This method signals an error if
- * the <code>row</code> and <code>col</code> arguments are outside
- * the grid boundaries.
- */
+     * Operator: []
+     * Usage:  grid[row][col]
+     * ----------------------
+     * Overloads <code>[]</code> to select elements from this grid.
+     * This extension enables the use of traditional array notation to
+     * get or set individual elements.  This method signals an error if
+     * the <code>row</code> and <code>col</code> arguments are outside
+     * the grid boundaries.
+     */
 
     GridRow operator[](int row);
     const GridRow operator[](int row) const;
 
     /*
- * Method: toString
- * Usage: string str = grid.toString();
- * ------------------------------------
- * Converts the grid to a printable string representation.
- */
+     * Method: toString
+     * Usage: string str = grid.toString();
+     * ------------------------------------
+     * Converts the grid to a printable string representation.
+     */
 
     std::string toString();
 
     /*
- * Method: mapAll
- * Usage: grid.mapAll(fn);
- * -----------------------
- * Calls the specified function on each element of the grid.  The
- * elements are processed in <b><i>row-major order,</i></b> in which
- * all the elements of row 0 are processed, followed by the elements
- * in row 1, and so on.
- */
+     * Method: mapAll
+     * Usage: grid.mapAll(fn);
+     * -----------------------
+     * Calls the specified function on each element of the grid.  The
+     * elements are processed in <b><i>row-major order,</i></b> in which
+     * all the elements of row 0 are processed, followed by the elements
+     * in row 1, and so on.
+     */
 
     void mapAll(void (*fn)(ValueType value)) const;
     void mapAll(void (*fn)(const ValueType& value)) const;
@@ -181,36 +180,36 @@ class Grid {
     void mapAll(FunctorType fn) const;
 
     /*
- * Additional Grid operations
- * --------------------------
- * In addition to the methods listed in this interface, the Grid
- * class supports the following operations:
- *
- *   - Stream I/O using the << and >> operators
- *   - Deep copying for the copy constructor and assignment operator
- *   - Iteration using the range-based for statement and STL iterators
- *
- * The iteration forms process the grid in row-major order.
- */
+     * Additional Grid operations
+     * --------------------------
+     * In addition to the methods listed in this interface, the Grid
+     * class supports the following operations:
+     *
+     *   - Stream I/O using the << and >> operators
+     *   - Deep copying for the copy constructor and assignment operator
+     *   - Iteration using the range-based for statement and STL iterators
+     *
+     * The iteration forms process the grid in row-major order.
+     */
 
     /* Private section */
 
-  private:
+private:
     /**********************************************************************/
     /* Note: Everything below this point in the file is logically part    */
     /* of the implementation and should not be of interest to clients.    */
     /**********************************************************************/
 
     /*
- * Implementation notes: Grid data structure
- * -----------------------------------------
- * The Grid is internally managed as a dynamic array of elements.
- * The array itself is one-dimensional, the logical separation into
- * rows and columns is done by arithmetic computation.  The layout
- * is in row-major order, which is to say that the entire first row
- * is laid out contiguously, followed by the entire second row,
- * and so on.
- */
+     * Implementation notes: Grid data structure
+     * -----------------------------------------
+     * The Grid is internally managed as a dynamic array of elements.
+     * The array itself is one-dimensional, the logical separation into
+     * rows and columns is done by arithmetic computation.  The layout
+     * is in row-major order, which is to say that the entire first row
+     * is laid out contiguously, followed by the entire second row,
+     * and so on.
+     */
 
     /* Instance variables */
 
@@ -223,27 +222,27 @@ class Grid {
     void checkRange(int row, int col);
 
     /*
- * Hidden features
- * ---------------
- * The remainder of this file consists of the code required to
- * support deep copying and iteration.  Including these methods
- * in the public interface would make that interface more
- * difficult to understand for the average client.
- */
+     * Hidden features
+     * ---------------
+     * The remainder of this file consists of the code required to
+     * support deep copying and iteration.  Including these methods
+     * in the public interface would make that interface more
+     * difficult to understand for the average client.
+     */
 
     /*
- * Deep copying support
- * --------------------
- * This copy constructor and operator= are defined to make a
- * deep copy, making it possible to pass/return grids by value
- * and assign from one grid to another.  The entire contents of
- * the grid, including all elements, are copied.  Each grid
- * element is copied from the original grid to the copy using
- * assignment (operator=).  Making copies is generally avoided
- * because of the expense and thus, grids are typically passed
- * by reference, however, when a copy is needed, these operations
- * are supported.
- */
+     * Deep copying support
+     * --------------------
+     * This copy constructor and operator= are defined to make a
+     * deep copy, making it possible to pass/return grids by value
+     * and assign from one grid to another.  The entire contents of
+     * the grid, including all elements, are copied.  Each grid
+     * element is copied from the original grid to the copy using
+     * assignment (operator=).  Making copies is generally avoided
+     * because of the expense and thus, grids are typically passed
+     * by reference, however, when a copy is needed, these operations
+     * are supported.
+     */
 
     void deepCopy(const Grid& grid) {
         int n = grid.nRows * grid.nCols;
@@ -255,7 +254,7 @@ class Grid {
         nCols = grid.nCols;
     }
 
-  public:
+public:
     Grid& operator=(const Grid& src) {
         if (this != &src) {
             delete[] elements;
@@ -264,23 +263,25 @@ class Grid {
         return *this;
     }
 
-    Grid(const Grid& src) { deepCopy(src); }
+    Grid(const Grid& src) {
+        deepCopy(src);
+    }
 
     /*
- * Iterator support
- * ----------------
- * The classes in the StanfordCPPLib collection implement input
- * iterators so that they work symmetrically with respect to the
- * corresponding STL classes.
- */
+     * Iterator support
+     * ----------------
+     * The classes in the StanfordCPPLib collection implement input
+     * iterators so that they work symmetrically with respect to the
+     * corresponding STL classes.
+     */
 
     class iterator {
-      public:
+    public:
         using iterator_category = std::input_iterator_tag;
         using value_type = ValueType;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
+        using difference_type = ValueType;
+        using pointer = ValueType*;
+        using reference = ValueType&;
 
         iterator(const Grid* gp, int index) {
             this->gp = gp;
@@ -303,33 +304,47 @@ class Grid {
             return copy;
         }
 
-        bool operator==(const iterator& rhs) { return gp == rhs.gp && index == rhs.index; }
+        bool operator==(const iterator& rhs) {
+            return gp == rhs.gp && index == rhs.index;
+        }
 
-        bool operator!=(const iterator& rhs) { return !(*this == rhs); }
+        bool operator!=(const iterator& rhs) {
+            return !(*this == rhs);
+        }
 
-        ValueType& operator*() { return gp->elements[index]; }
+        ValueType& operator*() {
+            return gp->elements[index];
+        }
 
-        ValueType* operator->() { return &gp->elements[index]; }
+        ValueType* operator->() {
+            return &gp->elements[index];
+        }
 
-      private:
+    private:
         const Grid* gp;
         int index;
     };
 
-    iterator begin() const { return iterator(this, 0); }
+    iterator begin() const {
+        return iterator(this, 0);
+    }
 
-    iterator end() const { return iterator(this, nRows * nCols); }
+    iterator end() const {
+        return iterator(this, nRows * nCols);
+    }
 
     /*
- * Private class: Grid<ValType>::GridRow
- * -------------------------------------
- * This section of the code defines a nested class within the Grid template
- * that makes it possible to use traditional subscripting on Grid values.
- */
+     * Private class: Grid<ValType>::GridRow
+     * -------------------------------------
+     * This section of the code defines a nested class within the Grid template
+     * that makes it possible to use traditional subscripting on Grid values.
+     */
 
     class GridRow {
-      public:
-        GridRow() { /* Empty */ }
+    public:
+        GridRow() {
+            /* Empty */
+        }
 
         ValueType& operator[](int col) {
             extern void error(std::string msg);
@@ -347,7 +362,7 @@ class Grid {
             return gp->elements[(row * gp->nCols) + col];
         }
 
-      private:
+    private:
         GridRow(Grid* gridRef, int index) {
             gp = gridRef;
             row = index;
@@ -520,5 +535,4 @@ std::istream& operator>>(std::istream& is, Grid<ValueType>& grid) {
     }
     return is;
 }
-
 #endif

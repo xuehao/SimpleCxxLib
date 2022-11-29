@@ -22,12 +22,12 @@
 /* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /*************************************************************************/
 
+#include "private/tplatform.h"
 #include <pthread.h>
 #include <iostream>
 #include <string>
 #include "error.h"
 #include "map.h"
-#include "private/tplatform.h"
 
 #define __macosx__ 1
 #ifdef __macosx__

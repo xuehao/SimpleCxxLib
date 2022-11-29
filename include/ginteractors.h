@@ -29,8 +29,6 @@
 
 #include "gobjects.h"
 #include "gtypes.h"
-#include "gwindow.h"
-#include "vector.h"
 
 /*
  * Class: GInteractor
@@ -44,45 +42,44 @@
  */
 
 class GInteractor : public GObject {
-
-  public:
+public:
     /*
- * Method: setActionCommand
- * Usage: interactor.setActionCommand(cmd);
- * ----------------------------------------
- * Sets the action command to the indicated string.  If the string is not
- * empty, activating the interactor generates a <code>GActionEvent</code>.
- */
+     * Method: setActionCommand
+     * Usage: interactor.setActionCommand(cmd);
+     * ----------------------------------------
+     * Sets the action command to the indicated string.  If the string is not
+     * empty, activating the interactor generates a <code>GActionEvent</code>.
+     */
 
     void setActionCommand(std::string cmd);
 
     /*
- * Method: getActionCommand
- * Usage: string cmd = interactor.getActionCommand();
- * --------------------------------------------------
- * Returns the action command associated with the interactor.
- */
+     * Method: getActionCommand
+     * Usage: string cmd = interactor.getActionCommand();
+     * --------------------------------------------------
+     * Returns the action command associated with the interactor.
+     */
 
     std::string getActionCommand();
 
     /*
- * Method: setSize
- * Usage: interactor.setSize(size);
- *        interactor.setSize(width, height);
- * -----------------------------------------
- * Changes the size of the interactor to the specified width and height.
- */
+     * Method: setSize
+     * Usage: interactor.setSize(size);
+     *        interactor.setSize(width, height);
+     * -----------------------------------------
+     * Changes the size of the interactor to the specified width and height.
+     */
 
     void setSize(const GDimension& size);
     void setSize(double width, double height);
 
     /*
- * Method: setBounds
- * Usage: interactor.setBounds(rect);
- *        interactor.setBounds(x, y, width, height);
- * -------------------------------------------------
- * Changes the bounds of the interactor to the specified values.
- */
+     * Method: setBounds
+     * Usage: interactor.setBounds(rect);
+     *        interactor.setBounds(x, y, width, height);
+     * -------------------------------------------------
+     * Changes the bounds of the interactor to the specified values.
+     */
 
     void setBounds(const GRectangle& size);
     void setBounds(double x, double y, double width, double height);
@@ -91,7 +88,7 @@ class GInteractor : public GObject {
 
     virtual GRectangle getBounds() const;
 
-  protected:
+protected:
     GInteractor();
 
     std::string actionCommand;
@@ -122,16 +119,15 @@ class GInteractor : public GObject {
  */
 
 class GButton : public GInteractor {
-
-  public:
+public:
     /*
- * Constructor: GButton
- * Usage: GButton *button = new GButton(label);
- * --------------------------------------------
- * Creates a <code>GButton</code> with the specified label.  This
- * constructor also sets the action command for the button to the
- * label string.
- */
+     * Constructor: GButton
+     * Usage: GButton *button = new GButton(label);
+     * --------------------------------------------
+     * Creates a <code>GButton</code> with the specified label.  This
+     * constructor also sets the action command for the button to the
+     * label string.
+     */
 
     GButton(std::string label);
 
@@ -140,7 +136,7 @@ class GButton : public GInteractor {
     virtual std::string getType() const;
     virtual std::string toString() const;
 
-  private:
+private:
     std::string label;
 };
 
@@ -155,34 +151,33 @@ class GButton : public GInteractor {
  */
 
 class GCheckBox : public GInteractor {
-
-  public:
+public:
     /*
- * Constructor: GCheckBox
- * Usage: GCheckBox *chkbox = new GCheckBox(label);
- * ------------------------------------------------
- * Creates a <code>GCheckBox</code> with the specified label.  In contrast
- * to the <code>GButton</code> constructor, this constructor does not set
- * an action command.
- */
+     * Constructor: GCheckBox
+     * Usage: GCheckBox *chkbox = new GCheckBox(label);
+     * ------------------------------------------------
+     * Creates a <code>GCheckBox</code> with the specified label.  In contrast
+     * to the <code>GButton</code> constructor, this constructor does not set
+     * an action command.
+     */
 
     GCheckBox(std::string label);
 
     /*
- * Method: setSelected
- * Usage: chkbox->setSelected(state);
- * ----------------------------------
- * Sets the state of the check box.
- */
+     * Method: setSelected
+     * Usage: chkbox->setSelected(state);
+     * ----------------------------------
+     * Sets the state of the check box.
+     */
 
     void setSelected(bool state);
 
     /*
- * Method: isSelected
- * Usage: if (chkbox->isSelected()) ...
- * ------------------------------------
- * Returns <code>true</code> if the check box is selected.
- */
+     * Method: isSelected
+     * Usage: if (chkbox->isSelected()) ...
+     * ------------------------------------
+     * Returns <code>true</code> if the check box is selected.
+     */
 
     bool isSelected();
 
@@ -191,7 +186,7 @@ class GCheckBox : public GInteractor {
     virtual std::string getType() const;
     virtual std::string toString() const;
 
-  private:
+private:
     std::string label;
 };
 
@@ -205,39 +200,38 @@ class GCheckBox : public GInteractor {
  */
 
 class GSlider : public GInteractor {
-
-  public:
+public:
     /*
- * Constructor: GSlider
- * Usage: GSlider *slider = new GSlider();
- *        GSlider *slider = new GSlider(min, max, value);
- * ------------------------------------------------------
- * Creates a horizontal <code>GSlider</code>.  The second form allows
- * the client to specify the minimum value, maximum value, and current
- * value of the slider.  The first form is equivalent to calling
- * <code>GSlider(0, 100, 50)</code>.  Assigning an action command
- * to the slider causes the slider to generate an action event whenever
- * the slider value changes.
- */
+     * Constructor: GSlider
+     * Usage: GSlider *slider = new GSlider();
+     *        GSlider *slider = new GSlider(min, max, value);
+     * ------------------------------------------------------
+     * Creates a horizontal <code>GSlider</code>.  The second form allows
+     * the client to specify the minimum value, maximum value, and current
+     * value of the slider.  The first form is equivalent to calling
+     * <code>GSlider(0, 100, 50)</code>.  Assigning an action command
+     * to the slider causes the slider to generate an action event whenever
+     * the slider value changes.
+     */
 
     GSlider();
     GSlider(int min, int max, int value);
 
     /*
- * Method: setValue
- * Usage: slider->setValue(value);
- * -------------------------------
- * Sets the current value of the slider.
- */
+     * Method: setValue
+     * Usage: slider->setValue(value);
+     * -------------------------------
+     * Sets the current value of the slider.
+     */
 
     void setValue(int value);
 
     /*
- * Method: getValue
- * Usage: int value = slider->getValue();
- * --------------------------------------
- * Returns the current value of the slider.
- */
+     * Method: getValue
+     * Usage: int value = slider->getValue();
+     * --------------------------------------
+     * Returns the current value of the slider.
+     */
 
     int getValue();
 
@@ -246,7 +240,7 @@ class GSlider : public GInteractor {
     virtual std::string getType() const;
     virtual std::string toString() const;
 
-  private:
+private:
     void create(int min, int max, int value);
     int min;
     int max;
@@ -262,37 +256,36 @@ class GSlider : public GInteractor {
  */
 
 class GTextField : public GInteractor {
-
-  public:
+public:
     /*
- * Constructor: GTextField
- * Usage: GTextField *field = new GTextField();
- *        GTextField *field = new GTextField(nChars);
- * --------------------------------------------------
- * Creates a text field capable of holding <code>nChars</code> characters,
- * which defaults to 10.  Assigning an action command to the text field
- * causes it to generate an action event whenever the user types the
- * ENTER key.
- */
+     * Constructor: GTextField
+     * Usage: GTextField *field = new GTextField();
+     *        GTextField *field = new GTextField(nChars);
+     * --------------------------------------------------
+     * Creates a text field capable of holding <code>nChars</code> characters,
+     * which defaults to 10.  Assigning an action command to the text field
+     * causes it to generate an action event whenever the user types the
+     * ENTER key.
+     */
 
     GTextField();
     GTextField(int nChars);
 
     /*
- * Method: setText
- * Usage: field->setText(str);
- * ---------------------------
- * Sets the text of the field to the specified string.
- */
+     * Method: setText
+     * Usage: field->setText(str);
+     * ---------------------------
+     * Sets the text of the field to the specified string.
+     */
 
     void setText(std::string str);
 
     /*
- * Method: getText
- * Usage: string str = field->getText();
- * -------------------------------------
- * Returns the contents of the text field.
- */
+     * Method: getText
+     * Usage: string str = field->getText();
+     * -------------------------------------
+     * Returns the contents of the text field.
+     */
 
     std::string getText();
 
@@ -324,45 +317,44 @@ class GTextField : public GInteractor {
  */
 
 class GChooser : public GInteractor {
-
-  public:
+public:
     /*
- * Constructor: GChooser
- * Usage: GChooser *chooser = new GChooser();
- * ------------------------------------------
- * Creates a chooser that initially contains no items, which are added
- * using the <code>addItem</code> method.  Assigning an action command
- * to the chooser causes it to generate an action event whenever the
- * user selects an item.
- */
+     * Constructor: GChooser
+     * Usage: GChooser *chooser = new GChooser();
+     * ------------------------------------------
+     * Creates a chooser that initially contains no items, which are added
+     * using the <code>addItem</code> method.  Assigning an action command
+     * to the chooser causes it to generate an action event whenever the
+     * user selects an item.
+     */
 
     GChooser();
 
     /*
- * Method: addItem
- * Usage: chooser->addItem(item);
- * ------------------------------
- * Adds a new item consisting of the specified string.
- */
+     * Method: addItem
+     * Usage: chooser->addItem(item);
+     * ------------------------------
+     * Adds a new item consisting of the specified string.
+     */
 
     void addItem(std::string item);
 
     /*
- * Method: setSelectedItem
- * Usage: chooser->setSelectedItem(item);
- * --------------------------------------
- * Sets the chooser so that it shows the specified item.  If the item
- * does not exist in the chooser, no change occurs.
- */
+     * Method: setSelectedItem
+     * Usage: chooser->setSelectedItem(item);
+     * --------------------------------------
+     * Sets the chooser so that it shows the specified item.  If the item
+     * does not exist in the chooser, no change occurs.
+     */
 
     void setSelectedItem(std::string item);
 
     /*
- * Method: getSelectedItem
- * Usage: string item = chooser->getSelectedItem();
- * ------------------------------------------------
- * Returns the current item selected in the chooser.
- */
+     * Method: getSelectedItem
+     * Usage: string item = chooser->getSelectedItem();
+     * ------------------------------------------------
+     * Returns the current item selected in the chooser.
+     */
 
     std::string getSelectedItem();
 

@@ -40,119 +40,118 @@
 
 template <typename ValueType>
 class PriorityQueue {
-
-  public:
+public:
     /*
- * Constructor: PriorityQueue
- * Usage: PriorityQueue<ValueType> pq;
- * -----------------------------------
- * Initializes a new priority queue, which is initially empty.
- */
+     * Constructor: PriorityQueue
+     * Usage: PriorityQueue<ValueType> pq;
+     * -----------------------------------
+     * Initializes a new priority queue, which is initially empty.
+     */
 
     PriorityQueue();
 
     /*
- * Destructor: ~PriorityQueue
- * --------------------------
- * Frees any heap storage associated with this priority queue.
- */
+     * Destructor: ~PriorityQueue
+     * --------------------------
+     * Frees any heap storage associated with this priority queue.
+     */
 
     virtual ~PriorityQueue();
 
     /*
- * Method: size
- * Usage: int n = pq.size();
- * -------------------------
- * Returns the number of values in the priority queue.
- */
+     * Method: size
+     * Usage: int n = pq.size();
+     * -------------------------
+     * Returns the number of values in the priority queue.
+     */
 
     int size() const;
 
     /*
- * Method: isEmpty
- * Usage: if (pq.isEmpty()) ...
- * ----------------------------
- * Returns <code>true</code> if the priority queue contains no elements.
- */
+     * Method: isEmpty
+     * Usage: if (pq.isEmpty()) ...
+     * ----------------------------
+     * Returns <code>true</code> if the priority queue contains no elements.
+     */
 
     bool isEmpty() const;
 
     /*
- * Method: clear
- * Usage: pq.clear();
- * ------------------
- * Removes all elements from the priority queue.
- */
+     * Method: clear
+     * Usage: pq.clear();
+     * ------------------
+     * Removes all elements from the priority queue.
+     */
 
     void clear();
 
     /*
- * Method: enqueue
- * Usage: pq.enqueue(value, priority);
- * -----------------------------------
- * Adds <code>value</code> to the queue with the specified priority.
- * Lower priority numbers correspond to higher priorities, which
- * means that all priority 1 elements are dequeued before any
- * priority 2 elements.
- */
+     * Method: enqueue
+     * Usage: pq.enqueue(value, priority);
+     * -----------------------------------
+     * Adds <code>value</code> to the queue with the specified priority.
+     * Lower priority numbers correspond to higher priorities, which
+     * means that all priority 1 elements are dequeued before any
+     * priority 2 elements.
+     */
 
     void enqueue(ValueType value, double priority);
 
     /*
- * Method: dequeue
- * Usage: ValueType first = pq.dequeue();
- * --------------------------------------
- * Removes and returns the highest priority value.  If multiple
- * entries in the queue have the same priority, those values are
- * dequeued in the same order in which they were enqueued.
- */
+     * Method: dequeue
+     * Usage: ValueType first = pq.dequeue();
+     * --------------------------------------
+     * Removes and returns the highest priority value.  If multiple
+     * entries in the queue have the same priority, those values are
+     * dequeued in the same order in which they were enqueued.
+     */
 
     ValueType dequeue();
 
     /*
- * Method: peek
- * Usage: ValueType first = pq.peek();
- * -----------------------------------
- * Returns the value of highest priority in the queue, without
- * removing it.
- */
+     * Method: peek
+     * Usage: ValueType first = pq.peek();
+     * -----------------------------------
+     * Returns the value of highest priority in the queue, without
+     * removing it.
+     */
 
     ValueType peek() const;
 
     /*
- * Method: peekPriority
- * Usage: double priority = pq.peekPriority();
- * -------------------------------------------
- * Returns the priority of the first element in the queue, without
- * removing it.
- */
+     * Method: peekPriority
+     * Usage: double priority = pq.peekPriority();
+     * -------------------------------------------
+     * Returns the priority of the first element in the queue, without
+     * removing it.
+     */
 
     double peekPriority() const;
 
     /*
- * Method: front
- * Usage: ValueType first = pq.front();
- * ------------------------------------
- * Returns the first value in the queue by reference.
- */
+     * Method: front
+     * Usage: ValueType first = pq.front();
+     * ------------------------------------
+     * Returns the first value in the queue by reference.
+     */
 
     ValueType& front();
 
     /*
- * Method: back
- * Usage: ValueType last = pq.back();
- * ----------------------------------
- * Returns the last value in the queue by reference.
- */
+     * Method: back
+     * Usage: ValueType last = pq.back();
+     * ----------------------------------
+     * Returns the last value in the queue by reference.
+     */
 
     ValueType& back();
 
     /*
- * Method: toString
- * Usage: string str = pq.toString();
- * ----------------------------------
- * Converts the queue to a printable string representation.
- */
+     * Method: toString
+     * Usage: string str = pq.toString();
+     * ----------------------------------
+     * Converts the queue to a printable string representation.
+     */
 
     std::string toString();
 
@@ -164,13 +163,13 @@ class PriorityQueue {
     /**********************************************************************/
 
     /*
- * Implementation notes: PriorityQueue data structure
- * --------------------------------------------------
- * The PriorityQueue class is implemented using a data structure called
- * a heap.
- */
+     * Implementation notes: PriorityQueue data structure
+     * --------------------------------------------------
+     * The PriorityQueue class is implemented using a data structure called
+     * a heap.
+     */
 
-  private:
+private:
     /* Type used for each heap entry */
 
     struct HeapEntry {
@@ -329,7 +328,7 @@ void PriorityQueue<ValueType>::swapHeapEntries(int i1, int i2) {
 
 template <typename ValueType>
 std::string PriorityQueue<ValueType>::toString() {
-    ostringstream os;
+    std::ostringstream os;
     os << *this;
     return os.str();
 }

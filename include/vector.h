@@ -44,179 +44,178 @@
 
 template <typename ValueType>
 class Vector {
-
-  public:
+public:
     /*
-    * Constructor: Vector
-    * Usage: Vector<ValueType> vec;
-    *        Vector<ValueType> vec(n, value);
-    * ---------------------------------------
-    * Initializes a new vector.  The default constructor creates an
-    * empty vector.  The second form creates an array with <code>n</code>
-    * elements, each of which is initialized to <code>value</code>;
-    * if <code>value</code> is missing, the elements are initialized
-    * to the default value for the type.
-    */
+     * Constructor: Vector
+     * Usage: Vector<ValueType> vec;
+     *        Vector<ValueType> vec(n, value);
+     * ---------------------------------------
+     * Initializes a new vector.  The default constructor creates an
+     * empty vector.  The second form creates an array with <code>n</code>
+     * elements, each of which is initialized to <code>value</code>;
+     * if <code>value</code> is missing, the elements are initialized
+     * to the default value for the type.
+     */
 
     Vector();
     explicit Vector(int n, ValueType value = ValueType());
 
     /*
-    * Destructor: ~Vector
-    * -------------------
-    * Frees any heap storage allocated by this vector.
-    */
+     * Destructor: ~Vector
+     * -------------------
+     * Frees any heap storage allocated by this vector.
+     */
 
     virtual ~Vector();
 
     /*
-    * Method: size
-    * Usage: int nElems = vec.size();
-    * -------------------------------
-    * Returns the number of elements in this vector.
-    */
+     * Method: size
+     * Usage: int nElems = vec.size();
+     * -------------------------------
+     * Returns the number of elements in this vector.
+     */
 
     int size() const;
 
     /*
-    * Method: isEmpty
-    * Usage: if (vec.isEmpty()) ...
-    * -----------------------------
-    * Returns <code>true</code> if this vector contains no elements.
-    */
+     * Method: isEmpty
+     * Usage: if (vec.isEmpty()) ...
+     * -----------------------------
+     * Returns <code>true</code> if this vector contains no elements.
+     */
 
     bool isEmpty() const;
 
     /*
-    * Method: clear
-    * Usage: vec.clear();
-    * -------------------
-    * Removes all elements from this vector.
-    */
+     * Method: clear
+     * Usage: vec.clear();
+     * -------------------
+     * Removes all elements from this vector.
+     */
 
     void clear();
 
     /*
-    * Method: get
-    * Usage: ValueType val = vec.get(index);
-    * --------------------------------------
-    * Returns the element at the specified index in this vector.  This
-    * method signals an error if the index is not in the array range.
-    */
+     * Method: get
+     * Usage: ValueType val = vec.get(index);
+     * --------------------------------------
+     * Returns the element at the specified index in this vector.  This
+     * method signals an error if the index is not in the array range.
+     */
 
     const ValueType& get(int index) const;
 
     /*
-    * Method: set
-    * Usage: vec.set(index, value);
-    * -----------------------------
-    * Replaces the element at the specified index in this vector with
-    * a new value.  The previous value at that index is overwritten.
-    * This method signals an error if the index is not in the array range.
-    */
+     * Method: set
+     * Usage: vec.set(index, value);
+     * -----------------------------
+     * Replaces the element at the specified index in this vector with
+     * a new value.  The previous value at that index is overwritten.
+     * This method signals an error if the index is not in the array range.
+     */
 
     void set(int index, const ValueType& value);
 
     /*
-    * Method: insert
-    * Usage: vec.insert(0, value);
-    * ----------------------------
-    * Inserts the element into this vector before the specified index.
-    * All subsequent elements are shifted one position to the right.  This
-    * method signals an error if the index is outside the range from 0
-    * up to and including the length of the vector.  To maintain
-    * compatibility with older code, this method may also be called as
-    * <code>insertAt</code>.
-    */
+     * Method: insert
+     * Usage: vec.insert(0, value);
+     * ----------------------------
+     * Inserts the element into this vector before the specified index.
+     * All subsequent elements are shifted one position to the right.  This
+     * method signals an error if the index is outside the range from 0
+     * up to and including the length of the vector.  To maintain
+     * compatibility with older code, this method may also be called as
+     * <code>insertAt</code>.
+     */
 
     void insert(int index, ValueType value);
     void insertAt(int index, ValueType value);
 
     /*
-    * Method: remove
-    * Usage: vec.remove(index);
-    * -------------------------
-    * Removes the element at the specified index from this vector.  All
-    * subsequent elements are shifted one position to the left.  This
-    * method signals an error if the index is outside the array range.
-    * To maintain compatibility with older code, this method may also
-    * be called as <code>removeAt</code>.
-    */
+     * Method: remove
+     * Usage: vec.remove(index);
+     * -------------------------
+     * Removes the element at the specified index from this vector.  All
+     * subsequent elements are shifted one position to the left.  This
+     * method signals an error if the index is outside the array range.
+     * To maintain compatibility with older code, this method may also
+     * be called as <code>removeAt</code>.
+     */
 
     void remove(int index);
     void removeAt(int index);
 
     /*
-    * Method: add
-    * Usage: vec.add(value);
-    * ----------------------
-    * Adds a new value to the end of this vector.  To ensure compatibility
-    * with the <code>vector</code> class in the Standard Template Library,
-    * this method is also called <code>push_back</code>.
-    */
+     * Method: add
+     * Usage: vec.add(value);
+     * ----------------------
+     * Adds a new value to the end of this vector.  To ensure compatibility
+     * with the <code>vector</code> class in the Standard Template Library,
+     * this method is also called <code>push_back</code>.
+     */
 
     void add(ValueType value);
     void push_back(ValueType value);
 
     /*
-    * Operator: []
-    * Usage: vec[index]
-    * -----------------
-    * Overloads <code>[]</code> to select elements from this vector.
-    * This extension enables the use of traditional array notation to
-    * get or set individual elements.  This method signals an error if
-    * the index is outside the array range.  The file supports two
-    * versions of this operator, one for <code>const</code> vectors and
-    * one for mutable vectors.
-    */
+     * Operator: []
+     * Usage: vec[index]
+     * -----------------
+     * Overloads <code>[]</code> to select elements from this vector.
+     * This extension enables the use of traditional array notation to
+     * get or set individual elements.  This method signals an error if
+     * the index is outside the array range.  The file supports two
+     * versions of this operator, one for <code>const</code> vectors and
+     * one for mutable vectors.
+     */
 
     ValueType& operator[](int index);
     const ValueType& operator[](int index) const;
 
     /*
-    * Operator: +
-    * Usage: v1 + v2
-    * --------------
-    * Concatenates two vectors.
-    */
+     * Operator: +
+     * Usage: v1 + v2
+     * --------------
+     * Concatenates two vectors.
+     */
 
     Vector operator+(const Vector& v2) const;
 
     /*
-    * Operator: +=
-    * Usage: v1 += v2;
-    *        v1 += value;
-    * -------------------
-    * Adds all of the elements from <code>v2</code> (or the single
-    * specified value) to <code>v1</code>.  As a convenience, the
-    * <code>Vector</code> package also overloads the comma operator so
-    * that it is possible to initialize a vector like this:
-    *
-    *<pre>
-    *    Vector&lt;int&gt; digits;
-    *    digits += 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
-    *</pre>
-    */
+     * Operator: +=
+     * Usage: v1 += v2;
+     *        v1 += value;
+     * -------------------
+     * Adds all of the elements from <code>v2</code> (or the single
+     * specified value) to <code>v1</code>.  As a convenience, the
+     * <code>Vector</code> package also overloads the comma operator so
+     * that it is possible to initialize a vector like this:
+     *
+     *<pre>
+     *    Vector&lt;int&gt; digits;
+     *    digits += 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+     *</pre>
+     */
 
     Vector& operator+=(const Vector& v2);
     Vector& operator+=(const ValueType& value);
 
     /*
-    * Method: toString
-    * Usage: string str = vec.toString();
-    * -----------------------------------
-    * Converts the vector to a printable string representation.
-    */
+     * Method: toString
+     * Usage: string str = vec.toString();
+     * -----------------------------------
+     * Converts the vector to a printable string representation.
+     */
 
     std::string toString();
 
     /*
-    * Method: mapAll
-    * Usage: vec.mapAll(fn);
-    * ----------------------
-    * Calls the specified function on each element of the vector in
-    * ascending index order.
-    */
+     * Method: mapAll
+     * Usage: vec.mapAll(fn);
+     * ----------------------
+     * Calls the specified function on each element of the vector in
+     * ascending index order.
+     */
 
     void mapAll(void (*fn)(ValueType)) const;
     void mapAll(void (*fn)(const ValueType&)) const;
@@ -225,17 +224,17 @@ class Vector {
     void mapAll(FunctorType fn) const;
 
     /*
-    * Additional Vector operations
-    * ----------------------------
-    * In addition to the methods listed in this interface, the Vector
-    * class supports the following operations:
-    *
-    *   - Stream I/O using the << and >> operators
-    *   - Deep copying for the copy constructor and assignment operator
-    *   - Iteration using the range-based for statement or STL iterators
-    *
-    * The iteration forms process the Vector in index order.
-    */
+     * Additional Vector operations
+     * ----------------------------
+     * In addition to the methods listed in this interface, the Vector
+     * class supports the following operations:
+     *
+     *   - Stream I/O using the << and >> operators
+     *   - Deep copying for the copy constructor and assignment operator
+     *   - Iteration using the range-based for statement or STL iterators
+     *
+     * The iteration forms process the Vector in index order.
+     */
 
     /* Private section */
 
@@ -244,14 +243,14 @@ class Vector {
     /* of the implementation and should not be of interest to clients.    */
     /**********************************************************************/
 
-  private:
+private:
     /*
-    * Implementation notes: Vector data structure
-    * -------------------------------------------
-    * The elements of the Vector are stored in a dynamic array of
-    * the specified element type.  If the space in the array is ever
-    * exhausted, the implementation doubles the array capacity.
-    */
+     * Implementation notes: Vector data structure
+     * -------------------------------------------
+     * The elements of the Vector are stored in a dynamic array of
+     * the specified element type.  If the space in the array is ever
+     * exhausted, the implementation doubles the array capacity.
+     */
 
     /* Instance variables */
 
@@ -265,52 +264,54 @@ class Vector {
     void deepCopy(const Vector& src);
 
     /*
-    * Hidden features
-    * ---------------
-    * The remainder of this file consists of the code required to
-    * support deep copying and iteration.  Including these methods
-    * in the public interface would make that interface more
-    * difficult to understand for the average client.
-    */
+     * Hidden features
+     * ---------------
+     * The remainder of this file consists of the code required to
+     * support deep copying and iteration.  Including these methods
+     * in the public interface would make that interface more
+     * difficult to understand for the average client.
+     */
 
-  public:
+public:
     /*
-    * Deep copying support
-    * --------------------
-    * This copy constructor and operator= are defined to make a deep copy,
-    * making it possible to pass or return vectors by value and assign
-    * from one vector to another.
-    */
+     * Deep copying support
+     * --------------------
+     * This copy constructor and operator= are defined to make a deep copy,
+     * making it possible to pass or return vectors by value and assign
+     * from one vector to another.
+     */
 
     Vector(const Vector& src);
     Vector& operator=(const Vector& src);
 
     /*
-    * Operator: ,
-    * -----------
-    * Adds an element to the vector passed as the left-hand operatand.
-    * This form makes it easier to initialize vectors in old versions of C++.
-    */
+     * Operator: ,
+     * -----------
+     * Adds an element to the vector passed as the left-hand operatand.
+     * This form makes it easier to initialize vectors in old versions of C++.
+     */
 
     Vector& operator,(const ValueType& value);
 
     /*
-    * Iterator support
-    * ----------------
-    * The classes in the StanfordCPPLib collection implement input
-    * iterators so that they work symmetrically with respect to the
-    * corresponding STL classes.
-    */
+     * Iterator support
+     * ----------------
+     * The classes in the StanfordCPPLib collection implement input
+     * iterators so that they work symmetrically with respect to the
+     * corresponding STL classes.
+     */
 
     class iterator {
-      public:
+    public:
         using iterator_category = std::random_access_iterator_tag;
         using value_type = ValueType;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
+        using difference_type = ValueType;
+        using pointer = ValueType*;
+        using reference = ValueType&;
 
-        iterator() { this->vp = nullptr; }
+        iterator() {
+            this->vp = nullptr;
+        }
 
         iterator(const iterator& it) {
             this->vp = it.vp;
@@ -344,9 +345,13 @@ class Vector {
             return copy;
         }
 
-        bool operator==(const iterator& rhs) { return vp == rhs.vp && index == rhs.index; }
+        bool operator==(const iterator& rhs) {
+            return vp == rhs.vp && index == rhs.index;
+        }
 
-        bool operator!=(const iterator& rhs) { return !(*this == rhs); }
+        bool operator!=(const iterator& rhs) {
+            return !(*this == rhs);
+        }
 
         bool operator<(const iterator& rhs) {
             extern void error(std::string msg);
@@ -376,14 +381,18 @@ class Vector {
             return index >= rhs.index;
         }
 
-        iterator operator+(const int& rhs) { return iterator(vp, index + rhs); }
+        iterator operator+(const int& rhs) {
+            return iterator(vp, index + rhs);
+        }
 
         iterator operator+=(const int& rhs) {
             index += rhs;
             return *this;
         }
 
-        iterator operator-(const int& rhs) { return iterator(vp, index - rhs); }
+        iterator operator-(const int& rhs) {
+            return iterator(vp, index - rhs);
+        }
 
         iterator operator-=(const int& rhs) {
             index -= rhs;
@@ -397,20 +406,30 @@ class Vector {
             return index - rhs.index;
         }
 
-        ValueType& operator*() { return vp->elements[index]; }
+        ValueType& operator*() {
+            return vp->elements[index];
+        }
 
-        ValueType* operator->() { return &vp->elements[index]; }
+        ValueType* operator->() {
+            return &vp->elements[index];
+        }
 
-        ValueType& operator[](int k) { return vp->elements[index + k]; }
+        ValueType& operator[](int k) {
+            return vp->elements[index + k];
+        }
 
-      private:
+    private:
         const Vector* vp;
         int index;
     };
 
-    iterator begin() const { return iterator(this, 0); }
+    iterator begin() const {
+        return iterator(this, 0);
+    }
 
-    iterator end() const { return iterator(this, count); }
+    iterator end() const {
+        return iterator(this, count);
+    }
 };
 
 /* Implementation section */
@@ -561,7 +580,7 @@ const ValueType& Vector<ValueType>::operator[](int index) const {
 template <typename ValueType>
 Vector<ValueType> Vector<ValueType>::operator+(const Vector& v2) const {
     Vector<ValueType> vec = *this;
-    for (const ValueType& value: v2) {
+    for (const ValueType& value : v2) {
         vec.add(value);
     }
     return vec;
@@ -569,7 +588,7 @@ Vector<ValueType> Vector<ValueType>::operator+(const Vector& v2) const {
 
 template <typename ValueType>
 Vector<ValueType>& Vector<ValueType>::operator+=(const Vector& v2) {
-    for (const ValueType& value: v2) {
+    for (const ValueType& value : v2) {
         *this += value;
     }
     return *this;

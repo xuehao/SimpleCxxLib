@@ -38,66 +38,65 @@
  */
 
 class Point {
-
-  public:
+public:
     /*
- * Constructor: Point
- * Usage: Point origin;
- *        Point pt(x, y);
- * ----------------------
- * Creates a <code>Point</code> object with the specified x and y coordinates.
- * If the coordinates are not supplied, the default constructor sets these
- * fields to 0.
- */
+     * Constructor: Point
+     * Usage: Point origin;
+     *        Point pt(x, y);
+     * ----------------------
+     * Creates a <code>Point</code> object with the specified x and y coordinates.
+     * If the coordinates are not supplied, the default constructor sets these
+     * fields to 0.
+     */
 
     Point();
     Point(int x, int y);
 
     /*
- * Method: getX
- * Usage: int x = pt.getX();
- * -------------------------
- * Returns the <i>x</i>-coordinate of the point.
- */
+     * Method: getX
+     * Usage: int x = pt.getX();
+     * -------------------------
+     * Returns the <i>x</i>-coordinate of the point.
+     */
 
     int getX() const;
 
     /*
- * Method: getY
- * Usage: int y = pt.getY();
- * -------------------------
- * Returns the <i>y</i>-coordinate of the point.
- */
+     * Method: getY
+     * Usage: int y = pt.getY();
+     * -------------------------
+     * Returns the <i>y</i>-coordinate of the point.
+     */
 
     int getY() const;
 
     /*
- * Method: toString
- * Usage: string str = pt.toString();
- * ----------------------------------
- * Returns a string representation of the <code>Point</code> in the form
- * <code>"(x, y)"</code>.
- */
+     * Method: toString
+     * Usage: string str = pt.toString();
+     * ----------------------------------
+     * Returns a string representation of the <code>Point</code> in the form
+     * <code>"(x, y)"</code>.
+     */
 
     std::string toString() const;
 
     /*
- * Friend operator: ==
- * Usage: if (p1 == p2) ...
- * ------------------------
- * Returns <code>true</code> if <code>p1</code> and <code>p2</code>
- * are the same point.
- */
+     * Friend operator: ==
+     * Usage: if (p1 == p2) ...
+     * ------------------------
+     * Returns <code>true</code> if <code>p1</code> and <code>p2</code>
+     * are the same point.
+     */
 
     bool operator==(const Point& p2) const;
 
     /*
- * Friend operator: !=
- * Usage: if (p1 != p2) ...
- * ------------------------
- * Returns <code>true</code> if <code>p1</code> and <code>p2</code>
- * are different.
- */
+     * Friend operator: !=
+     * Usage: if (p1 != p2) ...
+     * ------------------------
+     * Returns <code>true</code> if <code>p1</code> and <code>p2</code>
+     * are different.
+     */
 
     bool operator!=(const Point& p2) const;
 
@@ -108,7 +107,7 @@ class Point {
     /* of the implementation and should not be of interest to clients.    */
     /**********************************************************************/
 
-  private:
+private:
     /* Instance variables */
 
     int x; /* The x-coordinate of the point */

@@ -61,111 +61,110 @@
 #include <cctype>
 
 class Lexicon {
-
-  public:
+public:
     /*
- * Constructor: Lexicon
- * Usage: Lexicon lex;
- *        Lexicon lex(filename);
- * -----------------------------
- * Initializes a new lexicon.  The default constructor creates an empty
- * lexicon.  The second form reads in the contents of the lexicon from
- * the specified data file.  The data file must be in one of two formats:
- * (1) a space-efficient precompiled binary format or (2) a text file
- * containing one word per line.  The Stanford library distribution
- * includes a binary lexicon file named <code>English.dat</code>
- * containing a list of words in English.  The standard code pattern
- * to initialize that lexicon looks like this:
- *
- *<pre>
- *    Lexicon english("English.dat");
- *</pre>
- */
+     * Constructor: Lexicon
+     * Usage: Lexicon lex;
+     *        Lexicon lex(filename);
+     * -----------------------------
+     * Initializes a new lexicon.  The default constructor creates an empty
+     * lexicon.  The second form reads in the contents of the lexicon from
+     * the specified data file.  The data file must be in one of two formats:
+     * (1) a space-efficient precompiled binary format or (2) a text file
+     * containing one word per line.  The Stanford library distribution
+     * includes a binary lexicon file named <code>English.dat</code>
+     * containing a list of words in English.  The standard code pattern
+     * to initialize that lexicon looks like this:
+     *
+     *<pre>
+     *    Lexicon english("English.dat");
+     *</pre>
+     */
 
     Lexicon();
     Lexicon(std::string filename);
 
     /*
- * Destructor: ~Lexicon
- * --------------------
- * The destructor deallocates any storage associated with the lexicon.
- */
+     * Destructor: ~Lexicon
+     * --------------------
+     * The destructor deallocates any storage associated with the lexicon.
+     */
 
     virtual ~Lexicon();
 
     /*
- * Method: size
- * Usage: int n = lex.size();
- * --------------------------
- * Returns the number of words contained in the lexicon.
- */
+     * Method: size
+     * Usage: int n = lex.size();
+     * --------------------------
+     * Returns the number of words contained in the lexicon.
+     */
 
     int size() const;
 
     /*
- * Method: isEmpty
- * Usage: if (lex.isEmpty()) ...
- * -----------------------------
- * Returns <code>true</code> if the lexicon contains no words.
- */
+     * Method: isEmpty
+     * Usage: if (lex.isEmpty()) ...
+     * -----------------------------
+     * Returns <code>true</code> if the lexicon contains no words.
+     */
 
     bool isEmpty() const;
 
     /*
- * Method: clear
- * Usage: lex.clear();
- * -------------------
- * Removes all words from the lexicon.
- */
+     * Method: clear
+     * Usage: lex.clear();
+     * -------------------
+     * Removes all words from the lexicon.
+     */
 
     void clear();
 
     /*
- * Method: add
- * Usage: lex.add(word);
- * ---------------------
- * Adds the specified word to the lexicon.
- */
+     * Method: add
+     * Usage: lex.add(word);
+     * ---------------------
+     * Adds the specified word to the lexicon.
+     */
 
     void add(std::string word);
 
     /*
- * Method: addWordsFromFile
- * Usage: lex.addWordsFromFile(filename);
- * --------------------------------------
- * Reads the file and adds all of its words to the lexicon.
- */
+     * Method: addWordsFromFile
+     * Usage: lex.addWordsFromFile(filename);
+     * --------------------------------------
+     * Reads the file and adds all of its words to the lexicon.
+     */
 
     void addWordsFromFile(std::string filename);
 
     /*
- * Method: contains
- * Usage: if (lex.contains(word)) ...
- * ----------------------------------
- * Returns <code>true</code> if <code>word</code> is contained in the
- * lexicon.  In the <code>Lexicon</code> class, the case of letters is
- * ignored, so "Zoo" is the same as "ZOO" or "zoo".
- */
+     * Method: contains
+     * Usage: if (lex.contains(word)) ...
+     * ----------------------------------
+     * Returns <code>true</code> if <code>word</code> is contained in the
+     * lexicon.  In the <code>Lexicon</code> class, the case of letters is
+     * ignored, so "Zoo" is the same as "ZOO" or "zoo".
+     */
 
     bool contains(std::string word) const;
 
     /*
- * Method: containsPrefix
- * Usage: if (lex.containsPrefix(prefix)) ...
- * ------------------------------------------
- * Returns true if any words in the lexicon begin with <code>prefix</code>.
- * Like <code>containsWord</code>, this method ignores the case of letters
- * so that "MO" is a prefix of "monkey" or "Monday".
- */
+     * Method: containsPrefix
+     * Usage: if (lex.containsPrefix(prefix)) ...
+     * ------------------------------------------
+     * Returns true if any words in the lexicon begin with <code>prefix</code>.
+     * Like <code>containsWord</code>, this method ignores the case of letters
+     * so that "MO" is a prefix of "monkey" or "Monday".
+     */
 
     bool containsPrefix(std::string prefix) const;
 
     /*
- * Method: mapAll
- * Usage: lexicon.mapAll(fn);
- * --------------------------
- * Calls the specified function on each word in the lexicon.
- */
+     * Method: mapAll
+     * Usage: lexicon.mapAll(fn);
+     * --------------------------
+     * Calls the specified function on each word in the lexicon.
+     */
 
     void mapAll(void (*fn)(std::string)) const;
     void mapAll(void (*fn)(const std::string&)) const;
@@ -174,17 +173,17 @@ class Lexicon {
     void mapAll(FunctorType fn) const;
 
     /*
- * Additional Lexicon operations
- * -----------------------------
- * In addition to the methods listed in this interface, the Lexicon
- * class supports the following operations:
- *
- *   - Deep copying for the copy constructor and assignment operator
- *   - Iteration using the range-based for statement and STL iterators
- *
- * All iteration is guaranteed to proceed in alphabetical order.  All
- * words in the lexicon are stored in lowercase.
- */
+     * Additional Lexicon operations
+     * -----------------------------
+     * In addition to the methods listed in this interface, the Lexicon
+     * class supports the following operations:
+     *
+     *   - Deep copying for the copy constructor and assignment operator
+     *   - Iteration using the range-based for statement and STL iterators
+     *
+     * All iteration is guaranteed to proceed in alphabetical order.  All
+     * words in the lexicon are stored in lowercase.
+     */
 
     /* Private section */
 
@@ -193,7 +192,7 @@ class Lexicon {
     /* of the implementation and should not be of interest to clients.    */
     /**********************************************************************/
 
-  private:
+private:
 #ifdef _WIN32
 #define LITTLE_ENDIAN 1
 #define BYTE_ORDER LITTLE_ENDIAN
@@ -219,39 +218,41 @@ class Lexicon {
     int numEdges, numDawgWords;
     Set<std::string> otherWords;
 
-  public:
+public:
     /*
- * Deep copying support
- * --------------------
- * This copy constructor and operator= are defined to make a
- * deep copy, making it possible to pass/return lexicons by value
- * and assign from one lexicon to another.  The entire contents of
- * the lexicon, including all words, are copied.  Making copies is
- * generally avoided because of the expense and thus, lexicons are
- * typically passed by reference.  When a copy is needed, these
- * operations are supported.
- */
+     * Deep copying support
+     * --------------------
+     * This copy constructor and operator= are defined to make a
+     * deep copy, making it possible to pass/return lexicons by value
+     * and assign from one lexicon to another.  The entire contents of
+     * the lexicon, including all words, are copied.  Making copies is
+     * generally avoided because of the expense and thus, lexicons are
+     * typically passed by reference.  When a copy is needed, these
+     * operations are supported.
+     */
 
     Lexicon(const Lexicon& src);
     Lexicon& operator=(const Lexicon& src);
 
     /*
- * Iterator support
- * ----------------
- * The classes in the StanfordCPPLib collection implement input
- * iterators so that they work symmetrically with respect to the
- * corresponding STL classes.
- */
+     * Iterator support
+     * ----------------
+     * The classes in the StanfordCPPLib collection implement input
+     * iterators so that they work symmetrically with respect to the
+     * corresponding STL classes.
+     */
 
     class iterator {
-      public:
+    public:
         using iterator_category = std::input_iterator_tag;
         using value_type = std::string;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
+        using difference_type = std::string;
+        using pointer = std::string*;
+        using reference = std::string&;
 
-        iterator() { this->lp = nullptr; }
+        iterator() {
+            this->lp = nullptr;
+        }
 
         iterator(const Lexicon* lp, bool endFlag) {
             this->lp = lp;
@@ -299,9 +300,13 @@ class Lexicon {
             return copy;
         }
 
-        bool operator==(const iterator& rhs) { return lp == rhs.lp && index == rhs.index; }
+        bool operator==(const iterator& rhs) {
+            return lp == rhs.lp && index == rhs.index;
+        }
 
-        bool operator!=(const iterator& rhs) { return !(*this == rhs); }
+        bool operator!=(const iterator& rhs) {
+            return !(*this == rhs);
+        }
 
         std::string operator*() {
             if (edgePtr == nullptr)
@@ -324,7 +329,7 @@ class Lexicon {
             }
         }
 
-      private:
+    private:
         const Lexicon* lp;
         int index;
         std::string currentDawgPrefix;
@@ -348,7 +353,7 @@ class Lexicon {
         return iterator(this, true);
     }
 
-  private:
+private:
     Edge* findEdgeForChar(Edge* children, char ch) const;
     Edge* traceToLastEdge(const std::string& s) const;
     void readBinaryFile(std::string filename);
@@ -366,7 +371,7 @@ class Lexicon {
 
 template <typename FunctorType>
 void Lexicon::mapAll(FunctorType fn) const {
-    for (const std::string word: *this) {
+    for (const std::string word : *this) {
         fn(word);
     }
 }

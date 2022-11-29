@@ -26,8 +26,8 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdio>
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -73,8 +73,7 @@ static GDimension scanDimension(const std::string& str);
 static GRectangle scanRectangle(const std::string& str);
 
 class ConsoleStreambuf : public std::streambuf {
-
-  private:
+private:
     /* Constants */
 
     static const int BUFFER_SIZE = 1024;
@@ -84,13 +83,15 @@ class ConsoleStreambuf : public std::streambuf {
     char inBuffer[BUFFER_SIZE];
     char outBuffer[BUFFER_SIZE];
 
-  public:
+public:
     ConsoleStreambuf() {
         setg(inBuffer, inBuffer, inBuffer);
         setp(outBuffer, outBuffer + BUFFER_SIZE);
     }
 
-    ~ConsoleStreambuf() { /* Empty */ }
+    ~ConsoleStreambuf() {
+        /* Empty */
+    }
 
     virtual int underflow() {
         // Allow long strings at some point
@@ -129,7 +130,9 @@ class ConsoleStreambuf : public std::streambuf {
         return ch != EOF;
     }
 
-    virtual int sync() { return overflow(); }
+    virtual int sync() {
+        return overflow();
+    }
 };
 
 /* Private data */
@@ -306,7 +309,7 @@ bool Platform::fileExists(std::string filename) {
 
 bool Platform::isFile(std::string filename) {
     DWORD attr = GetFileAttributesA(filename.c_str());
-    return attr != INVALID_FILE_ATTRIBUTES && (attr & FILE_ATTRIBUTE_NORMAL);
+    return attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY);
 }
 
 bool Platform::isSymbolicLink(std::string filename) {
@@ -435,10 +438,9 @@ void Platform::repaint(const GWindow& gw) {
 }
 
 void Platform::setVisible(const GWindow& gw, bool flag) {
-    //   ostringstream os;
-    //   os << boolalpha << "GWindow.setVisible(\"" << gw.gwd << "\", "
-    //                   << flag << ")";
-    //   putPipe(os.str());
+    std::ostringstream os;
+    os << std::boolalpha << "GWindow.setVisible(\"" << gw.gwd << "\", " << flag << ")";
+    putPipe(os.str());
 }
 
 void Platform::setWindowTitle(const GWindow& gw, std::string title) {
@@ -964,10 +966,6 @@ Platform* getPlatform() {
     return &gp;
 }
 
-#ifdef _WIN32
-
-/* Windows implementation of interface to Java back end */
-
 int startupMain(int argc, char** argv) {
     extern int Main();
     programName = getRoot(getTail(argv[0]));
@@ -975,9 +973,12 @@ int startupMain(int argc, char** argv) {
     ConsoleStreambuf cbuf;
     std::cin.rdbuf(&cbuf);
     std::cout.rdbuf(&cbuf);
-    ShowWindow(GetConsoleWindow(), SW_HIDE);
     return Main();
 }
+
+#ifdef _WIN32
+
+/* Windows implementation of interface to Java back end */
 
 static void initPipe() {
     SECURITY_ATTRIBUTES attr;
@@ -1012,7 +1013,8 @@ static void initPipe() {
     sInfo.hStdInput = rdToJBE;
     sInfo.hStdOutput = wrFromJBE;
     sInfo.hStdError = wrFromJBE;
-    int ok = CreateProcessA(nullptr, cmdLine, nullptr, nullptr, true, 0, nullptr, nullptr, &sInfo, &pInfo);
+    int ok = CreateProcessA(nullptr, cmdLine, nullptr, nullptr, true, 0, nullptr, nullptr, &sInfo,
+                            &pInfo);
     if (!ok) {
         DWORD err = GetLastError();
         std::cerr << err << std::endl;
@@ -1045,62 +1047,6 @@ static std::string getPipe() {
 #else
 
 /* Linux/Mac implementation of interface to Java back end */
-
-static void scanOptions() {
-    char* home = getenv("HOME");
-    if (home != nullptr) {
-        std::string filename = std::string() + home + "/.spl";
-        std::ifstream infile(filename.c_str());
-        if (!infile.fail()) {
-            std::string line;
-            while (getline(infile, line)) {
-                int equals = line.find('=');
-                if (equals != std::string::npos) {
-                    std::string key = line.substr(0, equals);
-                    std::string value = line.substr(equals + 1);
-                    optionTable.put(key, value);
-                }
-            }
-            infile.close();
-        }
-    }
-}
-
-static std::string getOption(std::string key) {
-    char* str = getenv(key.c_str());
-    if (str != nullptr)
-        return std::string(str);
-    return optionTable.get(key);
-}
-
-int startupMain(int argc, char** argv) {
-    extern int Main();
-    std::string arg0 = argv[0];
-    programName = getRoot(getTail(arg0));
-    size_t ax = arg0.find(".app/Contents/");
-    if (ax != std::string::npos) {
-        while (ax > 0 && arg0[ax] != '/') {
-            ax--;
-        }
-        if (ax > 0) {
-            std::string cwd = arg0.substr(0, ax);
-            chdir(cwd.c_str());
-        }
-    }
-    char* noConsoleFlag = getenv("NOCONSOLE");
-    if (noConsoleFlag != nullptr && startsWith(std::string(noConsoleFlag), "t")) {
-        return Main();
-    }
-    scanOptions();
-    initPipe();
-    ConsoleStreambuf cbuf;
-    std::cin.rdbuf(&cbuf);
-    std::cout.rdbuf(&cbuf);
-    std::string font = getOption("CPPFONT");
-    if (font != "")
-        setConsoleFont(font);
-    return Main();
-}
 
 static void initPipe() {
     char* trace = getenv("JBETRACE");

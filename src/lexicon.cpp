@@ -38,8 +38,8 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
-#include <ios>
 #include <fstream>
+#include <ios>
 #include <iostream>
 #include <string>
 #include "error.h"
@@ -234,7 +234,7 @@ bool Lexicon::containsPrefix(std::string prefix) const {
     toLowerCaseInPlace(prefix);
     if (traceToLastEdge(prefix))
         return true;
-    for (const std::string& word: otherWords) {
+    for (const std::string& word : otherWords) {
         if (startsWith(word, prefix))
             return true;
         if (prefix < word)
@@ -286,13 +286,13 @@ void Lexicon::deepCopy(const Lexicon& src) {
 }
 
 void Lexicon::mapAll(void (*fn)(std::string)) const {
-    for (const std::string& word: *this) {
+    for (const std::string& word : *this) {
         fn(word);
     }
 }
 
 void Lexicon::mapAll(void (*fn)(const std::string&)) const {
-    for (const std::string& word: *this) {
+    for (const std::string& word : *this) {
         fn(word);
     }
 }

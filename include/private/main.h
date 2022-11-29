@@ -62,20 +62,20 @@
 
 #if CONSOLE_FLAG | GRAPHICS_FLAG
 // mingw/linux
-#define main                                           \
-    main(int argc, char** argv) {                      \
-        extern int Main();                             \
-        extern int startupMain(int argc, char** argv); \
-        extern int _mainFlags;                         \
-        _mainFlags = GRAPHICS_FLAG + CONSOLE_FLAG;     \
-        try {                                          \
-            return startupMain(argc, argv);            \
-        } catch (ErrorException & ex) {                \
-            std::string msg = "Error: " + ex.getMessage();  \
-            std::cerr << msg << std::endl;                       \
-            return EXIT_FAILURE;                       \
-        }                                              \
-    }                                                  \
+#define main                                               \
+    main(int argc, char** argv) {                          \
+        extern int Main();                                 \
+        extern int startupMain(int argc, char** argv);     \
+        extern int _mainFlags;                             \
+        _mainFlags = GRAPHICS_FLAG + CONSOLE_FLAG;         \
+        try {                                              \
+            return startupMain(argc, argv);                \
+        } catch (ErrorException & ex) {                    \
+            std::string msg = "Error: " + ex.getMessage(); \
+            std::cerr << msg << std::endl;                 \
+            return EXIT_FAILURE;                           \
+        }                                                  \
+    }                                                      \
     int Main
 #else
 // macOS

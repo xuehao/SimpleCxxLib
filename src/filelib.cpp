@@ -32,7 +32,6 @@
 #include <string>
 #include <vector>
 #include "platform.h"
-#include "strlib.h"
 #include "vector.h"
 
 /* Prototypes */
@@ -231,7 +230,7 @@ std::string defaultExtension(std::string filename, std::string ext) {
 std::string openOnPath(std::ifstream& stream, std::string path, std::string filename) {
     Vector<std::string> paths;
     splitPath(path, paths);
-    for (const std::string& dir: paths) {
+    for (const std::string& dir : paths) {
         std::string pathname = dir + "/" + filename;
         if (openFile(stream, pathname))
             return pathname;
@@ -242,7 +241,7 @@ std::string openOnPath(std::ifstream& stream, std::string path, std::string file
 std::string openOnPath(std::ofstream& stream, std::string path, std::string filename) {
     Vector<std::string> paths;
     splitPath(path, paths);
-    for (const std::string& dir: paths) {
+    for (const std::string& dir : paths) {
         std::string pathname = dir + "/" + filename;
         if (openFile(stream, pathname))
             return pathname;
@@ -326,7 +325,7 @@ void listDirectory(std::string path, Vector<std::string>& list) {
     std::vector<std::string> vec;
     listDirectory(path, vec);
     list.clear();
-    for (const std::string& file: vec) {
+    for (const std::string& file : vec) {
         list.add(file);
     }
 }

@@ -34,11 +34,11 @@
 #include "sound.h"
 
 class Platform {
-  private:
+private:
     Platform();
     friend Platform* getPlatform();
 
-  public:
+public:
     virtual ~Platform();
     void clearConsole();
     void setConsoleFont(const std::string& font);

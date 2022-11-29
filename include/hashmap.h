@@ -59,135 +59,134 @@ int hashCode(double key);
 
 template <typename KeyType, typename ValueType>
 class HashMap {
-
-  public:
+public:
     /*
- * Constructor: HashMap
- * Usage: HashMap<KeyType,ValueType> map;
- * --------------------------------------
- * Initializes a new empty map that associates keys and values of
- * the specified types.  The type used for the key must define
- * the <code>==</code> operator, and there must be a free function
- * with the following signature:
- *
- *<pre>
- *    int hashCode(KeyType key);
- *</pre>
- *
- * that returns a positive integer determined by the key.  This interface
- * exports <code>hashCode</code> functions for <code>string</code> and
- * the C++ primitive types.
- */
+     * Constructor: HashMap
+     * Usage: HashMap<KeyType,ValueType> map;
+     * --------------------------------------
+     * Initializes a new empty map that associates keys and values of
+     * the specified types.  The type used for the key must define
+     * the <code>==</code> operator, and there must be a free function
+     * with the following signature:
+     *
+     *<pre>
+     *    int hashCode(KeyType key);
+     *</pre>
+     *
+     * that returns a positive integer determined by the key.  This interface
+     * exports <code>hashCode</code> functions for <code>string</code> and
+     * the C++ primitive types.
+     */
 
     HashMap();
 
     /*
- * Destructor: ~HashMap
- * --------------------
- * Frees any heap storage associated with this map.
- */
+     * Destructor: ~HashMap
+     * --------------------
+     * Frees any heap storage associated with this map.
+     */
 
     virtual ~HashMap();
 
     /*
- * Method: size
- * Usage: int nEntries = map.size();
- * ---------------------------------
- * Returns the number of entries in this map.
- */
+     * Method: size
+     * Usage: int nEntries = map.size();
+     * ---------------------------------
+     * Returns the number of entries in this map.
+     */
 
     int size() const;
 
     /*
- * Method: isEmpty
- * Usage: if (map.isEmpty()) ...
- * -----------------------------
- * Returns <code>true</code> if this map contains no entries.
- */
+     * Method: isEmpty
+     * Usage: if (map.isEmpty()) ...
+     * -----------------------------
+     * Returns <code>true</code> if this map contains no entries.
+     */
 
     bool isEmpty() const;
 
     /*
- * Method: put
- * Usage: map.put(key, value);
- * ---------------------------
- * Associates <code>key</code> with <code>value</code> in this map.
- * Any previous value associated with <code>key</code> is replaced
- * by the new value.
- */
+     * Method: put
+     * Usage: map.put(key, value);
+     * ---------------------------
+     * Associates <code>key</code> with <code>value</code> in this map.
+     * Any previous value associated with <code>key</code> is replaced
+     * by the new value.
+     */
 
     void put(KeyType key, ValueType value);
 
     /*
- * Method: get
- * Usage: ValueType value = map.get(key);
- * --------------------------------------
- * Returns the value associated with <code>key</code> in this map.
- * If <code>key</code> is not found, <code>get</code> returns the
- * default value for <code>ValueType</code>.
- */
+     * Method: get
+     * Usage: ValueType value = map.get(key);
+     * --------------------------------------
+     * Returns the value associated with <code>key</code> in this map.
+     * If <code>key</code> is not found, <code>get</code> returns the
+     * default value for <code>ValueType</code>.
+     */
 
     ValueType get(KeyType key) const;
 
     /*
- * Method: containsKey
- * Usage: if (map.containsKey(key)) ...
- * ------------------------------------
- * Returns <code>true</code> if there is an entry for <code>key</code>
- * in this map.
- */
+     * Method: containsKey
+     * Usage: if (map.containsKey(key)) ...
+     * ------------------------------------
+     * Returns <code>true</code> if there is an entry for <code>key</code>
+     * in this map.
+     */
 
     bool containsKey(KeyType key) const;
 
     /*
- * Method: remove
- * Usage: map.remove(key);
- * -----------------------
- * Removes any entry for <code>key</code> from this map.
- */
+     * Method: remove
+     * Usage: map.remove(key);
+     * -----------------------
+     * Removes any entry for <code>key</code> from this map.
+     */
 
     void remove(KeyType key);
 
     /*
- * Method: clear
- * Usage: map.clear();
- * -------------------
- * Removes all entries from this map.
- */
+     * Method: clear
+     * Usage: map.clear();
+     * -------------------
+     * Removes all entries from this map.
+     */
 
     void clear();
 
     /*
- * Operator: []
- * Usage: map[key]
- * ---------------
- * Selects the value associated with <code>key</code>.  This syntax
- * makes it easy to think of a map as an "associative array"
- * indexed by the key type.  If <code>key</code> is already present
- * in the map, this function returns a reference to its associated
- * value.  If key is not present in the map, a new entry is created
- * whose value is set to the default for the value type.
- */
+     * Operator: []
+     * Usage: map[key]
+     * ---------------
+     * Selects the value associated with <code>key</code>.  This syntax
+     * makes it easy to think of a map as an "associative array"
+     * indexed by the key type.  If <code>key</code> is already present
+     * in the map, this function returns a reference to its associated
+     * value.  If key is not present in the map, a new entry is created
+     * whose value is set to the default for the value type.
+     */
 
     ValueType& operator[](KeyType key);
     ValueType operator[](KeyType key) const;
 
     /*
- * Method: toString
- * Usage: string str = map.toString();
- * -----------------------------------
- * Converts the map to a printable string representation.
- */
+     * Method: toString
+     * Usage: string str = map.toString();
+     * -----------------------------------
+     * Converts the map to a printable string representation.
+     */
 
     std::string toString();
 
     /*
- * Method: mapAll
- * Usage: map.mapAll(fn);
- * ----------------------
- * Iterates through the map entries and calls <code>fn(key, value)</code>
- * for each one.  The keys are processed in an undetermined order.
- */
+     * Method: mapAll
+     * Usage: map.mapAll(fn);
+     * ----------------------
+     * Iterates through the map entries and calls <code>fn(key, value)</code>
+     * for each one.  The keys are processed in an undetermined order.
+     */
 
     void mapAll(void (*fn)(KeyType, ValueType)) const;
     void mapAll(void (*fn)(const KeyType&, const ValueType&)) const;
@@ -195,17 +194,17 @@ class HashMap {
     void mapAll(FunctorType fn) const;
 
     /*
- * Additional HashMap operations
- * -----------------------------
- * In addition to the methods listed in this interface, the HashMap
- * class supports the following operations:
- *
- *   - Stream I/O using the << and >> operators
- *   - Deep copying for the copy constructor and assignment operator
- *   - Iteration using the range-based for statement and STL iterators
- *
- * The HashMap class makes no guarantees about the order of iteration.
- */
+     * Additional HashMap operations
+     * -----------------------------
+     * In addition to the methods listed in this interface, the HashMap
+     * class supports the following operations:
+     *
+     *   - Stream I/O using the << and >> operators
+     *   - Deep copying for the copy constructor and assignment operator
+     *   - Iteration using the range-based for statement and STL iterators
+     *
+     * The HashMap class makes no guarantees about the order of iteration.
+     */
 
     /* Private section */
 
@@ -215,13 +214,13 @@ class HashMap {
     /**********************************************************************/
 
     /*
- * Implementation notes:
- * ---------------------
- * The HashMap class is represented using a hash table that uses
- * bucket chaining to resolve collisions.
- */
+     * Implementation notes:
+     * ---------------------
+     * The HashMap class is represented using a hash table that uses
+     * bucket chaining to resolve collisions.
+     */
 
-  private:
+private:
     /* Constant definitions */
 
     static const int INITIAL_BUCKET_COUNT = 101;
@@ -244,13 +243,13 @@ class HashMap {
     /* Private methods */
 
     /*
- * Private method: createBuckets
- * Usage: createBuckets(nBuckets);
- * -------------------------------
- * Sets up the vector of buckets to have nBuckets entries, each nullptr.
- * If asked to make empty vector, makes one bucket just to simplify
- * handling elsewhere.
- */
+     * Private method: createBuckets
+     * Usage: createBuckets(nBuckets);
+     * -------------------------------
+     * Sets up the vector of buckets to have nBuckets entries, each nullptr.
+     * If asked to make empty vector, makes one bucket just to simplify
+     * handling elsewhere.
+     */
 
     void createBuckets(int nBuckets) {
         if (nBuckets == 0)
@@ -261,11 +260,11 @@ class HashMap {
     }
 
     /*
- * Private method: deleteBuckets
- * Usage: deleteBuckets(buckets);
- * ------------------------------
- * Deletes all the cells in the linked lists contained in vector.
- */
+     * Private method: deleteBuckets
+     * Usage: deleteBuckets(buckets);
+     * ------------------------------
+     * Deletes all the cells in the linked lists contained in vector.
+     */
 
     void deleteBuckets(Vector<Cell*>& buckets) {
         for (int i = 0; i < buckets.size(); i++) {
@@ -280,15 +279,15 @@ class HashMap {
     }
 
     /*
- * Private method: expandAndRehash
- * Usage: expandAndRehash();
- * -------------------------
- * This method is used to increase the number of buckets in the map
- * and then rehashes all existing entries and adds them into new buckets.
- * This operation is used when the load factor (i.e. the number of cells
- * per bucket) has increased enough to warrant this O(N) operation to
- * enlarge and redistribute the entries.
- */
+     * Private method: expandAndRehash
+     * Usage: expandAndRehash();
+     * -------------------------
+     * This method is used to increase the number of buckets in the map
+     * and then rehashes all existing entries and adds them into new buckets.
+     * This operation is used when the load factor (i.e. the number of cells
+     * per bucket) has increased enough to warrant this O(N) operation to
+     * enlarge and redistribute the entries.
+     */
 
     void expandAndRehash() {
         Vector<Cell*> oldBuckets = buckets;
@@ -302,18 +301,18 @@ class HashMap {
     }
 
     /*
- * Private method: findCell
- * Usage: Cell *cp = findCell(bucket, key);
- *        Cell *cp = findCell(bucket, key, parent);
- * ------------------------------------------------
- * Finds a cell in the chain for the specified bucket that matches key.
- * If a match is found, the return value is a pointer to the cell containing
- * the matching key.  If no match is found, the function returns nullptr.
- * If the optional third argument is supplied, it is filled in with the
- * cell preceding the matching cell to allow the client to splice out
- * the target cell in the delete call.  If parent is nullptr, it indicates
- * that the cell is the first cell in the bucket chain.
- */
+     * Private method: findCell
+     * Usage: Cell *cp = findCell(bucket, key);
+     *        Cell *cp = findCell(bucket, key, parent);
+     * ------------------------------------------------
+     * Finds a cell in the chain for the specified bucket that matches key.
+     * If a match is found, the return value is a pointer to the cell containing
+     * the matching key.  If no match is found, the function returns nullptr.
+     * If the optional third argument is supplied, it is filled in with the
+     * cell preceding the matching cell to allow the client to splice out
+     * the target cell in the delete call.  If parent is nullptr, it indicates
+     * that the cell is the first cell in the bucket chain.
+     */
 
     Cell* findCell(int bucket, KeyType key) const {
         Cell* dummy;
@@ -339,23 +338,23 @@ class HashMap {
         }
     }
 
-  public:
+public:
     /*
- * Hidden features
- * ---------------
- * The remainder of this file consists of the code required to
- * support deep copying and iteration.  Including these methods
- * in the public interface would make that interface more
- * difficult to understand for the average client.
- */
+     * Hidden features
+     * ---------------
+     * The remainder of this file consists of the code required to
+     * support deep copying and iteration.  Including these methods
+     * in the public interface would make that interface more
+     * difficult to understand for the average client.
+     */
 
     /*
- * Deep copying support
- * --------------------
- * This copy constructor and operator= are defined to make a
- * deep copy, making it possible to pass/return maps by value
- * and assign from one map to another.
- */
+     * Deep copying support
+     * --------------------
+     * This copy constructor and operator= are defined to make a
+     * deep copy, making it possible to pass/return maps by value
+     * and assign from one map to another.
+     */
 
     HashMap& operator=(const HashMap& src) {
         if (this != &src) {
@@ -365,25 +364,29 @@ class HashMap {
         return *this;
     }
 
-    HashMap(const HashMap& src) { deepCopy(src); }
+    HashMap(const HashMap& src) {
+        deepCopy(src);
+    }
 
     /*
- * Iterator support
- * ----------------
- * The classes in the StanfordCPPLib collection implement input
- * iterators so that they work symmetrically with respect to the
- * corresponding STL classes.
- */
+     * Iterator support
+     * ----------------
+     * The classes in the StanfordCPPLib collection implement input
+     * iterators so that they work symmetrically with respect to the
+     * corresponding STL classes.
+     */
 
     class iterator {
-      public:
+    public:
         using iterator_category = std::input_iterator_tag;
         using value_type = KeyType;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
+        using difference_type = KeyType;
+        using pointer = KeyType*;
+        using reference = KeyType&;
 
-        iterator() { /* Empty */ }
+        iterator() {
+            /* Empty */
+        }
 
         iterator(const HashMap* mp, bool end) {
             this->mp = mp;
@@ -423,23 +426,33 @@ class HashMap {
             return mp == rhs.mp && bucket == rhs.bucket && cp == rhs.cp;
         }
 
-        bool operator!=(const iterator& rhs) { return !(*this == rhs); }
+        bool operator!=(const iterator& rhs) {
+            return !(*this == rhs);
+        }
 
-        KeyType operator*() { return cp->key; }
+        KeyType operator*() {
+            return cp->key;
+        }
 
-        KeyType* operator->() { return &cp->key; }
+        KeyType* operator->() {
+            return &cp->key;
+        }
 
         friend class HashMap;
 
-      private:
+    private:
         const HashMap* mp; /* Pointer to the map           */
         int bucket;        /* Index of current bucket      */
         Cell* cp;          /* Current cell in bucket chain */
     };
 
-    iterator begin() const { return iterator(this, false); }
+    iterator begin() const {
+        return iterator(this, false);
+    }
 
-    iterator end() const { return iterator(this, true); }
+    iterator end() const {
+        return iterator(this, true);
+    }
 };
 
 /*
@@ -627,5 +640,4 @@ std::istream& operator>>(std::istream& is, HashMap<KeyType, ValueType>& map) {
     }
     return is;
 }
-
 #endif

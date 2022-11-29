@@ -50,32 +50,31 @@ class Lock;
  */
 
 class Thread {
-
-  public:
+public:
     /*
- * Constructor: Thread
- * Usage: Thread thread;
- * ---------------------
- * Creates an inactive thread variable that will typically be overwritten
- * by the result of a <code>fork</code> call.
- */
+     * Constructor: Thread
+     * Usage: Thread thread;
+     * ---------------------
+     * Creates an inactive thread variable that will typically be overwritten
+     * by the result of a <code>fork</code> call.
+     */
 
     Thread();
 
     /*
- * Destructor: ~Thread
- * -------------------
- * Frees any dynamic storage associated with the thread.
- */
+     * Destructor: ~Thread
+     * -------------------
+     * Frees any dynamic storage associated with the thread.
+     */
 
     virtual ~Thread();
 
     /*
- * Method: toString
- * Usage: string str = thread.toString();
- * --------------------------------------
- * Converts the thread to a string.
- */
+     * Method: toString
+     * Usage: string str = thread.toString();
+     * --------------------------------------
+     * Converts the thread to a string.
+     */
 
     std::string toString();
 
@@ -140,58 +139,57 @@ Thread getCurrentThread();
  */
 
 class Lock {
-
-  public:
+public:
     /*
- * Constructor: Lock
- * Usage: Lock lock;
- * -----------------
- * Initializes a lock, which is initially in the unlocked state.
- */
+     * Constructor: Lock
+     * Usage: Lock lock;
+     * -----------------
+     * Initializes a lock, which is initially in the unlocked state.
+     */
 
     Lock();
 
     /*
- * Destructor: ~Lock
- * -----------------
- * Frees any heap storage associated with the lock.
- */
+     * Destructor: ~Lock
+     * -----------------
+     * Frees any heap storage associated with the lock.
+     */
 
     ~Lock();
 
     /*
- * Method: wait
- * Usage: lock.wait();
- * -------------------
- * Waits for some other thread to call <code>signal</code> on this lock.
- * This call requires that the lock be held by the calling thread.
- * The effect of the <code>wait</code> method is to release the lock
- * and then wait until the desired <code>signal</code> operation occurs,
- * at which point the lock is reacquired and control returns from the
- * <code>wait</code> call.  The <code>wait</code> method is typically
- * used inside a critical section containing a <code>while</code> loop
- * to check for a specific condition.  The standard paradigm for using
- * the <code>waitThread</code> function looks like this:<p>
- *
- *<pre>
- *    synchronized (lock) {
- *       while (conditional test) {
- *          lock.wait();
- *       }
- *       ... code to manipulate the locked resource ...
- *    }
- *</pre>
- */
+     * Method: wait
+     * Usage: lock.wait();
+     * -------------------
+     * Waits for some other thread to call <code>signal</code> on this lock.
+     * This call requires that the lock be held by the calling thread.
+     * The effect of the <code>wait</code> method is to release the lock
+     * and then wait until the desired <code>signal</code> operation occurs,
+     * at which point the lock is reacquired and control returns from the
+     * <code>wait</code> call.  The <code>wait</code> method is typically
+     * used inside a critical section containing a <code>while</code> loop
+     * to check for a specific condition.  The standard paradigm for using
+     * the <code>waitThread</code> function looks like this:<p>
+     *
+     *<pre>
+     *    synchronized (lock) {
+     *       while (conditional test) {
+     *          lock.wait();
+     *       }
+     *       ... code to manipulate the locked resource ...
+     *    }
+     *</pre>
+     */
 
     void wait();
 
     /*
- * Method: signal
- * Usage: lock.signal();
- * ---------------------
- * Signals all threads waiting on the lock so that they wake up and
- * recheck the corresponding condition.
- */
+     * Method: signal
+     * Usage: lock.signal();
+     * ---------------------
+     * Signals all threads waiting on the lock so that they wake up and
+     * recheck the corresponding condition.
+     */
 
     void signal();
 
@@ -200,7 +198,7 @@ class Lock {
     /* of the implementation and should not be of interest to clients.    */
     /**********************************************************************/
 
-  private:
+private:
     long id; /* id linking this lock to the platform-specific data */
 
     friend class Lock_State;
@@ -225,7 +223,7 @@ void lockForPlatform(int id);
 void unlockForPlatform(int id);
 
 class Lock_State {
-  public:
+public:
     Lock_State(Lock& lock) {
         lp = &lock;
         finished = false;
@@ -242,7 +240,7 @@ class Lock_State {
         }
     }
 
-  private:
+private:
     Lock* lp;
     bool finished;
 };

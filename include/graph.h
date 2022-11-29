@@ -28,6 +28,7 @@
 #define _graph_h
 
 #include <string>
+#include "hashset.h"
 #include "map.h"
 #include "set.h"
 #include "tokenscanner.h"
@@ -57,260 +58,265 @@
 
 template <typename NodeType, typename ArcType>
 class Graph {
-
-  public:
+public:
     /*
- * Constructor: Graph
- * Usage: Graph<NodeType,ArcType> g;
- * ---------------------------------
- * Creates an empty <code>Graph</code> object.
- */
+     * Constructor: Graph
+     * Usage: Graph<NodeType,ArcType> g;
+     * ---------------------------------
+     * Creates an empty <code>Graph</code> object.
+     */
 
     Graph();
 
     /*
- * Destructor: ~Graph
- * ------------------
- * Frees the internal storage allocated to represent the graph.
- */
+     * Destructor: ~Graph
+     * ------------------
+     * Frees the internal storage allocated to represent the graph.
+     */
 
     virtual ~Graph();
 
     /*
- * Method: size
- * Usage: int size = g.size();
- * ---------------------------
- * Returns the number of nodes in the graph.
- */
+     * Method: size
+     * Usage: int size = g.size();
+     * ---------------------------
+     * Returns the number of nodes in the graph.
+     */
 
     int size() const;
 
     /*
- * Method: isEmpty
- * Usage: if (g.isEmpty()) ...
- * ---------------------------
- * Returns <code>true</code> if the graph is empty.
- */
+     * Method: isEmpty
+     * Usage: if (g.isEmpty()) ...
+     * ---------------------------
+     * Returns <code>true</code> if the graph is empty.
+     */
 
     bool isEmpty() const;
 
     /*
- * Method: clear
- * Usage: g.clear();
- * -----------------
- * Reinitializes the graph to be empty, freeing any heap storage.
- */
+     * Method: clear
+     * Usage: g.clear();
+     * -----------------
+     * Reinitializes the graph to be empty, freeing any heap storage.
+     */
 
     void clear();
 
     /*
- * Method: addNode
- * Usage: NodeType *node = g.addNode(name);
- *        NodeType *node = g.addNode(node);
- * ----------------------------------------
- * Adds a node to the graph.  The first version of this method
- * creates a new node of the appropriate type and initializes its
- * fields; the second assumes that the client has already created
- * the node and simply adds it to the graph.  Both versions of this
- * method return a pointer to the node.
- */
+     * Method: addNode
+     * Usage: NodeType *node = g.addNode(name);
+     *        NodeType *node = g.addNode(node);
+     * ----------------------------------------
+     * Adds a node to the graph.  The first version of this method
+     * creates a new node of the appropriate type and initializes its
+     * fields; the second assumes that the client has already created
+     * the node and simply adds it to the graph.  Both versions of this
+     * method return a pointer to the node.
+     */
 
-    NodeType* addNode(std::string name);
+    NodeType* addNode(const std::string& name);
     NodeType* addNode(NodeType* node);
 
     /*
- * Method: removeNode
- * Usage: g.removeNode(name);
- *        g.removeNode(node);
- * --------------------------
- * Removes a node from the graph, where the node can be specified
- * either by its name or as a pointer value.  Removing a node also
- * removes all arcs that contain that node.
- */
+     * Method: removeNode
+     * Usage: g.removeNode(name);
+     *        g.removeNode(node);
+     * --------------------------
+     * Removes a node from the graph, where the node can be specified
+     * either by its name or as a pointer value.  Removing a node also
+     * removes all arcs that contain that node.
+     */
 
-    void removeNode(std::string name);
+    void removeNode(const std::string& name);
     void removeNode(NodeType* node);
 
     /*
- * Method: getNode
- * Usage: NodeType *node = g.getNode(name);
- * ----------------------------------------
- * Looks up a node in the name table attached to the graph and
- * returns a pointer to that node.  If no node with the specified
- * name exists, <code>getNode</code> returns <code>nullptr</code>.
- */
+     * Method: getNode
+     * Usage: NodeType *node = g.getNode(name);
+     * ----------------------------------------
+     * Looks up a node in the name table attached to the graph and
+     * returns a pointer to that node.  If no node with the specified
+     * name exists, <code>getNode</code> returns <code>nullptr</code>.
+     */
 
-    NodeType* getNode(std::string name) const;
+    NodeType* getNode(const std::string& name) const;
 
     /*
- * Method: addArc
- * Usage: g.addArc(s1, s2);
- *        g.addArc(n1, n2);
- *        g.addArc(arc);
- * ---------------------
- * Adds an arc to the graph.  The endpoints of the arc can be specified
- * either as strings indicating the names of the nodes or as pointers
- * to the node structures.  Alternatively, the client can create the arc
- * structure explicitly and pass that pointer to the <code>addArc</code>
- * method.  All three of these versions return a pointer to the arc in
- * case the client needs to capture this value.
- */
+     * Method: addArc
+     * Usage: g.addArc(s1, s2);
+     *        g.addArc(n1, n2);
+     *        g.addArc(arc);
+     * ---------------------
+     * Adds an arc to the graph.  The endpoints of the arc can be specified
+     * either as strings indicating the names of the nodes or as pointers
+     * to the node structures.  Alternatively, the client can create the arc
+     * structure explicitly and pass that pointer to the <code>addArc</code>
+     * method.  All three of these versions return a pointer to the arc in
+     * case the client needs to capture this value.
+     */
 
-    ArcType* addArc(std::string s1, std::string s2);
+    ArcType* addArc(const std::string& s1, const std::string& s2);
     ArcType* addArc(NodeType* n1, NodeType* n2);
     ArcType* addArc(ArcType* arc);
 
     /*
- * Method: removeArc
- * Usage: g.removeArc(s1, s2);
- *        g.removeArc(n1, n2);
- *        g.removeArc(arc);
- * ------------------------
- * Removes an arc from the graph, where the arc can be specified in any
- * of three ways: by the names of its endpoints, by the node pointers
- * at its endpoints, or as an arc pointer.  If more than one arc
- * connects the specified endpoints, all of them are removed.
- */
+     * Method: removeArc
+     * Usage: g.removeArc(s1, s2);
+     *        g.removeArc(n1, n2);
+     *        g.removeArc(arc);
+     * ------------------------
+     * Removes an arc from the graph, where the arc can be specified in any
+     * of three ways: by the names of its endpoints, by the node pointers
+     * at its endpoints, or as an arc pointer.  If more than one arc
+     * connects the specified endpoints, all of them are removed.
+     */
 
-    void removeArc(std::string s1, std::string s2);
+    void removeArc(const std::string& s1, const std::string& s2);
     void removeArc(NodeType* n1, NodeType* n2);
     void removeArc(ArcType* arc);
 
     /*
- * Method: isConnected
- * Usage: if (g.isConnected(n1, n2)) ...
- *        if (g.isConnected(s1, s2)) ...
- * -------------------------------------
- * Returns <code>true</code> if the graph contains an arc from
- * <code>n1</code> to <code>n2</code>.  As in the <code>addArc</code>
- * method, nodes can be specified either as node pointers or by name.
- */
+     * Method: isConnected
+     * Usage: if (g.isConnected(n1, n2)) ...
+     *        if (g.isConnected(s1, s2)) ...
+     * -------------------------------------
+     * Returns <code>true</code> if the graph contains an arc from
+     * <code>n1</code> to <code>n2</code>.  As in the <code>addArc</code>
+     * method, nodes can be specified either as node pointers or by name.
+     */
 
     bool isConnected(NodeType* n1, NodeType* n2) const;
-    bool isConnected(std::string s1, std::string s2) const;
+    bool isConnected(const std::string& s1, const std::string& s2) const;
 
     /*
- * Method: getNodeSet
- * Usage: for (const NodeType *&node: g.getNodeSet()) ...
- * -----------------------------------------------------
- * Returns the set of all nodes in the graph.
- */
+     * Method: getNodeSet
+     * Usage: for (const NodeType *&node: g.getNodeSet()) ...
+     * -----------------------------------------------------
+     * Returns the set of all nodes in the graph.
+     */
 
     const Set<NodeType*>& getNodeSet() const;
 
     /*
- * Method: getArcSet
- * Usage: for (const ArcType *&arc: g.getArcSet()) ...
- *        for (const ArcType *&arc: g.getArcSet(node)) ...
- *        for (const ArcType *&arc: g.getArcSet(name)) ...
- * ------------------------------------------------------
- * Returns the set of all arcs in the graph or, in the second and
- * third forms, the arcs that start at the specified node, which
- * can be indicated either as a pointer or by name.
- */
+     * Method: getArcSet
+     * Usage: for (const ArcType *&arc: g.getArcSet()) ...
+     *        for (const ArcType *&arc: g.getArcSet(node)) ...
+     *        for (const ArcType *&arc: g.getArcSet(name)) ...
+     * ------------------------------------------------------
+     * Returns the set of all arcs in the graph or, in the second and
+     * third forms, the arcs that start at the specified node, which
+     * can be indicated either as a pointer or by name.
+     */
 
     const Set<ArcType*>& getArcSet() const;
     const Set<ArcType*>& getArcSet(NodeType* node) const;
-    const Set<ArcType*>& getArcSet(std::string name) const;
+    const Set<ArcType*>& getArcSet(const std::string& name) const;
 
     /*
- * Method: getNeighbors
- * Usage: for (const NodeType *&node: g.getNeighbors(node)) ...
- *        for (const NodeType *&node: g.getNeighbors(name)) ...
- * -----------------------------------------------------------
- * Returns the set of nodes that are neighbors of the specified
- * node, which can be indicated either as a pointer or by name.
- */
+     * Method: getNeighbors
+     * Usage: for (const NodeType *&node: g.getNeighbors(node)) ...
+     *        for (const NodeType *&node: g.getNeighbors(name)) ...
+     * -----------------------------------------------------------
+     * Returns the set of nodes that are neighbors of the specified
+     * node, which can be indicated either as a pointer or by name.
+     */
 
     const Set<NodeType*> getNeighbors(NodeType* node) const;
-    const Set<NodeType*> getNeighbors(std::string node) const;
+    const Set<NodeType*> getNeighbors(const std::string& node) const;
 
     /*
- * Method: toString
- * Usage: string str = g.toString();
- * ---------------------------------
- * Converts the graph to a printable string representation.
- */
+     * Method: toString
+     * Usage: string str = g.toString();
+     * ---------------------------------
+     * Converts the graph to a printable string representation.
+     */
 
     std::string toString();
 
     /*
- * Friend method: writeNodeData
- * Usage: writeNodeData(os, NodeType *node);
- * -----------------------------------------
- * Writes the data for the node to the output stream.  The default
- * implementation of this method is empty.  Clients that want to store
- * other fields from the node must override this method so that it
- * writes that data in a form that scanNodeData can read.
- */
+     * Friend method: writeNodeData
+     * Usage: writeNodeData(os, NodeType *node);
+     * -----------------------------------------
+     * Writes the data for the node to the output stream.  The default
+     * implementation of this method is empty.  Clients that want to store
+     * other fields from the node must override this method so that it
+     * writes that data in a form that scanNodeData can read.
+     */
 
-    virtual void writeNodeData(std::ostream& os, NodeType* node) const { /* Empty */ }
-
-    /*
- * Friend method: writeArcData
- * Usage: writeArcData(os, ArcType *arc);
- * --------------------------------------
- * Writes the data for the arc to the output stream.  The default
- * implementation of this method is empty.  Clients that want to store
- * other fields from the arc must override this method so that it writes
- * that data in a form that scanArcData can read.
- */
-
-    virtual void writeArcData(std::ostream& os, ArcType* arc) const { /* Empty */ }
+    virtual void writeNodeData(std::ostream& os, NodeType* node) const {
+        /* Empty */
+    }
 
     /*
- * Friend method: scanGraphEntry
- * Usage: while (g.scanGraphEntry(scanner)) { }
- * --------------------------------------------
- * This method reads one "entry" for the graph, which is either a node
- * description or an arc description.  The <code>scanGraphEntry</code>
- * method returns <code>true</code> if it reads an entry, and
- * <code>false</code> at the end of file or at text that cannot be
- * recognized as a graph entry.
- *
- * <p>Node entries consist of the name of a node (which may be quoted
- * if it contains special characters), optionally followed by data for
- * the node.  Arc descriptions have one of the following forms:
- *
- *<pre>
- *    n1 -> n2
- *    n1 - n2
- *</pre>
- *
- * either of which can be followed by data for the arc.  The first form
- * creates a single directed arc; the second creates two arcs, one in
- * each direction.
- *
- * <p>Clients who want to read node or arc data must override the empty
- * versions of <code>scanNodeData</code> and <code>scanArcData</code>
- * included in this interface.
- */
+     * Friend method: writeArcData
+     * Usage: writeArcData(os, ArcType *arc);
+     * --------------------------------------
+     * Writes the data for the arc to the output stream.  The default
+     * implementation of this method is empty.  Clients that want to store
+     * other fields from the arc must override this method so that it writes
+     * that data in a form that scanArcData can read.
+     */
+
+    virtual void writeArcData(std::ostream& os, ArcType* arc) const {
+        /* Empty */
+    }
+
+    /*
+     * Friend method: scanGraphEntry
+     * Usage: while (g.scanGraphEntry(scanner)) { }
+     * --------------------------------------------
+     * This method reads one "entry" for the graph, which is either a node
+     * description or an arc description.  The <code>scanGraphEntry</code>
+     * method returns <code>true</code> if it reads an entry, and
+     * <code>false</code> at the end of file or at text that cannot be
+     * recognized as a graph entry.
+     *
+     * <p>Node entries consist of the name of a node (which may be quoted
+     * if it contains special characters), optionally followed by data for
+     * the node.  Arc descriptions have one of the following forms:
+     *
+     *<pre>
+     *    n1 -> n2
+     *    n1 - n2
+     *</pre>
+     *
+     * either of which can be followed by data for the arc.  The first form
+     * creates a single directed arc; the second creates two arcs, one in
+     * each direction.
+     *
+     * <p>Clients who want to read node or arc data must override the empty
+     * versions of <code>scanNodeData</code> and <code>scanArcData</code>
+     * included in this interface.
+     */
 
     virtual bool scanGraphEntry(TokenScanner& scanner);
 
     /*
- * Friend method: scanNodeData
- * Usage: scanNodeData(scanner, NodeType *node);
- * ---------------------------------------------
- * Reads the data for the specified node from the scanner.  The default
- * implementation of this method is empty.  Clients that want to initialize
- * other fields in the node from the token stream must override this method.
- */
+     * Friend method: scanNodeData
+     * Usage: scanNodeData(scanner, NodeType *node);
+     * ---------------------------------------------
+     * Reads the data for the specified node from the scanner.  The default
+     * implementation of this method is empty.  Clients that want to initialize
+     * other fields in the node from the token stream must override this method.
+     */
 
-    virtual void scanNodeData(TokenScanner& scanner, NodeType* node) { /* Empty */ }
+    virtual void scanNodeData(TokenScanner& scanner, NodeType* node) {
+        /* Empty */
+    }
 
     /*
- * Friend method: scanArcData
- * Usage: scanArcData(scanner, ArcType *forward, ArcType *backward);
- * -----------------------------------------------------------------
- * Reads the data for an arc from the scanner.  The <code>forward</code>
- * argument points to the arc in the forward direction.  If the arc is
- * undirected, <code>backward</code> points to the reverse arc; for
- * directed arcs, the <code>backward</code> pointer is <code>nullptr</code>.
- * The default implementation of this method is empty.  Clients that want
- * to initialize other fields in the arc must override this method so
- * that it initializes one or both arc, as appropriate.
- */
+     * Friend method: scanArcData
+     * Usage: scanArcData(scanner, ArcType *forward, ArcType *backward);
+     * -----------------------------------------------------------------
+     * Reads the data for an arc from the scanner.  The <code>forward</code>
+     * argument points to the arc in the forward direction.  If the arc is
+     * undirected, <code>backward</code> points to the reverse arc; for
+     * directed arcs, the <code>backward</code> pointer is <code>nullptr</code>.
+     * The default implementation of this method is empty.  Clients that want
+     * to initialize other fields in the arc must override this method so
+     * that it initializes one or both arc, as appropriate.
+     */
 
     virtual void scanArcData(TokenScanner& scanner, ArcType* forward, ArcType* backward) {
         /* Empty */
@@ -324,28 +330,32 @@ class Graph {
     /**********************************************************************/
 
     /*
- * Private class: GraphComparator
- * ------------------------------
- * This template class establishes the ordering for nodes and arcs.
- * Nodes are processed in alphabetical order by node name; arcs are
- * compared in much the same way, looking first at the start node and
- * then continuing on to look at the finish node if the start nodes
- * match.  These functions, however, indicate equality only if the
- * arguments are identical, in the sense that they are at the same
- * address.  If two distinct arcs, for example, connect the same pair
- * of nodes (which is perfectly legal in the graph abstraction and can
- * be used, for example, to represent multiple modes of travel between
- * two nodes), those arcs are not the same.
- */
+     * Private class: GraphComparator
+     * ------------------------------
+     * This template class establishes the ordering for nodes and arcs.
+     * Nodes are processed in alphabetical order by node name; arcs are
+     * compared in much the same way, looking first at the start node and
+     * then continuing on to look at the finish node if the start nodes
+     * match.  These functions, however, indicate equality only if the
+     * arguments are identical, in the sense that they are at the same
+     * address.  If two distinct arcs, for example, connect the same pair
+     * of nodes (which is perfectly legal in the graph abstraction and can
+     * be used, for example, to represent multiple modes of travel between
+     * two nodes), those arcs are not the same.
+     */
 
     class GraphComparator {
-      public:
-        bool operator()(NodeType* n1, NodeType* n2) { return compare(n1, n2) < 0; }
+    public:
+        bool operator()(NodeType* n1, NodeType* n2) {
+            return compare(n1, n2) < 0;
+        }
 
-        bool operator()(ArcType* a1, ArcType* a2) { return compare(a1, a2) < 0; }
+        bool operator()(ArcType* a1, ArcType* a2) {
+            return compare(a1, a2) < 0;
+        }
     };
 
-  private:
+private:
     /* Instance variables */
 
     Set<NodeType*> nodes;                /* The set of nodes in the graph */
@@ -354,13 +364,13 @@ class Graph {
     GraphComparator comparator;          /* The comparator for this graph */
 
     /*
- * Functions: operator=, copy constructor
- * --------------------------------------
- * These functions are part of the public interface of the class but are
- * defined here to avoid adding confusion to the Graph class.
- */
+     * Functions: operator=, copy constructor
+     * --------------------------------------
+     * These functions are part of the public interface of the class but are
+     * defined here to avoid adding confusion to the Graph class.
+     */
 
-  public:
+public:
     Graph& operator=(const Graph& src);
     Graph(const Graph& src);
 
@@ -392,7 +402,82 @@ class Graph {
         return (a1 < a2) ? -1 : +1;
     }
 
-  private:
+    /*
+     * Iterator support
+     * ----------------
+     * The classes in the StanfordCPPLib collection implement input
+     * iterators so that they work symmetrically with respect to the
+     * corresponding STL classes.
+     */
+
+    class iterator {
+    public:
+        using iterator_category = std::input_iterator_tag;
+        using value_type = NodeType*;
+        using difference_type = NodeType*;
+        using pointer = NodeType**;
+        using reference = NodeType*&;
+
+        iterator() : gp(nullptr) {
+            // empty
+        }
+
+        iterator(const Graph& graph, bool end) {
+            gp = &graph;
+            if (end) {
+                setitr = gp->getNodeSet().end();
+            } else {
+                setitr = gp->getNodeSet().begin();
+            }
+        }
+
+        iterator(const iterator& it) : gp(it.gp), setitr(it.setitr) {
+            // empty
+        }
+
+        iterator& operator++() {
+            setitr++;
+            return *this;
+        }
+
+        iterator operator++(int) {
+            iterator copy(*this);
+            operator++();
+            return copy;
+        }
+
+        bool operator==(const iterator& rhs) {
+            return gp == rhs.gp && setitr == rhs.setitr;
+        }
+
+        bool operator!=(const iterator& rhs) {
+            return !(*this == rhs);
+        }
+
+        NodeType* operator*() {
+            return *setitr;
+        }
+
+        NodeType** operator->() {
+            return &(*setitr);
+        }
+
+        friend class Graph;
+
+    private:
+        const Graph* gp;
+        typename Set<NodeType*>::iterator setitr;
+    };
+
+    iterator begin() const {
+        return iterator(*this, false);
+    }
+
+    iterator end() const {
+        return iterator(*this, true);
+    }
+
+private:
     void deepCopy(const Graph& src);
     NodeType* getExistingNode(std::string name) const;
     NodeType* scanNode(TokenScanner& scanner);
@@ -457,10 +542,10 @@ bool Graph<NodeType, ArcType>::isEmpty() const {
 
 template <typename NodeType, typename ArcType>
 void Graph<NodeType, ArcType>::clear() {
-    for (NodeType* node: nodes) {
+    for (NodeType* node : nodes) {
         delete node;
     }
-    for (ArcType* arc: arcs) {
+    for (ArcType* arc : arcs) {
         delete arc;
     }
     arcs.clear();
@@ -479,7 +564,7 @@ void Graph<NodeType, ArcType>::clear() {
  */
 
 template <typename NodeType, typename ArcType>
-NodeType* Graph<NodeType, ArcType>::addNode(std::string name) {
+NodeType* Graph<NodeType, ArcType>::addNode(const std::string& name) {
     NodeType* node = new NodeType();
     node->arcs = Set<ArcType*>(comparator);
     node->name = name;
@@ -506,19 +591,19 @@ NodeType* Graph<NodeType, ArcType>::addNode(NodeType* node) {
  */
 
 template <typename NodeType, typename ArcType>
-void Graph<NodeType, ArcType>::removeNode(std::string name) {
+void Graph<NodeType, ArcType>::removeNode(const std::string& name) {
     removeNode(getExistingNode(name));
 }
 
 template <typename NodeType, typename ArcType>
 void Graph<NodeType, ArcType>::removeNode(NodeType* node) {
     Vector<ArcType*> toRemove;
-    for (ArcType* arc: arcs) {
+    for (ArcType* arc : arcs) {
         if (arc->start == node || arc->finish == node) {
             toRemove.add(arc);
         }
     }
-    for (ArcType* arc: toRemove) {
+    for (ArcType* arc : toRemove) {
         removeArc(arc);
     }
     nodes.remove(node);
@@ -534,7 +619,7 @@ void Graph<NodeType, ArcType>::removeNode(NodeType* node) {
  */
 
 template <typename NodeType, typename ArcType>
-NodeType* Graph<NodeType, ArcType>::getNode(std::string name) const {
+NodeType* Graph<NodeType, ArcType>::getNode(const std::string& name) const {
     return nodeMap.get(name);
 }
 
@@ -555,7 +640,7 @@ NodeType* Graph<NodeType, ArcType>::getExistingNode(std::string name) const {
  */
 
 template <typename NodeType, typename ArcType>
-ArcType* Graph<NodeType, ArcType>::addArc(std::string s1, std::string s2) {
+ArcType* Graph<NodeType, ArcType>::addArc(const std::string& s1, const std::string& s2) {
     return addArc(getExistingNode(s1), getExistingNode(s2));
 }
 
@@ -586,19 +671,19 @@ ArcType* Graph<NodeType, ArcType>::addArc(ArcType* arc) {
  */
 
 template <typename NodeType, typename ArcType>
-void Graph<NodeType, ArcType>::removeArc(std::string s1, std::string s2) {
+void Graph<NodeType, ArcType>::removeArc(const std::string& s1, const std::string& s2) {
     removeArc(getExistingNode(s1), getExistingNode(s2));
 }
 
 template <typename NodeType, typename ArcType>
 void Graph<NodeType, ArcType>::removeArc(NodeType* n1, NodeType* n2) {
     Vector<ArcType*> toRemove;
-    for (ArcType* arc: arcs) {
+    for (ArcType* arc : arcs) {
         if (arc->start == n1 && arc->finish == n2) {
             toRemove.add(arc);
         }
     }
-    for (ArcType* arc: toRemove) {
+    for (ArcType* arc : toRemove) {
         removeArc(arc);
     }
 }
@@ -619,7 +704,7 @@ void Graph<NodeType, ArcType>::removeArc(ArcType* arc) {
 
 template <typename NodeType, typename ArcType>
 bool Graph<NodeType, ArcType>::isConnected(NodeType* n1, NodeType* n2) const {
-    for (ArcType* arc: n1->arcs) {
+    for (ArcType* arc : n1->arcs) {
         if (arc->finish == n2)
             return true;
     }
@@ -627,7 +712,7 @@ bool Graph<NodeType, ArcType>::isConnected(NodeType* n1, NodeType* n2) const {
 }
 
 template <typename NodeType, typename ArcType>
-bool Graph<NodeType, ArcType>::isConnected(std::string s1, std::string s2) const {
+bool Graph<NodeType, ArcType>::isConnected(const std::string& s1, const std::string& s2) const {
     return isConnected(getExistingNode(s1), getExistingNode(s2));
 }
 
@@ -655,7 +740,7 @@ const Set<ArcType*>& Graph<NodeType, ArcType>::getArcSet(NodeType* node) const {
 }
 
 template <typename NodeType, typename ArcType>
-const Set<ArcType*>& Graph<NodeType, ArcType>::getArcSet(std::string name) const {
+const Set<ArcType*>& Graph<NodeType, ArcType>::getArcSet(const std::string& name) const {
     return getArcSet(getExistingNode(name));
 }
 
@@ -669,15 +754,15 @@ const Set<ArcType*>& Graph<NodeType, ArcType>::getArcSet(std::string name) const
 template <typename NodeType, typename ArcType>
 const Set<NodeType*> Graph<NodeType, ArcType>::getNeighbors(NodeType* node) const {
     Set<NodeType*> nodes = Set<NodeType*>(comparator);
-    for (ArcType* arc: node->arcs) {
+    for (ArcType* arc : node->arcs) {
         nodes.add(arc->finish);
     }
     return nodes;
 }
 
 template <typename NodeType, typename ArcType>
-const Set<NodeType*> Graph<NodeType, ArcType>::getNeighbors(std::string name) const {
-    return getNeighbors(getExistingNode(name));
+const Set<NodeType*> Graph<NodeType, ArcType>::getNeighbors(const std::string& node) const {
+    return getNeighbors(getExistingNode(node));
 }
 
 /*
@@ -712,13 +797,13 @@ Graph<NodeType, ArcType>::Graph(const Graph& src) {
 
 template <typename NodeType, typename ArcType>
 void Graph<NodeType, ArcType>::deepCopy(const Graph& src) {
-    for (NodeType* oldNode: src.nodes) {
+    for (NodeType* oldNode : src.nodes) {
         NodeType* newNode = new NodeType();
         *newNode = *oldNode;
         newNode->arcs.clear();
         addNode(newNode);
     }
-    for (ArcType* oldArc: src.arcs) {
+    for (ArcType* oldArc : src.arcs) {
         ArcType* newArc = new ArcType();
         *newArc = *oldArc;
         newArc->start = getExistingNode(oldArc->start->name);
@@ -808,14 +893,14 @@ template <typename NodeType, typename ArcType>
 std::ostream& operator<<(std::ostream& os, const Graph<NodeType, ArcType>& g) {
     os << "{";
     bool started = false;
-    for (NodeType* node: g.getNodeSet()) {
+    for (NodeType* node : g.getNodeSet()) {
         if (started)
             os << ", ";
         writeGenericValue(os, node->name, false);
         g.writeNodeData(os, node);
         started = true;
     }
-    for (ArcType* arc: g.getArcSet()) {
+    for (ArcType* arc : g.getArcSet()) {
         os << ", ";
         writeGenericValue(os, arc->start->name, false);
         os << " -> ";

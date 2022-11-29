@@ -24,126 +24,125 @@
 
 template <typename KeyType, typename ValueType>
 class Map {
-
-  public:
+public:
     /*
- * Constructor: Map
- * Usage: Map<KeyType,ValueType> map;
- * ----------------------------------
- * Initializes a new empty map that associates keys and values of the
- * specified types.
- */
+     * Constructor: Map
+     * Usage: Map<KeyType,ValueType> map;
+     * ----------------------------------
+     * Initializes a new empty map that associates keys and values of the
+     * specified types.
+     */
 
     Map();
 
     /*
- * Destructor: ~Map
- * ----------------
- * Frees any heap storage associated with this map.
- */
+     * Destructor: ~Map
+     * ----------------
+     * Frees any heap storage associated with this map.
+     */
 
     virtual ~Map();
 
     /*
- * Method: size
- * Usage: int nEntries = map.size();
- * ---------------------------------
- * Returns the number of entries in this map.
- */
+     * Method: size
+     * Usage: int nEntries = map.size();
+     * ---------------------------------
+     * Returns the number of entries in this map.
+     */
 
     int size() const;
 
     /*
- * Method: isEmpty
- * Usage: if (map.isEmpty()) ...
- * -----------------------------
- * Returns <code>true</code> if this map contains no entries.
- */
+     * Method: isEmpty
+     * Usage: if (map.isEmpty()) ...
+     * -----------------------------
+     * Returns <code>true</code> if this map contains no entries.
+     */
 
     bool isEmpty() const;
 
     /*
- * Method: put
- * Usage: map.put(key, value);
- * ---------------------------
- * Associates <code>key</code> with <code>value</code> in this map.
- * Any previous value associated with <code>key</code> is replaced
- * by the new value.
- */
+     * Method: put
+     * Usage: map.put(key, value);
+     * ---------------------------
+     * Associates <code>key</code> with <code>value</code> in this map.
+     * Any previous value associated with <code>key</code> is replaced
+     * by the new value.
+     */
 
     void put(const KeyType& key, const ValueType& value);
 
     /*
- * Method: get
- * Usage: ValueType value = map.get(key);
- * --------------------------------------
- * Returns the value associated with <code>key</code> in this map.
- * If <code>key</code> is not found, <code>get</code> returns the
- * default value for <code>ValueType</code>.
- */
+     * Method: get
+     * Usage: ValueType value = map.get(key);
+     * --------------------------------------
+     * Returns the value associated with <code>key</code> in this map.
+     * If <code>key</code> is not found, <code>get</code> returns the
+     * default value for <code>ValueType</code>.
+     */
 
     ValueType get(const KeyType& key) const;
 
     /*
- * Method: containsKey
- * Usage: if (map.containsKey(key)) ...
- * ------------------------------------
- * Returns <code>true</code> if there is an entry for <code>key</code>
- * in this map.
- */
+     * Method: containsKey
+     * Usage: if (map.containsKey(key)) ...
+     * ------------------------------------
+     * Returns <code>true</code> if there is an entry for <code>key</code>
+     * in this map.
+     */
 
     bool containsKey(const KeyType& key) const;
 
     /*
- * Method: remove
- * Usage: map.remove(key);
- * -----------------------
- * Removes any entry for <code>key</code> from this map.
- */
+     * Method: remove
+     * Usage: map.remove(key);
+     * -----------------------
+     * Removes any entry for <code>key</code> from this map.
+     */
 
     void remove(const KeyType& key);
 
     /*
- * Method: clear
- * Usage: map.clear();
- * -------------------
- * Removes all entries from this map.
- */
+     * Method: clear
+     * Usage: map.clear();
+     * -------------------
+     * Removes all entries from this map.
+     */
 
     void clear();
 
     /*
- * Operator: []
- * Usage: map[key]
- * ---------------
- * Selects the value associated with <code>key</code>.  This syntax
- * makes it easy to think of a map as an "associative array"
- * indexed by the key type.  If <code>key</code> is already present
- * in the map, this function returns a reference to its associated
- * value.  If key is not present in the map, a new entry is created
- * whose value is set to the default for the value type.
- */
+     * Operator: []
+     * Usage: map[key]
+     * ---------------
+     * Selects the value associated with <code>key</code>.  This syntax
+     * makes it easy to think of a map as an "associative array"
+     * indexed by the key type.  If <code>key</code> is already present
+     * in the map, this function returns a reference to its associated
+     * value.  If key is not present in the map, a new entry is created
+     * whose value is set to the default for the value type.
+     */
 
     ValueType& operator[](const KeyType& key);
     ValueType operator[](const KeyType& key) const;
 
     /*
- * Method: toString
- * Usage: string str = map.toString();
- * -----------------------------------
- * Converts the map to a printable string representation.
- */
+     * Method: toString
+     * Usage: string str = map.toString();
+     * -----------------------------------
+     * Converts the map to a printable string representation.
+     */
 
     std::string toString();
 
     /*
- * Method: mapAll
- * Usage: map.mapAll(fn);
- * ----------------------
- * Iterates through the map entries and calls <code>fn(key, value)</code>
- * for each one.  The keys are processed in ascending order, as defined
- * by the comparison function.
- */
+     * Method: mapAll
+     * Usage: map.mapAll(fn);
+     * ----------------------
+     * Iterates through the map entries and calls <code>fn(key, value)</code>
+     * for each one.  The keys are processed in ascending order, as defined
+     * by the comparison function.
+     */
 
     void mapAll(void (*fn)(KeyType, ValueType)) const;
     void mapAll(void (*fn)(const KeyType&, const ValueType&)) const;
@@ -151,19 +150,19 @@ class Map {
     void mapAll(FunctorType fn) const;
 
     /*
- * Additional Map operations
- * -------------------------
- * In addition to the methods listed in this interface, the Map
- * class supports the following operations:
- *
- *   - Stream I/O using the << and >> operators
- *   - Deep copying for the copy constructor and assignment operator
- *   - Iteration using the range-based for statement and STL iterators
- *
- * All iteration is guaranteed to proceed in the order established by
- * the comparison function passed to the constructor, which ordinarily
- * matches the order of the key type.
- */
+     * Additional Map operations
+     * -------------------------
+     * In addition to the methods listed in this interface, the Map
+     * class supports the following operations:
+     *
+     *   - Stream I/O using the << and >> operators
+     *   - Deep copying for the copy constructor and assignment operator
+     *   - Iteration using the range-based for statement and STL iterators
+     *
+     * All iteration is guaranteed to proceed in the order established by
+     * the comparison function passed to the constructor, which ordinarily
+     * matches the order of the key type.
+     */
 
     /* Private section */
 
@@ -173,14 +172,14 @@ class Map {
     /**********************************************************************/
 
     /*
- * Implementation notes:
- * ---------------------
- * The map class is represented using a binary search tree.  The
- * specific implementation used here is the classic AVL algorithm
- * developed by Georgii Adel'son-Vel'skii and Evgenii Landis in 1962.
- */
+     * Implementation notes:
+     * ---------------------
+     * The map class is represented using a binary search tree.  The
+     * specific implementation used here is the classic AVL algorithm
+     * developed by Georgii Adel'son-Vel'skii and Evgenii Landis in 1962.
+     */
 
-  private:
+private:
     /* Constant definitions */
 
     static const int BST_LEFT_HEAVY = -1;
@@ -198,25 +197,26 @@ class Map {
     };
 
     /*
- * Implementation notes: Comparator
- * --------------------------------
- * The Comparator class encapsulates a functor that compares two values
- * of KeyType.  In contrast to the classes in the STL, all of which embed
- * the comparator in the type, the Map class and its derivatives pass an
- * optional Comparator value.  While this strategy results in a more
- * complex implementation, it has the advantage of allowing maps and sets
- * to carry their own comparators without forcing the client to include
- * the comparator in the template declaration.  This simplification is
- * particularly important for the Graph class.
- *
- * The allocation is required in the TemplateComparator class because
- * the type std::binary_function has subclasses but does not define a
- * virtual destructor.
- */
+     * Implementation notes: Comparator
+     * --------------------------------
+     * The Comparator class encapsulates a functor that compares two values
+     * of KeyType.  In contrast to the classes in the STL, all of which embed
+     * the comparator in the type, the Map class and its derivatives pass an
+     * optional Comparator value.  While this strategy results in a more
+     * complex implementation, it has the advantage of allowing maps and sets
+     * to carry their own comparators without forcing the client to include
+     * the comparator in the template declaration.  This simplification is
+     * particularly important for the Graph class.
+     *
+     * The allocation is required in the TemplateComparator class because
+     * the type std::binary_function has subclasses but does not define a
+     * virtual destructor.
+     */
 
     class Comparator {
-      public:
-        virtual ~Comparator() {}
+    public:
+        virtual ~Comparator() {
+        }
 
         virtual bool lessThan(const KeyType& k1, const KeyType& k2) = 0;
         virtual Comparator* clone() = 0;
@@ -224,20 +224,30 @@ class Map {
 
     template <typename CompareType>
     class TemplateComparator : public Comparator {
-      public:
-        TemplateComparator(CompareType cmp) { this->cmp = new CompareType(cmp); }
+    public:
+        TemplateComparator(CompareType cmp) {
+            this->cmp = new CompareType(cmp);
+        }
 
-        ~TemplateComparator() { delete cmp; }
+        ~TemplateComparator() {
+            delete cmp;
+        }
 
-        virtual bool lessThan(const KeyType& k1, const KeyType& k2) { return (*cmp)(k1, k2); }
+        virtual bool lessThan(const KeyType& k1, const KeyType& k2) {
+            return (*cmp)(k1, k2);
+        }
 
-        virtual Comparator* clone() { return new TemplateComparator<CompareType>(*cmp); }
+        virtual Comparator* clone() {
+            return new TemplateComparator<CompareType>(*cmp);
+        }
 
-      private:
+    private:
         CompareType* cmp;
     };
 
-    Comparator& getComparator() const { return *cmpp; }
+    Comparator& getComparator() const {
+        return *cmpp;
+    }
 
     /* Instance variables */
 
@@ -248,13 +258,13 @@ class Map {
     /* Private methods */
 
     /*
- * Implementation notes: findNode(t, key)
- * --------------------------------------
- * Searches the tree rooted at t to find the specified key, searching
- * in the left or right subtree, as approriate.  If a matching node
- * is found, findNode returns a pointer to the value cell in that node.
- * If no matching node exists in the tree, findNode returns nullptr.
- */
+     * Implementation notes: findNode(t, key)
+     * --------------------------------------
+     * Searches the tree rooted at t to find the specified key, searching
+     * in the left or right subtree, as approriate.  If a matching node
+     * is found, findNode returns a pointer to the value cell in that node.
+     * If no matching node exists in the tree, findNode returns nullptr.
+     */
 
     ValueType* findNode(BSTNode* t, const KeyType& key) const {
         if (t == nullptr)
@@ -270,16 +280,16 @@ class Map {
     }
 
     /*
- * Implementation notes: addNode(t, key, heightFlag)
- * -------------------------------------------------
- * Searches the tree rooted at t to find the specified key, searching
- * in the left or right subtree, as approriate.  If a matching node
- * is found, addNode returns a pointer to the value cell in that node,
- * just like findNode.  If no matching node exists in the tree, addNode
- * creates a new node with a default value.  The heightFlag reference
- * parameter returns a bool indicating whether the height of the tree
- * was changed by this operation.
- */
+     * Implementation notes: addNode(t, key, heightFlag)
+     * -------------------------------------------------
+     * Searches the tree rooted at t to find the specified key, searching
+     * in the left or right subtree, as approriate.  If a matching node
+     * is found, addNode returns a pointer to the value cell in that node,
+     * just like findNode.  If no matching node exists in the tree, addNode
+     * creates a new node with a default value.  The heightFlag reference
+     * parameter returns a bool indicating whether the height of the tree
+     * was changed by this operation.
+     */
 
     ValueType* addNode(BSTNode*& t, const KeyType& key, bool& heightFlag) {
         heightFlag = false;
@@ -313,12 +323,12 @@ class Map {
     }
 
     /*
- * Implementation notes: removeNode(t, key)
- * ----------------------------------------
- * Removes the node containing the specified key from the tree rooted
- * at t.  The return value is true if the height of this subtree
- * changes.  The removeTargetNode method does the actual deletion.
- */
+     * Implementation notes: removeNode(t, key)
+     * ----------------------------------------
+     * Removes the node containing the specified key from the tree rooted
+     * at t.  The return value is true if the height of this subtree
+     * changes.  The removeTargetNode method does the actual deletion.
+     */
 
     bool removeNode(BSTNode*& t, const KeyType& key) {
         if (t == nullptr)
@@ -339,16 +349,16 @@ class Map {
     }
 
     /*
- * Implementation notes: removeTargetNode(t)
- * -----------------------------------------
- * Removes the node which is passed by reference as t.  The easy case
- * occurs when either (or both) of the children is nullptr; all you need
- * to do is replace the node with its non-nullptr child, if any.  If both
- * children are non-nullptr, this code finds the rightmost descendent of
- * the left child; this node may not be a leaf, but will have no right
- * child.  Its left child replaces it in the tree, after which the
- * replacement data is moved to the position occupied by the target node.
- */
+     * Implementation notes: removeTargetNode(t)
+     * -----------------------------------------
+     * Removes the node which is passed by reference as t.  The easy case
+     * occurs when either (or both) of the children is nullptr; all you need
+     * to do is replace the node with its non-nullptr child, if any.  If both
+     * children are non-nullptr, this code finds the rightmost descendent of
+     * the left child; this node may not be a leaf, but will have no right
+     * child.  Its left child replaces it in the tree, after which the
+     * replacement data is moved to the position occupied by the target node.
+     */
 
     bool removeTargetNode(BSTNode*& t) {
         BSTNode* toDelete = t;
@@ -378,11 +388,11 @@ class Map {
     }
 
     /*
- * Implementation notes: updateBF(t, bfDelta)
- * ------------------------------------------
- * Updates the balance factor in the node and rebalances the tree
- * if necessary.
- */
+     * Implementation notes: updateBF(t, bfDelta)
+     * ------------------------------------------
+     * Updates the balance factor in the node and rebalances the tree
+     * if necessary.
+     */
 
     void updateBF(BSTNode*& t, int bfDelta) {
         t->bf += bfDelta;
@@ -394,13 +404,13 @@ class Map {
     }
 
     /*
- * Implementation notes: fixLeftImbalance(t)
- * -----------------------------------------
- * This function is called when a node has been found that is out
- * of balance with the longer subtree on the left.  Depending on
- * the balance factor of the left child, the code performs a
- * single or double rotation.
- */
+     * Implementation notes: fixLeftImbalance(t)
+     * -----------------------------------------
+     * This function is called when a node has been found that is out
+     * of balance with the longer subtree on the left.  Depending on
+     * the balance factor of the left child, the code performs a
+     * single or double rotation.
+     */
 
     void fixLeftImbalance(BSTNode*& t) {
         BSTNode* child = t->left;
@@ -433,13 +443,13 @@ class Map {
     }
 
     /*
- * Implementation notes: rotateLeft(t)
- * -----------------------------------
- * This function performs a single left rotation of the tree
- * that is passed by reference.  The balance factors
- * are unchanged by this function and must be corrected at a
- * higher level of the algorithm.
- */
+     * Implementation notes: rotateLeft(t)
+     * -----------------------------------
+     * This function performs a single left rotation of the tree
+     * that is passed by reference.  The balance factors
+     * are unchanged by this function and must be corrected at a
+     * higher level of the algorithm.
+     */
 
     void rotateLeft(BSTNode*& t) {
         BSTNode* child = t->right;
@@ -449,13 +459,13 @@ class Map {
     }
 
     /*
- * Implementation notes: fixRightImbalance(t)
- * ------------------------------------------
- * This function is called when a node has been found that
- * is out of balance with the longer subtree on the right.
- * Depending on the balance factor of the right child, the
- * code performs a single or double rotation.
- */
+     * Implementation notes: fixRightImbalance(t)
+     * ------------------------------------------
+     * This function is called when a node has been found that
+     * is out of balance with the longer subtree on the right.
+     * Depending on the balance factor of the right child, the
+     * code performs a single or double rotation.
+     */
 
     void fixRightImbalance(BSTNode*& t) {
         BSTNode* child = t->right;
@@ -488,16 +498,15 @@ class Map {
     }
 
     /*
- * Implementation notes: rotateRight(t)
- * ------------------------------------
- * This function performs a single right rotation of the tree
- * that is passed by reference.  The balance factors
- * are unchanged by this function and must be corrected at a
- * higher level of the algorithm.
- */
+     * Implementation notes: rotateRight(t)
+     * ------------------------------------
+     * This function performs a single right rotation of the tree
+     * that is passed by reference.  The balance factors
+     * are unchanged by this function and must be corrected at a
+     * higher level of the algorithm.
+     */
 
     void rotateRight(BSTNode*& t) {
-
         BSTNode* child = t->left;
         t->left = child->right;
         child->right = t;
@@ -505,10 +514,10 @@ class Map {
     }
 
     /*
- * Implementation notes: deleteTree(t)
- * -----------------------------------
- * Deletes all the nodes in the tree.
- */
+     * Implementation notes: deleteTree(t)
+     * -----------------------------------
+     * Deletes all the nodes in the tree.
+     */
 
     void deleteTree(BSTNode* t) {
         if (t != nullptr) {
@@ -519,10 +528,10 @@ class Map {
     }
 
     /*
- * Implementation notes: mapAll
- * ----------------------------
- * Calls fn(key, value) for every key-value pair in the tree.
- */
+     * Implementation notes: mapAll
+     * ----------------------------
+     * Calls fn(key, value) for every key-value pair in the tree.
+     */
 
     void mapAll(BSTNode* t, void (*fn)(KeyType, ValueType)) const {
         if (t != nullptr) {
@@ -567,15 +576,15 @@ class Map {
         return np;
     }
 
-  public:
+public:
     /*
- * Hidden features
- * ---------------
- * The remainder of this file consists of the code required to
- * support deep copying and iteration.  Including these methods in
- * the public portion of the interface would make that interface more
- * difficult to understand for the average client.
- */
+     * Hidden features
+     * ---------------
+     * The remainder of this file consists of the code required to
+     * support deep copying and iteration.  Including these methods in
+     * the public portion of the interface would make that interface more
+     * difficult to understand for the average client.
+     */
 
     /* Extended constructors */
 
@@ -587,11 +596,11 @@ class Map {
     }
 
     /*
- * Implementation notes: compareKeys(k1, k2)
- * -----------------------------------------
- * Compares the keys k1 and k2 and returns an integer (-1, 0, or +1)
- * depending on whether k1 < k2, k1 == k2, or k1 > k2, respectively.
- */
+     * Implementation notes: compareKeys(k1, k2)
+     * -----------------------------------------
+     * Compares the keys k1 and k2 and returns an integer (-1, 0, or +1)
+     * depending on whether k1 < k2, k1 == k2, or k1 > k2, respectively.
+     */
 
     int compareKeys(const KeyType& k1, const KeyType& k2) const {
         if (cmpp->lessThan(k1, k2))
@@ -602,12 +611,12 @@ class Map {
     }
 
     /*
- * Deep copying support
- * --------------------
- * This copy constructor and operator= are defined to make a
- * deep copy, making it possible to pass/return maps by value
- * and assign from one map to another.
- */
+     * Deep copying support
+     * --------------------
+     * This copy constructor and operator= are defined to make a
+     * deep copy, making it possible to pass/return maps by value
+     * and assign from one map to another.
+     */
 
     Map& operator=(const Map& src) {
         if (this != &src) {
@@ -618,25 +627,29 @@ class Map {
         return *this;
     }
 
-    Map(const Map& src) { deepCopy(src); }
+    Map(const Map& src) {
+        deepCopy(src);
+    }
 
     /*
- * Iterator support
- * ----------------
- * The classes in the StanfordCPPLib collection implement input
- * iterators so that they work symmetrically with respect to the
- * corresponding STL classes.
- */
+     * Iterator support
+     * ----------------
+     * The classes in the StanfordCPPLib collection implement input
+     * iterators so that they work symmetrically with respect to the
+     * corresponding STL classes.
+     */
 
     class iterator {
-      public:
+    public:
         using iterator_category = std::input_iterator_tag;
         using value_type = KeyType;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
+        using difference_type = KeyType;
+        using pointer = KeyType*;
+        using reference = KeyType&;
 
-        iterator() { /* Empty */ }
+        iterator() {
+            /* Empty */
+        }
 
         iterator(const Map* mp, bool end) {
             this->mp = mp;
@@ -681,17 +694,25 @@ class Map {
             return copy;
         }
 
-        bool operator==(const iterator& rhs) { return mp == rhs.mp && index == rhs.index; }
+        bool operator==(const iterator& rhs) {
+            return mp == rhs.mp && index == rhs.index;
+        }
 
-        bool operator!=(const iterator& rhs) { return !(*this == rhs); }
+        bool operator!=(const iterator& rhs) {
+            return !(*this == rhs);
+        }
 
-        KeyType operator*() { return stack.peek().np->key; }
+        KeyType operator*() {
+            return stack.peek().np->key;
+        }
 
-        KeyType* operator->() { return &stack.peek().np->key; }
+        KeyType* operator->() {
+            return &stack.peek().np->key;
+        }
 
         friend class Map;
 
-      private:
+    private:
         struct NodeMarker {
             BSTNode* np;
             bool processed;
@@ -713,9 +734,13 @@ class Map {
         }
     };
 
-    iterator begin() const { return iterator(this, false); }
+    iterator begin() const {
+        return iterator(this, false);
+    }
 
-    iterator end() const { return iterator(this, true); }
+    iterator end() const {
+        return iterator(this, true);
+    }
 };
 
 template <typename KeyType, typename ValueType>

@@ -259,8 +259,7 @@ std::string GRect::toString() const {
     return oss.str();
 }
 
-GRect::GRect() {
-    /* Called only by the GRoundRect and G3DRect subclasses */
+GRect::GRect() { /* Called only by the GRoundRect and G3DRect subclasses */
 }
 
 void GRect::create(double width, double height) {
