@@ -24,6 +24,8 @@
 
 #include <iostream>
 #include <string>
+
+#include "console.h"
 #include "strlib.h"
 #include "unittest.h"
 
@@ -83,8 +85,7 @@ int findTest(string key) {
     key = toLowerCase(key);
     for (int i = 0; i < N_TESTS; i++) {
         if (startsWith(TESTS[i].name, key)) {
-            if (index != -1)
-                return -1;
+            if (index != -1) return -1;
             index = i;
         }
     }
@@ -92,26 +93,8 @@ int findTest(string key) {
 }
 
 int main() {
-    int argc = getArgumentCount();
-    char** argv = getArguments();
-    int base = 1;
-    if (argc > 1 && startsWith("-verbose", argv[base])) {
-        setVerboseTestingFlag(true);
-        base++;
-    }
-    if (base == argc) {
-        for (int i = 0; i < N_TESTS; i++) {
-            TESTS[i].fn();
-        }
-    } else {
-        for (int i = base; i < argc; i++) {
-            int index = findTest(argv[i]);
-            if (index == -1) {
-                cout << "Unrecognized test: " << argv[i] << endl;
-            } else {
-                TESTS[index].fn();
-            }
-        }
+    for (int i = 0; i < N_TESTS; i++) {
+        TESTS[i].fn();
     }
     return 0;
 }

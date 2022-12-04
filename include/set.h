@@ -26,6 +26,7 @@
 #ifndef _set_h
 #define _set_h
 
+#include <initializer_list>
 #include <iostream>
 #include "map.h"
 #include "vector.h"
@@ -47,6 +48,7 @@ public:
      */
 
     Set();
+    Set(std::initializer_list<ValueType> list);
 
     /*
      * Destructor: ~Set
@@ -394,6 +396,13 @@ extern void error(std::string msg);
 template <typename ValueType>
 Set<ValueType>::Set() {
     /* Empty */
+}
+
+template <typename ValueType>
+Set<ValueType>::Set(std::initializer_list<ValueType> list) {
+    for (const ValueType& value : list) {
+        this->add(value);
+    }
 }
 
 template <typename ValueType>

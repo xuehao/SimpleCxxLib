@@ -72,6 +72,11 @@ static double scanDouble(TokenScanner& scanner);
 static GDimension scanDimension(const std::string& str);
 static GRectangle scanRectangle(const std::string& str);
 
+/* Stored arguments */
+
+static int argcMain;
+static char** argvMain;
+
 class ConsoleStreambuf : public std::streambuf {
 private:
     /* Constants */
@@ -961,6 +966,10 @@ void Platform::exitGraphics() {
     exit(0);
 }
 
+/**
+ * Even if the function is called multiple times, space for the static variable is allocated only
+ * once and the value of variable in the previous call gets carried through the next function call.
+ */
 Platform* getPlatform() {
     static Platform gp;
     return &gp;
@@ -968,12 +977,21 @@ Platform* getPlatform() {
 
 int startupMain(int argc, char** argv) {
     extern int Main();
+    argcMain = argc;
+    argvMain = argv;
     programName = getRoot(getTail(argv[0]));
     initPipe();
     ConsoleStreambuf cbuf;
     std::cin.rdbuf(&cbuf);
     std::cout.rdbuf(&cbuf);
-    return Main();
+    std::cerr.rdbuf(&cbuf);
+    try {
+        return Main();
+    } catch (ErrorException& ex) {
+        std::string msg = "Error: " + ex.getMessage();
+        std::cerr << msg << std::endl;
+        return EXIT_FAILURE;
+    }
 }
 
 #ifdef _WIN32

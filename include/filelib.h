@@ -361,6 +361,4 @@ std::string getDirectoryPathSeparator();
 
 std::string getSearchPathSeparator();
 
-#include "private/main.h"
-
 #endif

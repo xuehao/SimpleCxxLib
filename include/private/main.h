@@ -33,7 +33,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "error.h"
 
 #ifdef main
 #undef main
@@ -61,13 +60,10 @@
 #endif
 
 #if CONSOLE_FLAG | GRAPHICS_FLAG
-// mingw/linux
+#include "error.h"
 #define main                                               \
     main(int argc, char** argv) {                          \
-        extern int Main();                                 \
         extern int startupMain(int argc, char** argv);     \
-        extern int _mainFlags;                             \
-        _mainFlags = GRAPHICS_FLAG + CONSOLE_FLAG;         \
         try {                                              \
             return startupMain(argc, argv);                \
         } catch (ErrorException & ex) {                    \
@@ -78,12 +74,9 @@
     }                                                      \
     int Main
 #else
-// macOS
 #define main                                           \
     main(int argc, char** argv) {                      \
         extern int mainWrapper(int argc, char** argv); \
-        extern int _mainFlags;                         \
-        _mainFlags = GRAPHICS_FLAG + CONSOLE_FLAG;     \
         return mainWrapper(argc, argv);                \
     }                                                  \
     int Main

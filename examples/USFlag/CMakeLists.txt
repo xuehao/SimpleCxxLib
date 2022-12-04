@@ -11,8 +11,11 @@ project(
 add_executable(${PROJECT_NAME})
 
 # Define Cxx standard
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
-set_target_properties(${PROJECT_NAME} PROPERTIES CXX_EXTENSIONS OFF)
+set_target_properties(
+  ${PROJECT_NAME}
+  PROPERTIES CXX_STANDARD 17
+             CXX_STANDARD_REQUIRED ON
+             CXX_EXTENSIONS OFF)
 
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS

@@ -545,6 +545,5 @@ void waitForClick();
 void exitGraphics();
 
 #include "console.h"
-#include "private/main.h"
 
 #endif

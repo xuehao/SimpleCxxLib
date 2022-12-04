@@ -71,6 +71,13 @@ Lexicon::Lexicon(std::string filename) {
     addWordsFromFile(filename);
 }
 
+Lexicon::Lexicon(std::initializer_list<std::string> list)
+    : edges(nullptr), start(nullptr), numEdges(0), numDawgWords(0) {
+    for (const std::string& word : list) {
+        add(word);
+    }
+}
+
 Lexicon::~Lexicon() {
     if (edges)
         delete[] edges;

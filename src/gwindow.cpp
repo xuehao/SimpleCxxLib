@@ -92,8 +92,8 @@ GWindow::~GWindow() {
     if (!EVENT_FLAG) {
         if (gwd != nullptr) {
             delete gwd->top;
-            delete gwd;
         }
+        delete gwd;
     }
 }
 
