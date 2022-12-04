@@ -27,6 +27,7 @@
 #ifndef _queue_h
 #define _queue_h
 
+#include <initializer_list>
 #include "vector.h"
 
 /*
@@ -49,6 +50,7 @@ public:
      */
 
     Queue();
+    Queue(std::initializer_list<ValueType> list);
 
     /*
      * Destructor: ~Queue
@@ -201,6 +203,14 @@ const int INITIAL_CAPACITY = 10;
 template <typename ValueType>
 Queue<ValueType>::Queue() {
     clear();
+}
+
+template <typename ValueType>
+Queue<ValueType>::Queue(std::initializer_list<ValueType> list) {
+    clear();
+    for (const ValueType& value : list) {
+        enqueue(value);
+    }
 }
 
 /*

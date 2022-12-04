@@ -26,6 +26,7 @@
 #ifndef _hashset_h
 #define _hashset_h
 
+#include <initializer_list>
 #include <iostream>
 #include "hashmap.h"
 #include "vector.h"
@@ -54,6 +55,7 @@ public:
      */
 
     HashSet();
+    HashSet(std::initializer_list<ValueType> list);
 
     /*
      * Destructor: ~HashSet
@@ -394,6 +396,13 @@ extern void error(std::string msg);
 template <typename ValueType>
 HashSet<ValueType>::HashSet() {
     /* Empty */
+}
+
+template <typename ValueType>
+HashSet<ValueType>::HashSet(std::initializer_list<ValueType> list) : removeFlag(false) {
+    for (const ValueType& value : list) {
+        this->add(value);
+    }
 }
 
 template <typename ValueType>

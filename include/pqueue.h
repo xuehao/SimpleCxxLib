@@ -26,6 +26,7 @@
 #ifndef _pqueue_h
 #define _pqueue_h
 
+#include <initializer_list>
 #include "vector.h"
 
 /*
@@ -49,6 +50,7 @@ public:
      */
 
     PriorityQueue();
+    PriorityQueue(std::initializer_list<std::pair<double, ValueType>> list);
 
     /*
      * Destructor: ~PriorityQueue
@@ -199,6 +201,14 @@ extern void error(std::string msg);
 template <typename ValueType>
 PriorityQueue<ValueType>::PriorityQueue() {
     clear();
+}
+
+template <typename ValueType>
+PriorityQueue<ValueType>::PriorityQueue(std::initializer_list<std::pair<double, ValueType>> list) {
+    clear();
+    for (std::pair<double, ValueType> pair : list) {
+        enqueue(pair.second, pair.first);
+    }
 }
 
 /*

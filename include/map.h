@@ -11,6 +11,7 @@
 #define _map_h
 
 #include <cstdlib>
+#include <initializer_list>
 #include "stack.h"
 
 /*
@@ -34,6 +35,7 @@ public:
      */
 
     Map();
+    Map(std::initializer_list<std::pair<KeyType, ValueType>> list);
 
     /*
      * Destructor: ~Map
@@ -748,6 +750,15 @@ Map<KeyType, ValueType>::Map() {
     root = nullptr;
     nodeCount = 0;
     cmpp = new TemplateComparator<std::less<KeyType>>(std::less<KeyType>());
+}
+
+template <typename KeyType, typename ValueType>
+Map<KeyType, ValueType>::Map(std::initializer_list<std::pair<KeyType, ValueType>> list)
+    : root(nullptr), nodeCount(0) {
+    cmpp = new TemplateComparator<std::less<KeyType>>(std::less<KeyType>());
+    for (const std::pair<KeyType, ValueType>& pair : list) {
+        put(pair.first, pair.second);
+    }
 }
 
 template <typename KeyType, typename ValueType>

@@ -26,6 +26,7 @@
 #ifndef _vector_h
 #define _vector_h
 
+#include <initializer_list>
 #include <iostream>
 #include <iterator>
 #include <sstream>
@@ -49,16 +50,19 @@ public:
      * Constructor: Vector
      * Usage: Vector<ValueType> vec;
      *        Vector<ValueType> vec(n, value);
+     *        Vector<int> vec {1, 2, 3};
      * ---------------------------------------
      * Initializes a new vector.  The default constructor creates an
      * empty vector.  The second form creates an array with <code>n</code>
      * elements, each of which is initialized to <code>value</code>;
      * if <code>value</code> is missing, the elements are initialized
      * to the default value for the type.
+     * The third one creates a vector using an initializer list
      */
 
     Vector();
     explicit Vector(int n, ValueType value = ValueType());
+    Vector(std::initializer_list<ValueType> list);
 
     /*
      * Destructor: ~Vector
@@ -456,6 +460,16 @@ Vector<ValueType>::Vector(int n, ValueType value) {
     elements = (n == 0) ? nullptr : new ValueType[n];
     for (int i = 0; i < n; i++) {
         elements[i] = value;
+    }
+}
+
+template <typename ValueType>
+Vector<ValueType>::Vector(std::initializer_list<ValueType> list) {
+    capacity = list.size();
+    count = 0;
+    elements = new ValueType[capacity];
+    for (const ValueType& value : list) {
+        add(value);
     }
 }
 

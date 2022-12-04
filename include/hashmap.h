@@ -27,6 +27,7 @@
 #define _hashmap_h
 
 #include <cstdlib>
+#include <initializer_list>
 #include <string>
 #include "vector.h"
 
@@ -79,6 +80,7 @@ public:
      */
 
     HashMap();
+    HashMap(std::initializer_list<std::pair<KeyType, ValueType>> list);
 
     /*
      * Destructor: ~HashMap
@@ -470,6 +472,14 @@ public:
 template <typename KeyType, typename ValueType>
 HashMap<KeyType, ValueType>::HashMap() {
     createBuckets(INITIAL_BUCKET_COUNT);
+}
+
+template <typename KeyType, typename ValueType>
+HashMap<KeyType, ValueType>::HashMap(std::initializer_list<std::pair<KeyType, ValueType>> list) {
+    createBuckets(INITIAL_BUCKET_COUNT);
+    for (const std::pair<KeyType, ValueType>& pair : list) {
+        put(pair.first, pair.second);
+    }
 }
 
 template <typename KeyType, typename ValueType>

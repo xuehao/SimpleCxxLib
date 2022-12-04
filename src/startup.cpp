@@ -27,10 +27,6 @@
 #include <iostream>
 #include "error.h"
 
-/* Global flag word indicating option for main */
-
-int _mainFlags;
-
 /* Stored arguments */
 
 static int argcMain;

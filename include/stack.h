@@ -26,6 +26,7 @@
 #ifndef _stack_h
 #define _stack_h
 
+#include <initializer_list>
 #include "vector.h"
 
 /*
@@ -50,6 +51,7 @@ public:
      */
 
     Stack();
+    Stack(std::initializer_list<ValueType> list);
 
     /*
      * Destructor: ~Stack
@@ -161,6 +163,13 @@ extern void error(std::string msg);
 template <typename ValueType>
 Stack<ValueType>::Stack() {
     /* Empty */
+}
+
+template <typename ValueType>
+Stack<ValueType>::Stack(std::initializer_list<ValueType> list) {
+    for (const ValueType& element : list) {
+        push(element);
+    }
 }
 
 template <typename ValueType>

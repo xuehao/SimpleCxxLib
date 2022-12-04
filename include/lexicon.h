@@ -26,6 +26,7 @@
 #ifndef _lexicon_h
 #define _lexicon_h
 
+#include <initializer_list>
 #include <string>
 #include "set.h"
 #include "stack.h"
@@ -83,6 +84,7 @@ public:
 
     Lexicon();
     Lexicon(std::string filename);
+    Lexicon(std::initializer_list<std::string> list);
 
     /*
      * Destructor: ~Lexicon
