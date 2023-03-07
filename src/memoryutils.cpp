@@ -1,5 +1,4 @@
 /**
- * MemoryDiagnostics.cpp
  * @author Xue Hao
  * @version 2023/3/6
  *    Integrated into SimpleCxxLib
@@ -9,7 +8,7 @@
  *    Keith final revision from end of quarter 19-2
  */
 
-#include "Memory.h"
+#include "memoryutils.h"
 #include <cxxabi.h>  // Nonstandard, but supported on g++ and clang.
 #include <iostream>
 #include <sstream>
