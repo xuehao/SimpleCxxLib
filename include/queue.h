@@ -118,24 +118,6 @@ public:
     ValueType peek() const;
 
     /*
-     * Method: front
-     * Usage: ValueType first = queue.front();
-     * ---------------------------------------
-     * Returns the first value in the queue by reference.
-     */
-
-    ValueType& front();
-
-    /*
-     * Method: back
-     * Usage: ValueType last = queue.back();
-     * -------------------------------------
-     * Returns the last value in the queue by reference.
-     */
-
-    ValueType& back();
-
-    /*
      * Method: toString
      * Usage: string str = queue.toString();
      * -------------------------------------
@@ -275,20 +257,6 @@ ValueType Queue<ValueType>::peek() const {
     if (count == 0)
         error("peek: Attempting to peek at an empty queue");
     return ringBuffer.get(head);
-}
-
-template <typename ValueType>
-ValueType& Queue<ValueType>::front() {
-    if (count == 0)
-        error("front: Attempting to read front of an empty queue");
-    return ringBuffer[head];
-}
-
-template <typename ValueType>
-ValueType& Queue<ValueType>::back() {
-    if (count == 0)
-        error("back: Attempting to read back of an empty queue");
-    return ringBuffer[(tail + capacity - 1) % capacity];
 }
 
 /*

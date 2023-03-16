@@ -414,7 +414,7 @@ public:
     public:
         using iterator_category = std::input_iterator_tag;
         using value_type = NodeType*;
-        using difference_type = NodeType*;
+        using difference_type = std::ptrdiff_t;
         using pointer = NodeType**;
         using reference = NodeType*&;
 

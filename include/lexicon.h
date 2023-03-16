@@ -248,7 +248,7 @@ public:
     public:
         using iterator_category = std::input_iterator_tag;
         using value_type = std::string;
-        using difference_type = std::string;
+        using difference_type = std::ptrdiff_t;
         using pointer = std::string*;
         using reference = std::string&;
 

@@ -1,6 +1,7 @@
 build
 .clang-format
 .vscode
+*.user
 
 # Prerequisites
 *.d

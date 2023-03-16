@@ -281,7 +281,7 @@ public:
     public:
         using iterator_category = std::input_iterator_tag;
         using value_type = ValueType;
-        using difference_type = ValueType;
+        using difference_type = std::ptrdiff_t;
         using pointer = ValueType*;
         using reference = ValueType&;
 

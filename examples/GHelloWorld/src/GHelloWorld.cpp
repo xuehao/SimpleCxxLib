@@ -29,8 +29,8 @@ using namespace std;
 
 int main() {
     GWindow gw;
-    GLabel label("hello, world", 100, 100);
-    label.setFont("Serif-24");
+    GLabel label("Hello, world!", 80, 150);
+    label.setFont("Serif-68");
     gw.draw(label);
     return 0;
 }

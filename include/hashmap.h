@@ -382,7 +382,7 @@ public:
     public:
         using iterator_category = std::input_iterator_tag;
         using value_type = KeyType;
-        using difference_type = KeyType;
+        using difference_type = std::ptrdiff_t;
         using pointer = KeyType*;
         using reference = KeyType&;
 

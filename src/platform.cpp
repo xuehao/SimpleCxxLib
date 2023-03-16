@@ -95,7 +95,7 @@ public:
     }
 
     ~ConsoleStreambuf() {
-        /* Empty */
+        std::cout.flush();
     }
 
     virtual int underflow() {

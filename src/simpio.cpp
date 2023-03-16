@@ -29,8 +29,8 @@
 #include <string>
 
 /*
- * Implementation notes: getInteger, getReal
- * -----------------------------------------
+ * Implementation notes: getInteger, getLong, getReal
+ * --------------------------------------------------
  * Each of these functions reads a complete input line and then uses the
  * <sstream> library to parse that line into a value of the desired type.
  * If that fails, the implementation asks the user for a new value.
@@ -49,6 +49,40 @@ int getInteger(std::string prompt) {
         std::cout << "Illegal integer format. Try again." << std::endl;
         if (prompt == "")
             prompt = "Enter an integer: ";
+    }
+    return value;
+}
+
+long getLong(std::string prompt) {
+    long value;
+    std::string line;
+    while (true) {
+        std::cout << prompt;
+        getline(std::cin, line);
+        std::istringstream stream(line);
+        stream >> value;
+        if (!stream.fail() && stream.eof())
+            break;
+        std::cout << "Illegal long integer format. Try again." << std::endl;
+        if (prompt == "")
+            prompt = "Enter a long integer: ";
+    }
+    return value;
+}
+
+long long getLongLong(std::string prompt) {
+    long long value;
+    std::string line;
+    while (true) {
+        std::cout << prompt;
+        getline(std::cin, line);
+        std::istringstream stream(line);
+        stream >> value;
+        if (!stream.fail() && stream.eof())
+            break;
+        std::cout << "Illegal long long integer format. Try again." << std::endl;
+        if (prompt == "")
+            prompt = "Enter a long long integer: ";
     }
     return value;
 }

@@ -8,7 +8,7 @@ project(
   LANGUAGES CXX)
 
 # Add a library target
-add_library(${PROJECT_NAME})
+add_library(${PROJECT_NAME} STATIC)
 
 # Define Cxx standard
 set_target_properties(
@@ -35,9 +35,20 @@ target_include_directories(
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/private)
 
+# Configuration for testing
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(CTest)
+endif()
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
+
 # Build Java backend (depends on jdk8 and linux tools)
 # add_dependencies(${PROJECT_NAME} JavaBackend)
 # add_custom_target(
 #   JavaBackend
 #   COMMAND make
 #   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/java)
+
+

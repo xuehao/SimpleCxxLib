@@ -41,6 +41,8 @@
  */
 
 int getInteger(std::string prompt = "");
+long getLong(std::string prompt = "");
+long long getLongLong(std::string prompt = "");
 
 /*
  * Function: getReal

@@ -148,6 +148,7 @@ public:
 
     void mapAll(void (*fn)(KeyType, ValueType)) const;
     void mapAll(void (*fn)(const KeyType&, const ValueType&)) const;
+	
     template <typename FunctorType>
     void mapAll(FunctorType fn) const;
 
@@ -645,7 +646,7 @@ public:
     public:
         using iterator_category = std::input_iterator_tag;
         using value_type = KeyType;
-        using difference_type = KeyType;
+        using difference_type = std::ptrdiff_t;
         using pointer = KeyType*;
         using reference = KeyType&;
 
