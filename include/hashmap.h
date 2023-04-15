@@ -29,22 +29,8 @@
 #include <cstdlib>
 #include <initializer_list>
 #include <string>
+#include "hashcode.h"
 #include "vector.h"
-
-/*
- * Function: hashCode
- * Usage: int hash = hashCode(key);
- * --------------------------------
- * Returns a hash code for the specified key, which is always a
- * nonnegative integer.  This function is overloaded to support
- * all of the primitive types and the C++ <code>string</code> type.
- */
-
-int hashCode(const std::string& key);
-int hashCode(int key);
-int hashCode(char key);
-int hashCode(long key);
-int hashCode(double key);
 
 /*
  * Class: HashMap<KeyType,ValueType>

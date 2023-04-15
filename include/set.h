@@ -28,6 +28,7 @@
 
 #include <initializer_list>
 #include <iostream>
+#include "compare.h"
 #include "map.h"
 #include "vector.h"
 
@@ -147,6 +148,20 @@ public:
      */
 
     bool operator!=(const Set& set2) const;
+
+    /*
+     * Operators: <, >, <=, >=
+     * Usage: if (set1 <= set2) ...
+     * ...
+     * ----------------------------
+     * Relational operators to compare two sets.
+     * The <, >, <=, >= operators require that the ValueType has a < operator
+     * so that the elements can be compared pairwise.
+     */
+    bool operator<(const Set& set2) const;
+    bool operator<=(const Set& set2) const;
+    bool operator>(const Set& set2) const;
+    bool operator>=(const Set& set2) const;
 
     /*
      * Operator: +
@@ -483,6 +498,26 @@ bool Set<ValueType>::operator==(const Set& set2) const {
 template <typename ValueType>
 bool Set<ValueType>::operator!=(const Set& set2) const {
     return !(*this == set2);
+}
+
+template <typename ValueType>
+bool Set<ValueType>::operator<(const Set& set2) const {
+    return compare::compare(*this, set2) < 0;
+}
+
+template <typename ValueType>
+bool Set<ValueType>::operator<=(const Set& set2) const {
+    return compare::compare(*this, set2) <= 0;
+}
+
+template <typename ValueType>
+bool Set<ValueType>::operator>(const Set& set2) const {
+    return compare::compare(*this, set2) > 0;
+}
+
+template <typename ValueType>
+bool Set<ValueType>::operator>=(const Set& set2) const {
+    return compare::compare(*this, set2) >= 0;
 }
 
 template <typename ValueType>

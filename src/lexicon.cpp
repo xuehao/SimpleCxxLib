@@ -1,352 +1,416 @@
 /*
  * File: lexicon.cpp
  * -----------------
- * A lexicon is a word list. This lexicon is backed by two separate data
- * structures for storing the words in the list:
+ * A Lexicon is a word list. This Lexicon is backed by a data
+ * structure called a prefix tree or trie ("try").
  *
- * 1) a DAWG (directed acyclic word graph)
- * 2) a Set<string> of other words.
+ * This is a re-implementation of Lexicon.  Its previous implementation used
+ * a pair of structures: a directed acyclic word graph (DAWG) and an STL set.
+ * This implementation was discarded because of several reasons:
  *
- * Typically the DAWG is used for a large list read from a file in binary
- * format.  The STL set is for words added piecemeal at runtime.
+ * - It relied on binary file formats that were not readable by students.
+ * - It did not provide for expected class members like remove.
+ * - It had a clunky pair of data structures that had to be searched separately.
+ * - It was optimized for space usage over ease of use and maintenance.
  *
- * The DAWG idea comes from an article by Appel & Jacobson, CACM May 1988.
- * This lexicon implementation only has the code to load/search the DAWG.
- * The DAWG builder code is quite a bit more intricate, see me (Julie)
- * if you need it.
+ * The original DAWG implementation is retained as dawglexicon.h/cpp.
+ *
+ * @version 2014/11/13
+ * - added comparison operators <, >=, etc.
+ * - added hashCode function
+ * @version 2014/10/10
+ * - added comparison operators ==, !=
+ * - removed 'using namespace' statement
  */
 
-/*************************************************************************/
-/* Stanford Portable Library                                             */
-/* Copyright (c) 2014 by Eric Roberts <eroberts@cs.stanford.edu>         */
-/*                                                                       */
-/* This program is free software: you can redistribute it and/or modify  */
-/* it under the terms of the GNU General Public License as published by  */
-/* the Free Software Foundation, either version 3 of the License, or     */
-/* (at your option) any later version.                                   */
-/*                                                                       */
-/* This program is distributed in the hope that it will be useful,       */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of        */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         */
-/* GNU General Public License for more details.                          */
-/*                                                                       */
-/* You should have received a copy of the GNU General Public License     */
-/* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
-/*************************************************************************/
-
 #include "lexicon.h"
-#include <algorithm>
+#include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
-#include <ios>
 #include <iostream>
+#include <sstream>
 #include <string>
+#include "compare.h"
+#include "dawglexicon.h"
 #include "error.h"
+#include "hashcode.h"
 #include "strlib.h"
 
-static void toLowerCaseInPlace(std::string& str);
-
-/*
- * The DAWG is stored as an array of edges. Each edge is represented by
- * one 32-bit struct.  The 5 "letter" bits indicate the character on this
- * transition (expressed as integer from 1 to 26), the  "accept" bit indicates
- * if you accept after appending that char (current path forms word), and the
- * "lastEdge" bit marks this as the last edge in a sequence of childeren.
- * The bulk of the bits (24) are used for the index within the edge array for
- * the children of this node. The children are laid out contiguously in
- * alphabetical order.  Since we read edges as binary bits from a file in
- * a big-endian format, we have to swap the struct order for little-endian
- * machines.
- */
+static bool isDAWGFile(const std::string& filename);
+static bool scrub(std::string& str);
 
 Lexicon::Lexicon() {
-    edges = start = nullptr;
-    numEdges = numDawgWords = 0;
+    m_root = NULL;
+    m_size = 0;
 }
 
-Lexicon::Lexicon(std::string filename) {
-    edges = start = nullptr;
-    numEdges = numDawgWords = 0;
+Lexicon::Lexicon(const std::string& filename) {
+    m_root = NULL;
+    m_size = 0;
     addWordsFromFile(filename);
 }
 
-Lexicon::Lexicon(std::initializer_list<std::string> list)
-    : edges(nullptr), start(nullptr), numEdges(0), numDawgWords(0) {
-    for (const std::string& word : list) {
-        add(word);
-    }
+Lexicon::Lexicon(const Lexicon& src) {
+    m_root = NULL;
+    m_size = 0;
+    deepCopy(src);
 }
 
 Lexicon::~Lexicon() {
-    if (edges)
-        delete[] edges;
+    clear();
 }
 
-/*
- * Swaps a 4-byte long from big to little endian byte order
- */
-
-static unsigned long my_ntohl(unsigned long arg) {
-    unsigned long result = ((arg & 0xff000000) >> 24) | ((arg & 0x00ff0000) >> 8) |
-                           ((arg & 0x0000ff00) << 8) | ((arg & 0x000000ff) << 24);
-    return result;
+bool Lexicon::add(const std::string& word) {
+    if (word.empty()) {
+        return false;
+    }
+    std::string scrubbed = word;
+    if (!scrub(scrubbed)) {
+        return false;
+    }
+    return addHelper(m_root, scrubbed, /* originalWord */ scrubbed);
 }
 
-/*
- * Implementation notes: readBinaryFile
- * ------------------------------------
- * The binary lexicon file format must follow this pattern:
- * DAWG:<startnode index>:<num bytes>:<num bytes block of edge data>
- */
-
-void Lexicon::readBinaryFile(std::string filename) {
-    long startIndex, numBytes;
-    char firstFour[4], expected[] = "DAWG";
-    std::ifstream istr(filename.c_str(), std::ios::in | std::ios::binary);
-    if (false)
-        my_ntohl(0);
-    if (istr.fail()) {
-        error("Couldn't open lexicon file " + filename);
-    }
-    istr.read(firstFour, 4);
-    istr.get();
-    istr >> startIndex;
-    istr.get();
-    istr >> numBytes;
-    istr.get();
-    if (istr.fail() || strncmp(firstFour, expected, 4) != 0 || startIndex < 0 || numBytes < 0) {
-        error("Improperly formed lexicon file " + filename);
-    }
-    numEdges = numBytes / sizeof(Edge);
-    edges = new Edge[numEdges];
-    start = &edges[startIndex];
-    istr.read((char*)edges, numBytes);
-    if (istr.fail() && !istr.eof()) {
-        error("Improperly formed lexicon file " + filename);
-    }
-
-#if defined(BYTE_ORDER) && BYTE_ORDER == LITTLE_ENDIAN
-    unsigned long* cur = (unsigned long*)edges;
-    for (int i = 0; i < numEdges; i++, cur++) {
-        *cur = my_ntohl(*cur);
-    }
-#endif
-
-    istr.close();
-    numDawgWords = countDawgWords(start);
-}
-
-int Lexicon::countDawgWords(Edge* ep) const {
-    int count = 0;
-    while (true) {
-        if (ep->accept)
-            count++;
-        if (ep->children != 0) {
-            count += countDawgWords(&edges[ep->children]);
-        }
-        if (ep->lastEdge)
-            break;
-        ep++;
-    }
-    return count;
-}
-
-/*
- * Check for DAWG in first 4 to identify as special binary format,
- * otherwise assume ASCII, one word per line
- */
-
-void Lexicon::addWordsFromFile(std::string filename) {
-    char firstFour[4], expected[] = "DAWG";
-    std::ifstream istr(filename.c_str());
-    if (istr.fail()) {
-        error("Couldn't open lexicon file " + filename);
-    }
-    istr.read(firstFour, 4);
-    if (strncmp(firstFour, expected, 4) == 0) {
-        if (otherWords.size() != 0) {
-            error("Binary files require an empty lexicon");
-        }
+void Lexicon::addWordsFromFile(const std::string& filename) {
+    if (isDAWGFile(filename)) {
         readBinaryFile(filename);
-        return;
+    } else {
+        std::ifstream istr(filename.c_str());
+        if (istr.fail()) {
+            error("Lexicon::addWordsFromFile: Couldn't open lexicon file " + filename);
+        }
+        std::string line;
+        while (getline(istr, line)) {
+            add(trim(line));
+        }
+        istr.close();
     }
-    istr.seekg(0);
-    std::string line;
-    while (getline(istr, line)) {
-        add(line);
-    }
-    istr.close();
 }
 
-int Lexicon::size() const {
-    return numDawgWords + otherWords.size();
+void Lexicon::clear() {
+    m_size = 0;
+    m_allWords.clear();
+    deleteTree(m_root);
+    m_root = NULL;
+}
+
+bool Lexicon::contains(const std::string& word) const {
+    if (word.empty()) {
+        return false;
+    }
+    std::string scrubbed = word;
+    if (!scrub(scrubbed)) {
+        return false;
+    }
+    return containsHelper(m_root, scrubbed, /* isPrefix */ false);
+}
+
+bool Lexicon::containsPrefix(const std::string& prefix) const {
+    if (prefix.empty()) {
+        return true;
+    }
+    std::string scrubbed = prefix;
+    if (!scrub(scrubbed)) {
+        return false;
+    }
+    return containsHelper(m_root, scrubbed, /* isPrefix */ true);
+}
+
+bool Lexicon::equals(const Lexicon& lex2) const {
+    // optimization: if literally same lexicon, stop
+    if (this == &lex2) {
+        return true;
+    }
+    if (size() != lex2.size()) {
+        return false;
+    }
+    return m_allWords == lex2.m_allWords;
 }
 
 bool Lexicon::isEmpty() const {
     return size() == 0;
 }
 
-void Lexicon::clear() {
-    if (edges)
-        delete[] edges;
-    edges = start = nullptr;
-    numEdges = numDawgWords = 0;
-    otherWords.clear();
-}
-
-/*
- * Implementation notes: findEdgeForChar
- * -------------------------------------
- * Iterate over sequence of children to find one that
- * matches the given char.  Returns nullptr if we get to
- * last child without finding a match (thus no such
- * child edge exists).
- */
-
-Lexicon::Edge* Lexicon::findEdgeForChar(Edge* children, char ch) const {
-    Edge* curEdge = children;
-    while (true) {
-        if (curEdge->letter == charToOrd(ch))
-            return curEdge;
-        if (curEdge->lastEdge)
-            return nullptr;
-        curEdge++;
-    }
-}
-
-/*
- * Implementation notes: traceToLastEdge
- * -------------------------------------
- * Given a string, trace out path through the DAWG edge-by-edge.
- * If a path exists, return last edge; otherwise return nullptr.
- */
-
-Lexicon::Edge* Lexicon::traceToLastEdge(const std::string& s) const {
-    if (!start)
-        return nullptr;
-    Edge* curEdge = findEdgeForChar(start, s[0]);
-    int len = (int)s.length();
-    for (int i = 1; i < len; i++) {
-        if (!curEdge || !curEdge->children)
-            return nullptr;
-        curEdge = findEdgeForChar(&edges[curEdge->children], s[i]);
-    }
-    return curEdge;
-}
-
-bool Lexicon::containsPrefix(std::string prefix) const {
-    if (prefix.empty())
-        return true;
-    toLowerCaseInPlace(prefix);
-    if (traceToLastEdge(prefix))
-        return true;
-    for (const std::string& word : otherWords) {
-        if (startsWith(word, prefix))
-            return true;
-        if (prefix < word)
-            return false;
-    }
-    return false;
-}
-
-bool Lexicon::contains(std::string word) const {
-    toLowerCaseInPlace(word);
-    Edge* lastEdge = traceToLastEdge(word);
-    if (lastEdge && lastEdge->accept)
-        return true;
-    return otherWords.contains(word);
-}
-
-void Lexicon::add(std::string word) {
-    toLowerCaseInPlace(word);
-    if (!contains(word)) {
-        otherWords.add(word);
-    }
-}
-
-Lexicon::Lexicon(const Lexicon& src) {
-    deepCopy(src);
-}
-
-Lexicon& Lexicon::operator=(const Lexicon& src) {
-    if (this != &src) {
-        if (edges != nullptr)
-            delete[] edges;
-        deepCopy(src);
-    }
-    return *this;
-}
-
-void Lexicon::deepCopy(const Lexicon& src) {
-    if (src.edges == nullptr) {
-        edges = nullptr;
-        start = nullptr;
-    } else {
-        numEdges = src.numEdges;
-        edges = new Edge[src.numEdges];
-        memcpy(edges, src.edges, sizeof(Edge) * src.numEdges);
-        start = edges + (src.start - src.edges);
-    }
-    numDawgWords = src.numDawgWords;
-    otherWords = src.otherWords;
-}
-
 void Lexicon::mapAll(void (*fn)(std::string)) const {
-    for (const std::string& word : *this) {
+    for (std::string word : m_allWords) {
         fn(word);
     }
 }
 
 void Lexicon::mapAll(void (*fn)(const std::string&)) const {
-    for (const std::string& word : *this) {
+    for (std::string word : m_allWords) {
         fn(word);
     }
 }
 
-void Lexicon::iterator::advanceToNextWordInSet() {
-    if (setIterator == setEnd) {
-        currentSetWord = "";
+bool Lexicon::remove(const std::string& word) {
+    if (word.empty()) {
+        return false;
+    }
+    std::string scrubbed = word;
+    if (!scrub(scrubbed)) {
+        return false;
+    }
+    return removeHelper(m_root, scrubbed, /* originalWord */ scrubbed, /* isPrefix */ false);
+}
+
+bool Lexicon::removePrefix(const std::string& prefix) {
+    if (prefix.empty()) {
+        bool result = !isEmpty();
+        clear();
+        return result;
+    }
+    std::string scrubbed = prefix;
+    if (!scrub(scrubbed)) {
+        return false;
+    }
+
+    return removeHelper(m_root, scrubbed, /* originalWord */ scrubbed, /* isPrefix */ true);
+}
+
+int Lexicon::size() const {
+    return m_size;
+}
+
+std::string Lexicon::toString() const {
+    std::ostringstream out;
+    out << *this;
+    return out.str();
+}
+
+std::set<std::string> Lexicon::toStlSet() const {
+    std::set<std::string> result;
+    for (std::string word : m_allWords) {
+        result.insert(word);
+    }
+    return result;
+}
+
+/*
+ * Operators
+ */
+bool Lexicon::operator==(const Lexicon& lex2) const {
+    return equals(lex2);
+}
+
+bool Lexicon::operator!=(const Lexicon& lex2) const {
+    return !equals(lex2);
+}
+
+bool Lexicon::operator<(const Lexicon& lex2) const {
+    return compare::compare(*this, lex2) < 0;
+}
+
+bool Lexicon::operator<=(const Lexicon& lex2) const {
+    return compare::compare(*this, lex2) <= 0;
+}
+
+bool Lexicon::operator>(const Lexicon& lex2) const {
+    return compare::compare(*this, lex2) > 0;
+}
+
+bool Lexicon::operator>=(const Lexicon& lex2) const {
+    return compare::compare(*this, lex2) >= 0;
+}
+
+/* private helpers implementation */
+
+// pre: word is scrubbed to contain only lowercase a-z letters
+bool Lexicon::addHelper(TrieNode*& node, const std::string& word, const std::string& originalWord) {
+    if (node == NULL) {
+        // create nodes all the way down, one for each letter of the word
+        node = new TrieNode();
+    }
+
+    if (word.empty()) {
+        // base case: we have added all of the letters of this word
+        if (node->isWord()) {
+            return false;  // duplicate word; already present
+        } else {
+            // new word; add it
+            node->setWord(true);
+            m_size++;
+            m_allWords.add(originalWord);
+            return true;
+        }
     } else {
-        currentSetWord = *setIterator;
-        ++setIterator;
+        // recursive case: chop off first letter, traverse the rest
+        return addHelper(node->child(word[0]), word.substr(1), originalWord);
     }
 }
 
-void Lexicon::iterator::advanceToNextWordInDawg() {
-    if (edgePtr == nullptr) {
-        edgePtr = lp->start;
+// pre: word is scrubbed to contain only lowercase a-z letters
+bool Lexicon::containsHelper(TrieNode* node, const std::string& word, bool isPrefix) const {
+    if (node == NULL) {
+        // base case: no pointer down to here, so prefix must not exist
+        return false;
+    } else if (word.length() == 0) {
+        // base case: Found nodes all the way down.
+        // If we are looking for a prefix, this means this path IS a prefix,
+        // so we should return true.
+        // If we are looking for an exact word match rather than a prefix,
+        // we must check the isWord flag to see that this word was added
+        return (isPrefix ? true : node->isWord());
     } else {
-        advanceToNextEdge();
-    }
-    while (edgePtr != nullptr && !edgePtr->accept) {
-        advanceToNextEdge();
+        // recursive case: follow appropriate child pointer for one letter
+        return containsHelper(node->child(word[0]), word.substr(1), isPrefix);
     }
 }
 
-void Lexicon::iterator::advanceToNextEdge() {
-    Edge* ep = edgePtr;
-    if (ep->children == 0) {
-        while (ep != nullptr && ep->lastEdge) {
-            if (stack.isEmpty()) {
-                edgePtr = nullptr;
-                return;
+// pre: word is scrubbed to contain only lowercase a-z letters
+bool Lexicon::removeHelper(TrieNode*& node, const std::string& word,
+                           const std::string& originalWord, bool isPrefix) {
+    if (node == NULL) {
+        // base case: dead end; this word/prefix must not be contained
+        return false;
+    } else if (word.empty()) {
+        // base case: we have walked all of the letters of this word/prefix
+        // and now we must do the removal
+        if (isPrefix) {
+            // remove this node and all of its descendents
+            removeSubtreeHelper(node, originalWord);  // removes from m_allWords, sets m_size
+            node = NULL;
+        } else {
+            // remove / de-word-ify this node only
+            if (node->isLeaf()) {
+                delete node;
+                node = NULL;
             } else {
-                ep = stack.pop();
-                currentDawgPrefix.resize(currentDawgPrefix.length() - 1);
+                if (node->isWord()) {
+                    node->setWord(false);
+                    m_allWords.remove(originalWord);
+                    m_size--;
+                }
             }
         }
-        edgePtr = ep + 1;
+        return true;
     } else {
-        stack.push(ep);
-        currentDawgPrefix.push_back(lp->ordToChar(ep->letter));
-        edgePtr = &lp->edges[ep->children];
+        // recursive case: chop off first letter, traverse the rest
+        return removeHelper(node->child(word[0]), word.substr(1), originalWord, isPrefix);
     }
-};
+}
 
-static void toLowerCaseInPlace(std::string& str) {
-    int nChars = str.length();
-    for (int i = 0; i < nChars; i++) {
-        str[i] = tolower(str[i]);
+// remove/free this node and all descendents
+void Lexicon::removeSubtreeHelper(TrieNode*& node, const std::string& originalWord) {
+    if (node != NULL) {
+        for (char letter = 'a'; letter <= 'z'; letter++) {
+            removeSubtreeHelper(node->child(letter), originalWord + letter);
+        }
+        if (node->isWord()) {
+            m_allWords.remove(originalWord);
+            m_size--;
+        }
+        delete node;
+        node = NULL;
     }
+}
+
+void Lexicon::deepCopy(const Lexicon& src) {
+    for (std::string word : src.m_allWords) {
+        add(word);
+    }
+}
+
+void Lexicon::deleteTree(TrieNode* node) {
+    if (node != NULL) {
+        for (char letter = 'a'; letter <= 'z'; letter++) {
+            deleteTree(node->child(letter));
+        }
+        delete node;
+    }
+}
+
+/*
+ * We just delegate to DawgLexicon, the old implementation, to read a binary
+ * lexicon data file, and then we extract its yummy data into our trie.
+ */
+void Lexicon::readBinaryFile(const std::string& filename) {
+    DawgLexicon ldawg(filename);
+    for (std::string word : ldawg) {
+        add(word);
+    }
+}
+
+Lexicon& Lexicon::operator=(const Lexicon& src) {
+    if (this != &src) {
+        clear();
+        deepCopy(src);
+    }
+    return *this;
+}
+
+std::ostream& operator<<(std::ostream& out, const Lexicon& lex) {
+    out << lex.m_allWords;
+    return out;
+}
+
+std::istream& operator>>(std::istream& is, Lexicon& lex) {
+    char ch;
+    is >> ch;
+    if (ch != '{') {
+        error("Lexicon::operator >>: Missing {");
+    }
+    lex.clear();
+    is >> ch;
+    if (ch != '}') {
+        is.unget();
+        while (true) {
+            std::string value;
+            readGenericValue(is, value);
+            lex.add(value);
+            is >> ch;
+            if (ch == '}')
+                break;
+            if (ch != ',') {
+                error(std::string("Lexicon::operator >>: Unexpected character ") + ch);
+            }
+        }
+    }
+    return is;
+}
+
+/*
+ * Hash function for lexicons.
+ */
+int hashCode(const Lexicon& l) {
+    int code = HASH_SEED;
+    for (std::string n : l) {
+        code = HASH_MULTIPLIER * code + hashCode(n);
+    }
+    return int(code & HASH_MASK);
+}
+
+/*
+ * Returns true if the given file (probably) represents a
+ * binary DAWG lexicon data file.
+ */
+static bool isDAWGFile(const std::string& filename) {
+    char firstFour[4], expected[] = "DAWG";
+    std::ifstream istr(filename.c_str());
+    if (istr.fail()) {
+        error(std::string("Lexicon::addWordsFromFile: Couldn't open lexicon file ") + filename);
+    }
+    istr.read(firstFour, 4);
+    bool result = strncmp(firstFour, expected, 4) == 0;
+    istr.close();
+    return result;
+}
+
+static bool scrub(std::string& str) {
+    size_t nChars = str.length();
+    size_t outIndex = 0;
+    for (size_t i = 0; i < nChars; i++) {
+        std::string::value_type ch = tolower(str[i]);
+        if (ch < 'a' || ch > 'z') {
+            return false;  // illegal string
+        } else {
+            str[outIndex] = ch;
+            outIndex++;
+        }
+    }
+    if (outIndex != nChars) {
+        str.erase(outIndex, nChars - outIndex);
+    }
+    return true;
 }

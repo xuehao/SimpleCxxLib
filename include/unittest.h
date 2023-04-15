@@ -27,9 +27,14 @@
 #ifndef _unittest_h
 #define _unittest_h
 
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include "error.h"
+#include "timer.h"
 #undef _error_h
+using std::cout;
+using std::endl;
 using std::istream;
 using std::ostream;
 using std::string;
@@ -56,13 +61,13 @@ using std::string;
  */
 
 #define test(exp, value)                                                       \
-    {                                                                          \
+    do {                                                                       \
         try {                                                                  \
             uttest(string(#exp), string(#value), exp, value);                  \
         } catch (ErrorException & ex) {                                        \
             reportError(string(#exp) + " throws \"" + ex.getMessage() + "\""); \
         }                                                                      \
-    }
+    } while (0)
 
 /*
  * Macro: trace
@@ -73,14 +78,14 @@ using std::string;
  */
 
 #define trace(stmt)                                                             \
-    {                                                                           \
+    do {                                                                        \
         try {                                                                   \
             stmt;                                                               \
             reportMessage(string(#stmt) + ";");                                 \
         } catch (ErrorException & ex) {                                         \
             reportError(string(#stmt) + " throws \"" + ex.getMessage() + "\""); \
         }                                                                       \
-    }
+    } while (0)
 
 /*
  * Macro: checkError
@@ -91,7 +96,7 @@ using std::string;
  */
 
 #define checkError(exp, msg)                                                       \
-    {                                                                              \
+    do {                                                                           \
         try {                                                                      \
             exp;                                                                   \
             reportError(string(#exp) + " returned without throwing an error");     \
@@ -102,7 +107,27 @@ using std::string;
                 reportError(string(#exp) + " throws \"" + ex.getMessage() + "\""); \
             }                                                                      \
         }                                                                          \
-    }
+    } while (0)
+
+/*
+ * Macro: checkTime
+ * Usage: checkTime(vec.size(), vec.sort());
+ * -----------------------------------------
+ * Time the evaluation of an expression report the time in seconds in test results.
+ * The argument size is the size of the input.
+ */
+
+#define checkTime(n, expr)                                                                   \
+    do {                                                                                     \
+        Timer t;                                                                             \
+        t.start();                                                                           \
+        (void)(expr);                                                                        \
+        double elapsed_ms = t.stop();                                                        \
+        cout << "Line " << __LINE__ << ": " << #expr << "(" << n << ")"                      \
+             << " finished in " << std::fixed << std::setprecision(3) << (elapsed_ms / 1000) \
+             << " secs" << endl;                                                             \
+    } while (0)
+
 /*
  * Function: reportResult
  * Usage: reportResult(name);

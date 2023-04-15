@@ -3,6 +3,14 @@
  * ---------------
  * This file exports the <code>Lexicon</code> class, which is a
  * compact structure for storing a list of words.
+ *
+ * @author Marty Stepp
+ * @version 2014/11/13
+ * - added comparison operators <, >= etc.
+ * - added hashCode function
+ * @version 2014/10/10
+ * - added equals method, comparison operators ==, !=
+ * - fixed inclusion of foreach macro to avoid errors
  */
 
 /*************************************************************************/
@@ -26,10 +34,11 @@
 #ifndef _lexicon_h
 #define _lexicon_h
 
-#include <initializer_list>
+#include <iterator>
+#include <set>
 #include <string>
+#include "hashcode.h"
 #include "set.h"
-#include "stack.h"
 
 /*
  * Class: Lexicon
@@ -49,7 +58,7 @@
  *<pre>
  *    int main() {
  *       Lexicon english("EnglishWords.dat");
- *       for (const std::string word: english) {
+ *       for (string word : english) {
  *          if (word.length() == 2) {
  *             cout << word << endl;
  *          }
@@ -58,8 +67,6 @@
  *    }
  *</pre>
  */
-
-#include <cctype>
 
 class Lexicon {
 public:
@@ -81,36 +88,36 @@ public:
      *    Lexicon english("English.dat");
      *</pre>
      */
-
     Lexicon();
-    Lexicon(std::string filename);
-    Lexicon(std::initializer_list<std::string> list);
+    Lexicon(const std::string& filename);
 
     /*
      * Destructor: ~Lexicon
      * --------------------
      * The destructor deallocates any storage associated with the lexicon.
      */
-
     virtual ~Lexicon();
 
     /*
-     * Method: size
-     * Usage: int n = lex.size();
-     * --------------------------
-     * Returns the number of words contained in the lexicon.
+     * Method: add
+     * Usage: lex.add(word);
+     * ---------------------
+     * Adds the specified word to the lexicon, if not already present.
+     * The word is converted to lowercase before adding it to the lexicon.
+     * If the word contains any non-alphabetic characters (including whitespace),
+     * it will not be added. The empty string cannot be added to a lexicon.
+     * Returns true if the word was added successfully to the lexicon.
      */
-
-    int size() const;
+    bool add(const std::string& word);
 
     /*
-     * Method: isEmpty
-     * Usage: if (lex.isEmpty()) ...
-     * -----------------------------
-     * Returns <code>true</code> if the lexicon contains no words.
+     * Method: addWordsFromFile
+     * Usage: lex.addWordsFromFile(filename);
+     * --------------------------------------
+     * Reads the file and adds all of its words to the lexicon.
+     * Each word from the file is converted to lowercase before adding it.
      */
-
-    bool isEmpty() const;
+    void addWordsFromFile(const std::string& filename);
 
     /*
      * Method: clear
@@ -118,26 +125,7 @@ public:
      * -------------------
      * Removes all words from the lexicon.
      */
-
     void clear();
-
-    /*
-     * Method: add
-     * Usage: lex.add(word);
-     * ---------------------
-     * Adds the specified word to the lexicon.
-     */
-
-    void add(std::string word);
-
-    /*
-     * Method: addWordsFromFile
-     * Usage: lex.addWordsFromFile(filename);
-     * --------------------------------------
-     * Reads the file and adds all of its words to the lexicon.
-     */
-
-    void addWordsFromFile(std::string filename);
 
     /*
      * Method: contains
@@ -146,9 +134,10 @@ public:
      * Returns <code>true</code> if <code>word</code> is contained in the
      * lexicon.  In the <code>Lexicon</code> class, the case of letters is
      * ignored, so "Zoo" is the same as "ZOO" or "zoo".
+     * The empty string cannot be contained in a lexicon, nor can any word
+     * containing any non-alphabetic characters such as punctuation or whitespace.
      */
-
-    bool contains(std::string word) const;
+    bool contains(const std::string& word) const;
 
     /*
      * Method: containsPrefix
@@ -157,9 +146,26 @@ public:
      * Returns true if any words in the lexicon begin with <code>prefix</code>.
      * Like <code>containsWord</code>, this method ignores the case of letters
      * so that "MO" is a prefix of "monkey" or "Monday".
+     * The empty string is a prefix of every string, so this method returns
+     * true when passed the empty string.
      */
+    bool containsPrefix(const std::string& prefix) const;
 
-    bool containsPrefix(std::string prefix) const;
+    /*
+     * Method: equals
+     * Usage: if (lex1.equals(lex2)) ...
+     * ---------------------------------
+     * Compares two lexicons for equality.
+     */
+    bool equals(const Lexicon& lex2) const;
+
+    /*
+     * Method: isEmpty
+     * Usage: if (lex.isEmpty()) ...
+     * -----------------------------
+     * Returns <code>true</code> if the lexicon contains no words.
+     */
+    bool isEmpty() const;
 
     /*
      * Method: mapAll
@@ -167,12 +173,82 @@ public:
      * --------------------------
      * Calls the specified function on each word in the lexicon.
      */
-
     void mapAll(void (*fn)(std::string)) const;
     void mapAll(void (*fn)(const std::string&)) const;
 
     template <typename FunctorType>
     void mapAll(FunctorType fn) const;
+
+    /*
+     * Method: remove
+     * Usage: lex.remove(word);
+     * ---------------------
+     * Removes the specified word from the lexicon, if it was present.
+     * Returns true if the word was previously contained in the lexicon;
+     * in other words, if a word was removed.
+     * The empty string cannot be contained in a lexicon, so passing the
+     * empty string to this method returns false.
+     */
+    bool remove(const std::string& word);
+
+    /*
+     * Method: removePrefix
+     * Usage: lex.removePrefix(prefix);
+     * ---------------------
+     * Removes all words from the lexicon that begin with the given prefix.
+     * Returns true if the prefix was previously contained in the lexicon;
+     * in other words, if any words were removed.
+     * If the empty string is passed, since all words begin with the empty
+     * string, all words will be removed and this method will
+     * return true if the lexicon was non-empty prior to the call.
+     */
+    bool removePrefix(const std::string& prefix);
+
+    /*
+     * Method: size
+     * Usage: int n = lex.size();
+     * --------------------------
+     * Returns the number of words contained in the lexicon.
+     */
+    int size() const;
+
+    /*
+     * Method: toString
+     * Usage: string str = lexicon.toString();
+     * -----------------------------------
+     * Converts the lexicon to a printable string representation.
+     * Note that this can be an expensive operation if the lexicon contains
+     * a large number of words.
+     */
+    std::string toString() const;
+
+    /*
+     * Returns an STL set object with the same elements as this lexicon.
+     */
+    std::set<std::string> toStlSet() const;
+
+    /*
+     * Operators: ==, !=
+     * Usage: if (lex1 == lex2) ...
+     * Usage: if (lex1 != lex2) ...
+     * ...
+     * ----------------------------
+     * Relational operators to compare two lexicons to see if they have the same elements.
+     */
+    bool operator==(const Lexicon& lex2) const;
+    bool operator!=(const Lexicon& lex2) const;
+
+    /*
+     * Operators: <, >, <=, >=
+     * Usage: if (lex1 <= lex2) ...
+     * ...
+     * ----------------------------
+     * Relational operators to compare two lexicons.
+     */
+    bool operator<(const Lexicon& lex2) const;
+    bool operator<=(const Lexicon& lex2) const;
+    bool operator>(const Lexicon& lex2) const;
+    bool operator>=(const Lexicon& lex2) const;
 
     /*
      * Additional Lexicon operations
@@ -193,32 +269,75 @@ public:
     /* Note: Everything below this point in the file is logically part    */
     /* of the implementation and should not be of interest to clients.    */
     /**********************************************************************/
-
 private:
-#ifdef _WIN32
-#define LITTLE_ENDIAN 1
-#define BYTE_ORDER LITTLE_ENDIAN
-#endif
+    struct TrieNode {
+    public:
+        TrieNode() {
+            m_isWord = false;
+            for (int i = 0; i < 26; i++) {
+                m_children[i] = NULL;
+            }
+        }
 
-    struct Edge {
-#if defined(BYTE_ORDER) && BYTE_ORDER == LITTLE_ENDIAN
-        unsigned long letter : 5;
-        unsigned long lastEdge : 1;
-        unsigned long accept : 1;
-        unsigned long unused : 1;
-        unsigned long children : 24;
-#else
-        unsigned long children : 24;
-        unsigned long unused : 1;
-        unsigned long accept : 1;
-        unsigned long lastEdge : 1;
-        unsigned long letter : 5;
-#endif
+        // pre: letter is between 'a' and 'z' in lowercase
+        inline TrieNode*& child(char letter) {
+            return m_children[letter - 'a'];
+        }
+
+        inline int childCount() {
+            int count = 0;
+            for (int i = 0; i < 26; i++) {
+                if (m_children[i] != NULL) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        inline bool isLeaf() {
+            for (int i = 0; i < 26; i++) {
+                if (m_children[i] != NULL) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        inline bool isWord() {
+            return m_isWord;
+        }
+
+        inline void setWord(bool value) {
+            m_isWord = value;
+        }
+
+    private:
+        /* instance variables */
+        bool m_isWord;
+        TrieNode* m_children[26];  // 0=a, 1=b, 2=c, ..., 25=z
     };
 
-    Edge *edges, *start;
-    int numEdges, numDawgWords;
-    Set<std::string> otherWords;
+    /*
+     * private helper functions, including
+     * recursive helpers to implement public add/contains/remove
+     */
+    bool addHelper(TrieNode*& node, const std::string& word, const std::string& originalWord);
+    bool containsHelper(TrieNode* node, const std::string& word, bool isPrefix) const;
+    void deepCopy(const Lexicon& src);
+    void deleteTree(TrieNode* node);
+    void readBinaryFile(const std::string& filename);
+    bool removeHelper(TrieNode*& node, const std::string& word, const std::string& originalWord,
+                      bool isPrefix);
+    void removeSubtreeHelper(TrieNode*& node, const std::string& originalWord);
+
+    friend std::ostream& operator<<(std::ostream& os, const Lexicon& lex);
+    friend std::istream& operator>>(std::istream& is, Lexicon& lex);
+
+    /* instance variables */
+    TrieNode* m_root;
+    int m_size;
+    Set<std::string> m_allWords;  // secondary structure of all words for foreach;
+                                  // basically a cop-out so I can loop over words
 
 public:
     /*
@@ -232,7 +351,6 @@ public:
      * typically passed by reference.  When a copy is needed, these
      * operations are supported.
      */
-
     Lexicon(const Lexicon& src);
     Lexicon& operator=(const Lexicon& src);
 
@@ -243,139 +361,48 @@ public:
      * iterators so that they work symmetrically with respect to the
      * corresponding STL classes.
      */
-
-    class iterator {
+    class iterator : public Set<std::string>::iterator {
     public:
-        using iterator_category = std::input_iterator_tag;
-        using value_type = std::string;
-        using difference_type = std::ptrdiff_t;
-        using pointer = std::string*;
-        using reference = std::string&;
-
-        iterator() {
-            this->lp = nullptr;
+        iterator() : Set<std::string>::iterator() {
         }
 
-        iterator(const Lexicon* lp, bool endFlag) {
-            this->lp = lp;
-            if (endFlag) {
-                index = lp->size();
-            } else {
-                index = 0;
-                edgePtr = nullptr;
-                setIterator = lp->otherWords.begin();
-                setEnd = lp->otherWords.end();
-                currentDawgPrefix = "";
-                currentSetWord = "";
-                advanceToNextWordInDawg();
-                advanceToNextWordInSet();
-            }
+        iterator(const iterator& it) : Set<std::string>::iterator(it) {
         }
 
-        iterator(const iterator& it) {
-            lp = it.lp;
-            index = it.index;
-            currentDawgPrefix = it.currentDawgPrefix;
-            currentSetWord = it.currentSetWord;
-            edgePtr = it.edgePtr;
-            stack = it.stack;
-            setIterator = it.setIterator;
+        iterator(const Set<std::string>::iterator& it) : Set<std::string>::iterator(it) {
         }
-
-        iterator& operator++() {
-            if (edgePtr == nullptr) {
-                advanceToNextWordInSet();
-            } else {
-                if (currentSetWord == "" || currentDawgPrefix < currentSetWord) {
-                    advanceToNextWordInDawg();
-                } else {
-                    advanceToNextWordInSet();
-                }
-            }
-            index++;
-            return *this;
-        }
-
-        iterator operator++(int) {
-            iterator copy(*this);
-            operator++();
-            return copy;
-        }
-
-        bool operator==(const iterator& rhs) {
-            return lp == rhs.lp && index == rhs.index;
-        }
-
-        bool operator!=(const iterator& rhs) {
-            return !(*this == rhs);
-        }
-
-        std::string operator*() {
-            if (edgePtr == nullptr)
-                return currentSetWord;
-            if (currentSetWord == "" || currentDawgPrefix < currentSetWord) {
-                return currentDawgPrefix + lp->ordToChar(edgePtr->letter);
-            } else {
-                return currentSetWord;
-            }
-        }
-
-        std::string* operator->() {
-            if (edgePtr == nullptr)
-                return &currentSetWord;
-            if (currentSetWord == "" || currentDawgPrefix < currentSetWord) {
-                tmpWord = currentDawgPrefix + lp->ordToChar(edgePtr->letter);
-                return &tmpWord;
-            } else {
-                return &currentSetWord;
-            }
-        }
-
-    private:
-        const Lexicon* lp;
-        int index;
-        std::string currentDawgPrefix;
-        std::string currentSetWord;
-        std::string tmpWord;
-        Edge* edgePtr;
-        Stack<Edge*> stack;
-        Set<std::string>::iterator setIterator;
-        Set<std::string>::iterator setEnd;
-
-        void advanceToNextWordInDawg();
-        void advanceToNextWordInSet();
-        void advanceToNextEdge();
     };
 
+    /*
+     * Returns an iterator positioned at the first word in the lexicon.
+     */
     iterator begin() const {
-        return iterator(this, false);
+        return iterator(m_allWords.begin());
     }
 
+    /*
+     * Returns an iterator positioned at the last word in the lexicon.
+     */
     iterator end() const {
-        return iterator(this, true);
-    }
-
-private:
-    Edge* findEdgeForChar(Edge* children, char ch) const;
-    Edge* traceToLastEdge(const std::string& s) const;
-    void readBinaryFile(std::string filename);
-    void deepCopy(const Lexicon& src);
-    int countDawgWords(Edge* start) const;
-
-    unsigned int charToOrd(char ch) const {
-        return ((unsigned int)(tolower(ch) - 'a' + 1));
-    }
-
-    char ordToChar(unsigned int ord) const {
-        return ((char)(ord - 1 + 'a'));
+        return iterator(m_allWords.end());
     }
 };
 
 template <typename FunctorType>
 void Lexicon::mapAll(FunctorType fn) const {
-    for (const std::string word : *this) {
+    for (std::string word : *this) {
         fn(word);
     }
 }
+
+/*
+ * Hashing function for lexicons
+ */
+int hashCode(const Lexicon& l);
+
+/*
+ * Prints the lexicon to the given output stream.
+ */
+std::ostream& operator<<(std::ostream& os, const Lexicon& lex);
 
 #endif

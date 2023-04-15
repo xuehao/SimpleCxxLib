@@ -219,6 +219,7 @@ public:
      */
 
     Vector operator+(const Vector& v2) const;
+    Vector operator+(const ValueType& elem) const;
 
     /*
      * Operator: +=
@@ -698,6 +699,12 @@ Vector<ValueType> Vector<ValueType>::operator+(const Vector& v2) const {
         vec.add(value);
     }
     return vec;
+}
+
+template <typename ValueType>
+Vector<ValueType> Vector<ValueType>::operator+(const ValueType& elem) const {
+    Vector<ValueType> result = *this;
+    return result += elem;
 }
 
 template <typename ValueType>

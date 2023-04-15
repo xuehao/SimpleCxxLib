@@ -12,6 +12,7 @@
 
 #include <cstdlib>
 #include <initializer_list>
+#include "compare.h"
 #include "stack.h"
 
 /*
@@ -129,6 +130,38 @@ public:
     ValueType operator[](const KeyType& key) const;
 
     /*
+     * Operator: ==
+     * Usage: if (map1 == map2) ...
+     * ----------------------------
+     * Compares two maps for equality.
+     */
+
+    bool operator==(const Map& map2) const;
+
+    /*
+     * Operator: !=
+     * Usage: if (map1 != map2) ...
+     * ----------------------------
+     * Compares two maps for inequality.
+     */
+
+    bool operator!=(const Map& map2) const;
+
+    /*
+     * Operators: <, <=, >, >=
+     * Usage: if (map1 < map2) ...
+     * ---------------------------
+     * Relational operators to compare two maps.
+     * The <, >, <=, >= operators require that the ValueType has a < operator
+     * so that the elements can be compared pairwise.
+     */
+
+    bool operator<(const Map& map2) const;
+    bool operator<=(const Map& map2) const;
+    bool operator>(const Map& map2) const;
+    bool operator>=(const Map& map2) const;
+
+    /*
      * Method: toString
      * Usage: string str = map.toString();
      * -----------------------------------
@@ -148,7 +181,7 @@ public:
 
     void mapAll(void (*fn)(KeyType, ValueType)) const;
     void mapAll(void (*fn)(const KeyType&, const ValueType&)) const;
-	
+
     template <typename FunctorType>
     void mapAll(FunctorType fn) const;
 
@@ -818,6 +851,36 @@ ValueType& Map<KeyType, ValueType>::operator[](const KeyType& key) {
 template <typename KeyType, typename ValueType>
 ValueType Map<KeyType, ValueType>::operator[](const KeyType& key) const {
     return get(key);
+}
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator==(const Map& map2) const {
+    return equals(map2);
+}
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator!=(const Map& map2) const {
+    return equals(map2);
+}
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator<(const Map& map2) const {
+    return compare::compare(*this, map2) < 0;
+}
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator<=(const Map& map2) const {
+    return compare::compare(*this, map2) <= 0;
+}
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator>(const Map& map2) const {
+    return compare::compare(*this, map2) > 0;
+}
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::operator>=(const Map& map2) const {
+    return compare::compare(*this, map2) >= 0;
 }
 
 template <typename KeyType, typename ValueType>
