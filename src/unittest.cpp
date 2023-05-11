@@ -105,6 +105,10 @@ void uttest(string expString, string valueString, int exp, int value) {
     }
 }
 
+void uttest(string expString, string valueString, size_t exp, int value) {
+    uttest(expString, valueString, (int)exp, value);
+}
+
 void uttest(string expString, string valueString, double exp, double value) {
     if (exp == value) {
         if (verbose) {

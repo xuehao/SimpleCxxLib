@@ -117,5 +117,7 @@ void MEM_CHECK(void (*fn)()) {
                           << " than allocated." << std::endl;
             }
         }
+    } else {
+        std::cout << std::endl << "No object leaks." << endl;
     }
 }

@@ -220,6 +220,7 @@ void redirectConsoleOutput(ostream os);
 /* Internal functions used in the implementation */
 
 void uttest(string expString, string valueString, int exp, int value);
+void uttest(string expString, string valueString, size_t exp, int value);
 void uttest(string expString, string valueString, int exp, double value);
 void uttest(string expString, string valueString, double exp, int value);
 void uttest(string expString, string valueString, double exp, double value);

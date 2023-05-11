@@ -120,23 +120,23 @@ bool stringIsDouble(const std::string& str) {
 }
 
 bool stringIsInteger(const std::string& str) {
-    std::istringstream stream(str);
+    std::istringstream stream(trim(str));
     int value;
-    stream >> value >> std::ws;
+    stream >> value;
     return !(stream.fail() || !stream.eof());
 }
 
 bool stringIsLong(const std::string& str) {
-    std::istringstream stream(str);
+    std::istringstream stream(trim(str));
     long value;
-    stream >> value >> std::ws;
+    stream >> value;
     return !(stream.fail() || !stream.eof());
 }
 
 bool stringIsReal(const std::string& str) {
-    std::istringstream stream(str);
+    std::istringstream stream(trim(str));
     double value;
-    stream >> value >> std::ws;
+    stream >> value;
     return !(stream.fail() || !stream.eof());
 }
 
