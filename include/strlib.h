@@ -229,6 +229,7 @@ double stringToDouble(const std::string& str);  // alias
  * into their lowercase equivalents.
  * The 'inPlace' version modifies an existing string rather than returning a new one.
  */
+char toLowerCase(char ch);
 std::string toLowerCase(const std::string& str);
 void toLowerCaseInPlace(std::string& str);
 
@@ -240,6 +241,7 @@ void toLowerCaseInPlace(std::string& str);
  * into their uppercase equivalents.
  * The 'inPlace' version modifies an existing string rather than returning a new one.
  */
+char toUpperCase(char ch);
 std::string toUpperCase(const std::string& str);
 void toUpperCaseInPlace(std::string& str);
 

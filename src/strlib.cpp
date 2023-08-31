@@ -202,6 +202,10 @@ double stringToReal(const std::string& str) {
  * the case of the copy without affecting the original.
  */
 
+char toLowerCase(char ch) {
+    return (char)tolower(ch);
+}
+
 std::string toLowerCase(const std::string& str) {
     std::string str2 = str;
     toLowerCaseInPlace(str2);
@@ -213,6 +217,10 @@ void toLowerCaseInPlace(std::string& str) {
     for (int i = 0; i < nChars; i++) {
         str[i] = tolower(str[i]);
     }
+}
+
+char toUpperCase(char ch) {
+    return (char)toupper(ch);
 }
 
 std::string toUpperCase(const std::string& str) {

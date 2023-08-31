@@ -38,8 +38,8 @@
 
 /* Constants */
 
-static const int DEFAULT_WIDTH = 500;
-static const int DEFAULT_HEIGHT = 300;
+static const int DEFAULT_WIDTH = 640;
+static const int DEFAULT_HEIGHT = 480;
 
 /* Private function prototypes */
 

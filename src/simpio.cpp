@@ -53,6 +53,22 @@ int getInteger(std::string prompt) {
     return value;
 }
 
+int getIntegerBetween(const std::string& prompt, int min, int max) {
+    int value = 0;
+    while (true) {
+        value = getInteger(prompt);
+        if (value < min || value > max) {
+            std::cout.flush();
+            std::cerr << "Please type a value between " << min << " and " << max << "."
+                      << std::endl;
+            std::cerr.flush();
+        } else {
+            break;
+        }
+    }
+    return value;
+}
+
 long getLong(std::string prompt) {
     long value;
     std::string line;

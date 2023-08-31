@@ -41,6 +41,18 @@
  */
 
 int getInteger(std::string prompt = "");
+
+/**
+ * Reads a complete line from <code>cin</code> and scans it as an
+ * integer. If the scan succeeds, the integer value is returned. If
+ * the argument is not a legal integer, if it is not between min and max,
+ * or if extraneous characters (other than whitespace) appear in the string,
+ * the user is given a chance to reenter the value.
+ *
+ * The required <code>prompt</code> string is printed before reading the value.
+ */
+int getIntegerBetween(const std::string& prompt, int min, int max);
+
 long getLong(std::string prompt = "");
 long long getLongLong(std::string prompt = "");
 

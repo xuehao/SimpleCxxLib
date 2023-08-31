@@ -1040,6 +1040,7 @@ static void initPipe() {
         CloseHandle(pInfo.hProcess);
         CloseHandle(pInfo.hThread);
     }
+    delete[] cmdLine;
 }
 
 static void putPipe(std::string line) {

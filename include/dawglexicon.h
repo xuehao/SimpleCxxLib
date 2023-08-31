@@ -282,8 +282,14 @@ public:
      * iterators so that they work symmetrically with respect to the
      * corresponding STL classes.
      */
-    class iterator : public std::iterator<std::input_iterator_tag, std::string> {
+    class iterator {
     private:
+        using iterator_category = std::input_iterator_tag;
+        using value_type = std::string;
+        using difference_type = std::ptrdiff_t;
+        using pointer = std::string*;
+        using reference = std::string&;
+
         const DawgLexicon* lp;
         int index;
         std::string currentDawgPrefix;
