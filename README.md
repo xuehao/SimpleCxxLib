@@ -8,11 +8,7 @@
 
 ## Environment
 
-`Qt Creator` is an integrated development environment (IDE) with tools to edit, build, run, and debug programs. The latest Qt 6 is strongly recommended.
-
-- [Install Qt Creator](https://www.qt.io/download-qt-installer)
-
-The `SimpleCxxLib` libraries also interact with Java, so `Java 8` is needed for running programs properly.
+The `SimpleCxxLib` package interacts with Java graphics, so `Java SE 8 (LTS)` is needed for running programs properly.
 
 - [Install JDK 8](https://adoptium.net/temurin/releases/?version=8)
 

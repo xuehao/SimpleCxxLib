@@ -143,7 +143,7 @@ bool stringIsReal(const std::string& str) {
 bool stringToBool(const std::string& str) {
     std::istringstream stream(str);
     bool value;
-    stream >> std::boolalpha >> value >> std::ws;
+    stream >> std::boolalpha >> value;
     if (stream.fail() || !stream.eof()) {
         error("stringToBool: Illegal bool format (" + str + ")");
     }
@@ -165,7 +165,7 @@ double stringToDouble(const std::string& str) {
 int stringToInteger(const std::string& str) {
     std::istringstream stream(str);
     int value;
-    stream >> value >> std::ws;
+    stream >> value;
     if (stream.fail() || !stream.eof()) {
         error("stringToInteger: Illegal integer format (" + str + ")");
     }
@@ -175,7 +175,7 @@ int stringToInteger(const std::string& str) {
 long stringToLong(const std::string& str) {
     std::istringstream stream(str);
     long value;
-    stream >> value >> std::ws;
+    stream >> value;
     if (stream.fail() || !stream.eof()) {
         error("stringToInteger: Illegal long format (" + str + ")");
     }
@@ -185,7 +185,7 @@ long stringToLong(const std::string& str) {
 double stringToReal(const std::string& str) {
     std::istringstream stream(str);
     double value;
-    stream >> value >> std::ws;
+    stream >> value;
     if (stream.fail() || !stream.eof()) {
         error("stringToReal: Illegal floating-point format (" + str + ")");
     }

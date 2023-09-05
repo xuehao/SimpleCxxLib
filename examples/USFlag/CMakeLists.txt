@@ -31,14 +31,6 @@ target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES} ${HEADER_FILES}
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# Fetch SimpleCxxLib
-include(FetchContent)
-FetchContent_Declare(
-  SimpleCxxLib
-  GIT_REPOSITORY https://gitee.com/stickmind/SimpleCxxLib.git
-  GIT_TAG main)
-FetchContent_MakeAvailable(SimpleCxxLib)
-
 # Add libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE SimpleCxxLib)
 

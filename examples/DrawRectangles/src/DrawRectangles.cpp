@@ -26,6 +26,7 @@
 /*************************************************************************/
 
 #include <cmath>
+
 #include "gevents.h"
 #include "gobjects.h"
 #include "gwindow.h"

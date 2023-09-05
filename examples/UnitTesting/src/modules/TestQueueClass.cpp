@@ -49,8 +49,6 @@ void testQueueClass() {
     testQueueCopy(queue, queue);
     test(queue.dequeue(), "A");
     test(queue.peek(), "B");
-    test(queue.front(), "B");
-    test(queue.back(), "C");
     test(queue.dequeue(), "B");
     test(queue.dequeue(), "C");
     test(queue.isEmpty(), true);

@@ -23,12 +23,6 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
 
 # Add libraries
-include(FetchContent)
-FetchContent_Declare(
-  SimpleCxxLib
-  GIT_REPOSITORY https://gitee.com/stickmind/SimpleCxxLib.git
-  GIT_TAG main)
-FetchContent_MakeAvailable(SimpleCxxLib)
 target_link_libraries(${PROJECT_NAME} PRIVATE SimpleCxxLib)
 
 # Copy dependency

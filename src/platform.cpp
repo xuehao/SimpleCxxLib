@@ -148,17 +148,7 @@ static HashMap<std::string, GWindowData*> windowTable;
 static HashMap<std::string, GObject*> sourceTable;
 static HashMap<std::string, std::string> optionTable;
 static std::string programName;
-static std::ofstream logfile;
-static bool tracePipe;
-static int pin;
-static int pout;
-
-#ifdef _WIN32
-static HANDLE rdFromJBE = nullptr;
-static HANDLE wrFromJBE = nullptr;
-static HANDLE rdToJBE = nullptr;
-static HANDLE wrToJBE = nullptr;
-#endif
+static ConsoleStreambuf cbuf;
 
 /* Prototypes */
 
@@ -981,7 +971,6 @@ int startupMain(int argc, char** argv) {
     argvMain = argv;
     programName = getRoot(getTail(argv[0]));
     initPipe();
-    ConsoleStreambuf cbuf;
     std::cin.rdbuf(&cbuf);
     std::cout.rdbuf(&cbuf);
     std::cerr.rdbuf(&cbuf);
@@ -997,6 +986,11 @@ int startupMain(int argc, char** argv) {
 #ifdef _WIN32
 
 /* Windows implementation of interface to Java back end */
+
+static HANDLE rdFromJBE = nullptr;
+static HANDLE wrFromJBE = nullptr;
+static HANDLE rdToJBE = nullptr;
+static HANDLE wrToJBE = nullptr;
 
 static void initPipe() {
     SECURITY_ATTRIBUTES attr;
@@ -1067,10 +1061,10 @@ static std::string getPipe() {
 
 /* Linux/Mac implementation of interface to Java back end */
 
+static int pin;
+static int pout;
+
 static void initPipe() {
-    char* trace = getenv("JBETRACE");
-    logfile.open("/dev/tty");
-    tracePipe = trace != nullptr && startsWith(toLowerCase(trace), "t");
     int toJBE[2], fromJBE[2];
     pipe(toJBE);
     pipe(fromJBE);
@@ -1100,8 +1094,6 @@ static void initPipe() {
 static void putPipe(std::string line) {
     write(pout, line.c_str(), line.length());
     write(pout, "\n", 1);
-    if (tracePipe)
-        logfile << "-> " << line << std::endl;
 }
 
 static std::string getPipe() {
@@ -1113,8 +1105,6 @@ static std::string getPipe() {
             break;
         line += ch;
     }
-    if (tracePipe)
-        logfile << "<- " << line << std::endl;
     return line;
 }
 

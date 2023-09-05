@@ -22,14 +22,6 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
      ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
 
-# Fetch SimpleCxxLib
-include(FetchContent)
-FetchContent_Declare(
-  SimpleCxxLib
-  GIT_REPOSITORY https://gitee.com/stickmind/SimpleCxxLib.git
-  GIT_TAG main)
-FetchContent_MakeAvailable(SimpleCxxLib)
-
 # Add libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE SimpleCxxLib)
 

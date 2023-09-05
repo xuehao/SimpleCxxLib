@@ -31,10 +31,14 @@ int main() {
     GWindow gw(600, 400);
     double width = gw.getWidth();
     double height = gw.getHeight();
+
     GLine* line = new GLine(0, 0, width, height);
     gw.draw(line);
+    delete line;
+
     line = new GLine(0, height, width, 0);
     gw.draw(line);
     delete line;
+    
     return 0;
 }

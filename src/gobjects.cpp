@@ -35,7 +35,7 @@
 static const double LINE_TOLERANCE = 1.5;
 static const double ARC_TOLERANCE = 2.5;
 static const double DEFAULT_CORNER = 10;
-static const std::string DEFAULT_GLABEL_FONT = "Dialog-13";
+static const std::string DEFAULT_GLABEL_FONT = "Arial-13";
 
 static double dsq(double x0, double y0, double x1, double y1);
 

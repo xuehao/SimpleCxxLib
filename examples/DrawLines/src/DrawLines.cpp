@@ -30,7 +30,7 @@ using namespace std;
 
 int main() {
     GWindow gw(600, 400);
-    GLine* line;
+    GLine* line = nullptr;
     while (true) {
         GMouseEvent e = waitForEvent(MOUSE_EVENT);
         if (e.getEventType() == MOUSE_PRESSED) {
@@ -38,6 +38,9 @@ int main() {
             gw.add(line);
         } else if (e.getEventType() == MOUSE_DRAGGED) {
             line->setEndPoint(e.getX(), e.getY());
+        } else if (e.getEventType() == MOUSE_RELEASED) {
+            delete line;
+            line = nullptr;
         }
     }
     return 0;
