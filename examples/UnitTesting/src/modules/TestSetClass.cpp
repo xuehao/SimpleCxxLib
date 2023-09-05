@@ -25,6 +25,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+
 #include "direction.h"
 #include "filelib.h"
 #include "lexicon.h"

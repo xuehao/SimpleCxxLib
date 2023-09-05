@@ -85,7 +85,8 @@ int findTest(string key) {
     key = toLowerCase(key);
     for (int i = 0; i < N_TESTS; i++) {
         if (startsWith(TESTS[i].name, key)) {
-            if (index != -1) return -1;
+            if (index != -1)
+                return -1;
             index = i;
         }
     }

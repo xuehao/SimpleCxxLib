@@ -26,6 +26,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+
 #include "direction.h"
 #include "unittest.h"
 #include "vector.h"

@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "filelib.h"
 #include "lexicon.h"
 #include "set.h"

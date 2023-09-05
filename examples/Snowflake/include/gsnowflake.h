@@ -27,6 +27,7 @@
 #define _gsnowflake_h
 
 #include <string>
+
 #include "gobjects.h"
 
 class GSnowflake : public GPolygon {

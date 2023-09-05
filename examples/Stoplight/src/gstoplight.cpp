@@ -23,7 +23,9 @@
 /*************************************************************************/
 
 #include "gstoplight.h"
+
 #include <string>
+
 #include "error.h"
 #include "gobjects.h"
 using namespace std;

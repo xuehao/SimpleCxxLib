@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <sstream>
+
 #include "direction.h"
 #include "unittest.h"
 using namespace std;

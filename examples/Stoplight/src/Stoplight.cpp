@@ -23,6 +23,7 @@
 /*************************************************************************/
 
 #include <string>
+
 #include "gevents.h"
 #include "ginteractors.h"
 #include "gobjects.h"

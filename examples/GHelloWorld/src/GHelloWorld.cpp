@@ -23,6 +23,7 @@
 /*************************************************************************/
 
 #include <iostream>
+
 #include "gobjects.h"
 #include "gwindow.h"
 using namespace std;

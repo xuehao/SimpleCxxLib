@@ -23,28 +23,54 @@ find_package(Threads)
 target_link_libraries(${PROJECT_NAME} Threads::Threads)
 
 # Add source files
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
-     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
-file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS
-     ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
+file(
+  GLOB_RECURSE
+  SOURCE_FILES
+  CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/collections/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/console/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/graphics/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/io/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/system/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/testing/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/util/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/private/src/*.cpp)
+file(
+  GLOB_RECURSE
+  HEADER_FILES
+  CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/collections/include/*.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/console/include/*.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/graphics/include/*.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/io/include/*.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/system/include/*.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/testing/include/*.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/util/include/*.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/private/include/*.h)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES} ${HEADER_FILES})
 
 # Add include directories
 target_include_directories(
   ${PROJECT_NAME}
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/private)
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/collections/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/console/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/graphics/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/io/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/system/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/testing/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/util/include
+  PRIVITE
+         ${CMAKE_CURRENT_SOURCE_DIR}/private/include)
 
 # Configuration for testing
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    add_subdirectory(examples)
+  add_subdirectory(examples)
 endif()
 
 # Build Java backend (depends on jdk8 and linux tools)
+
 # add_dependencies(${PROJECT_NAME} JavaBackend)
 # add_custom_target(
 #   JavaBackend
 #   COMMAND make
 #   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/java)
-
-

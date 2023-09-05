@@ -26,6 +26,7 @@
 /*************************************************************************/
 
 #include <string>
+
 #include "gevents.h"
 #include "gobjects.h"
 #include "gwindow.h"

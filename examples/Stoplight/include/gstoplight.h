@@ -26,6 +26,7 @@
 #define _gstoplight_h
 
 #include <string>
+
 #include "gobjects.h"
 
 class GStoplight : public GCompound {

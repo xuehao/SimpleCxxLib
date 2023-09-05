@@ -23,9 +23,11 @@
 /*************************************************************************/
 
 #include "gstar.h"
+
 #include <iostream>
 #include <sstream>
 #include <string>
+
 #include "gmath.h"
 #include "gobjects.h"
 using namespace std;

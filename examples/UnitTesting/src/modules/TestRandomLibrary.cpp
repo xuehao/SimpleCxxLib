@@ -24,9 +24,11 @@
 /*************************************************************************/
 
 #include <limits.h>
+
 #include <cmath>
 #include <iostream>
 #include <string>
+
 #include "random.h"
 #include "unittest.h"
 using namespace std;

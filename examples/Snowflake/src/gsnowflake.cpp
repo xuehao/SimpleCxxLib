@@ -23,7 +23,9 @@
 /*************************************************************************/
 
 #include "gsnowflake.h"
+
 #include <cmath>
+
 #include "gobjects.h"
 using namespace std;
 

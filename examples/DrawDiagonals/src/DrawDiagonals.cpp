@@ -39,6 +39,6 @@ int main() {
     line = new GLine(0, height, width, 0);
     gw.draw(line);
     delete line;
-    
+
     return 0;
 }

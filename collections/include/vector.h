@@ -1,0 +1,900 @@
+/*
+ * File: vector.h
+ * --------------
+ * This file exports the <code>Vector</code> class, which provides an
+ * efficient, safe, convenient replacement for the array type in C++.
+ */
+
+/*************************************************************************/
+/* Stanford Portable Library                                             */
+/* Copyright (c) 2014 by Eric Roberts <eroberts@cs.stanford.edu>         */
+/*                                                                       */
+/* This program is free software: you can redistribute it and/or modify  */
+/* it under the terms of the GNU General Public License as published by  */
+/* the Free Software Foundation, either version 3 of the License, or     */
+/* (at your option) any later version.                                   */
+/*                                                                       */
+/* This program is distributed in the hope that it will be useful,       */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of        */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         */
+/* GNU General Public License for more details.                          */
+/*                                                                       */
+/* You should have received a copy of the GNU General Public License     */
+/* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+/*************************************************************************/
+
+#ifndef _vector_h
+#define _vector_h
+
+#include <algorithm>
+#include <initializer_list>
+#include <iostream>
+#include <iterator>
+#include <sstream>
+#include <string>
+
+#include "strlib.h"
+
+/*
+ * Class: Vector<ValueType>
+ * ------------------------
+ * This class stores an ordered list of values similar to an array.
+ * It supports traditional array selection using square brackets, but
+ * also supports inserting and deleting elements.  It is similar in
+ * function to the STL <code>vector</code> type, but is simpler both
+ * to use and to implement.
+ */
+
+template <typename ValueType>
+class Vector {
+public:
+    /*
+     * Constructor: Vector
+     * Usage: Vector<ValueType> vec;
+     *        Vector<ValueType> vec(n, value);
+     *        Vector<int> vec {1, 2, 3};
+     * ---------------------------------------
+     * Initializes a new vector.  The default constructor creates an
+     * empty vector.  The second form creates an array with <code>n</code>
+     * elements, each of which is initialized to <code>value</code>;
+     * if <code>value</code> is missing, the elements are initialized
+     * to the default value for the type.
+     * The third one creates a vector using an initializer list
+     */
+
+    Vector();
+    explicit Vector(int n, ValueType value = ValueType());
+    Vector(std::initializer_list<ValueType> list);
+
+    /*
+     * Destructor: ~Vector
+     * -------------------
+     * Frees any heap storage allocated by this vector.
+     */
+
+    virtual ~Vector();
+
+    /*
+     * Method: size
+     * Usage: int nElems = vec.size();
+     * -------------------------------
+     * Returns the number of elements in this vector.
+     */
+
+    int size() const;
+
+    /*
+     * Method: subList
+     * Usage: Vector<ValueType> sub = v.subList(start, length);
+     * --------------------------------------------------------
+     * Returns a new vector containing the given subset range of elements
+     * from this vector. The new vector is a deep copy, not linked to this one.
+     * Throws an error if the range (start .. start + length) is not contained
+     * within the bounds of this vector, or if length is negative.
+     */
+
+    Vector<ValueType> subList(int start, int length) const;
+    Vector<ValueType> subList(int start) const;
+
+    /*
+     * Method: isEmpty
+     * Usage: if (vec.isEmpty()) ...
+     * -----------------------------
+     * Returns <code>true</code> if this vector contains no elements.
+     */
+
+    bool isEmpty() const;
+
+    /*
+     * Method: clear
+     * Usage: vec.clear();
+     * -------------------
+     * Removes all elements from this vector.
+     */
+
+    void clear();
+
+    /*
+     * Method: equals
+     * Usage: if (vec.equals(v2)) ...
+     * ------------------------------
+     * Compares two vectors for equality.
+     * Returns <code>true</code> if this vector contains exactly the same
+     * values as the given other vector.
+     * Identical in behavior to the == operator.
+     */
+
+    bool equals(const Vector<ValueType>& v) const;
+
+    /*
+     * Rearranges the order of the elements in this vector into sorted order.
+     * For example, if vector stores {9, 1, 4, 3}, changes it to store {1, 3, 4, 9}.
+     * The ValueType must have an operator < to call this method.
+     * @bigoh O(N log N)
+     */
+
+    void sort();
+
+    /*
+     * Method: get
+     * Usage: ValueType val = vec.get(index);
+     * --------------------------------------
+     * Returns the element at the specified index in this vector.  This
+     * method signals an error if the index is not in the array range.
+     */
+
+    const ValueType& get(int index) const;
+
+    /*
+     * Method: set
+     * Usage: vec.set(index, value);
+     * -----------------------------
+     * Replaces the element at the specified index in this vector with
+     * a new value.  The previous value at that index is overwritten.
+     * This method signals an error if the index is not in the array range.
+     */
+
+    void set(int index, const ValueType& value);
+
+    /*
+     * Method: insert
+     * Usage: vec.insert(0, value);
+     * ----------------------------
+     * Inserts the element into this vector before the specified index.
+     * All subsequent elements are shifted one position to the right.  This
+     * method signals an error if the index is outside the range from 0
+     * up to and including the length of the vector.  To maintain
+     * compatibility with older code, this method may also be called as
+     * <code>insertAt</code>.
+     */
+
+    void insert(int index, ValueType value);
+    void insertAt(int index, ValueType value);
+
+    /*
+     * Method: remove
+     * Usage: vec.remove(index);
+     * -------------------------
+     * Removes the element at the specified index from this vector.  All
+     * subsequent elements are shifted one position to the left.  This
+     * method signals an error if the index is outside the array range.
+     * To maintain compatibility with older code, this method may also
+     * be called as <code>removeAt</code>.
+     */
+
+    void remove(int index);
+    void removeAt(int index);
+
+    /*
+     * Method: add
+     * Usage: vec.add(value);
+     * ----------------------
+     * Adds a new value to the end of this vector.  To ensure compatibility
+     * with the <code>vector</code> class in the Standard Template Library,
+     * this method is also called <code>push_back</code>.
+     */
+
+    void add(ValueType value);
+    void push_back(ValueType value);
+
+    /*
+     * Operator: []
+     * Usage: vec[index]
+     * -----------------
+     * Overloads <code>[]</code> to select elements from this vector.
+     * This extension enables the use of traditional array notation to
+     * get or set individual elements.  This method signals an error if
+     * the index is outside the array range.  The file supports two
+     * versions of this operator, one for <code>const</code> vectors and
+     * one for mutable vectors.
+     */
+
+    ValueType& operator[](int index);
+    const ValueType& operator[](int index) const;
+
+    /*
+     * Operator: +
+     * Usage: v1 + v2
+     * --------------
+     * Concatenates two vectors.
+     */
+
+    Vector operator+(const Vector& v2) const;
+    Vector operator+(const ValueType& elem) const;
+
+    /*
+     * Operator: +=
+     * Usage: v1 += v2;
+     *        v1 += value;
+     * -------------------
+     * Adds all of the elements from <code>v2</code> (or the single
+     * specified value) to <code>v1</code>.  As a convenience, the
+     * <code>Vector</code> package also overloads the comma operator so
+     * that it is possible to initialize a vector like this:
+     *
+     *<pre>
+     *    Vector&lt;int&gt; digits;
+     *    digits += 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+     *</pre>
+     */
+
+    Vector& operator+=(const Vector& v2);
+    Vector& operator+=(const ValueType& value);
+
+    /*
+     * Operator: ==
+     * Usage: if (vec1 == vec2) ...
+     * ----------------------------
+     * Compares two vectors for equality.
+     */
+
+    bool operator==(const Vector& v2) const;
+
+    /*
+     * Operator: !=
+     * Usage: if (vec1 != vec2) ...
+     * ----------------------------
+     * Compares two vectors for inequality.
+     */
+
+    bool operator!=(const Vector& v2) const;
+
+    /*
+     * Method: toString
+     * Usage: string str = vec.toString();
+     * -----------------------------------
+     * Converts the vector to a printable string representation.
+     */
+
+    std::string toString();
+
+    /*
+     * Method: mapAll
+     * Usage: vec.mapAll(fn);
+     * ----------------------
+     * Calls the specified function on each element of the vector in
+     * ascending index order.
+     */
+
+    void mapAll(void (*fn)(ValueType)) const;
+    void mapAll(void (*fn)(const ValueType&)) const;
+
+    template <typename FunctorType>
+    void mapAll(FunctorType fn) const;
+
+    /*
+     * Additional Vector operations
+     * ----------------------------
+     * In addition to the methods listed in this interface, the Vector
+     * class supports the following operations:
+     *
+     *   - Stream I/O using the << and >> operators
+     *   - Deep copying for the copy constructor and assignment operator
+     *   - Iteration using the range-based for statement or STL iterators
+     *
+     * The iteration forms process the Vector in index order.
+     */
+
+    /* Private section */
+
+    /**********************************************************************/
+    /* Note: Everything below this point in the file is logically part    */
+    /* of the implementation and should not be of interest to clients.    */
+    /**********************************************************************/
+
+private:
+    /*
+     * Implementation notes: Vector data structure
+     * -------------------------------------------
+     * The elements of the Vector are stored in a dynamic array of
+     * the specified element type.  If the space in the array is ever
+     * exhausted, the implementation doubles the array capacity.
+     */
+
+    /* Instance variables */
+
+    ValueType* elements; /* A dynamic array of the elements   */
+    int capacity;        /* The allocated size of the array   */
+    int count;           /* The number of elements in use     */
+
+    /* Private methods */
+
+    void expandCapacity();
+    void deepCopy(const Vector& src);
+
+    /*
+     * Hidden features
+     * ---------------
+     * The remainder of this file consists of the code required to
+     * support deep copying and iteration.  Including these methods
+     * in the public interface would make that interface more
+     * difficult to understand for the average client.
+     */
+
+public:
+    /*
+     * Deep copying support
+     * --------------------
+     * This copy constructor and operator= are defined to make a deep copy,
+     * making it possible to pass or return vectors by value and assign
+     * from one vector to another.
+     */
+
+    Vector(const Vector& src);
+    Vector& operator=(const Vector& src);
+
+    /*
+     * Throws an ErrorException if the given index is not within the range of
+     * [min..max] inclusive.
+     * This is a consolidated error handler for all various Vector members that
+     * accept index parameters.
+     * The prefix parameter represents a text string to place at the start of
+     * the error message, generally to help indicate which member threw the error.
+     *
+     * We make prefix a const char* rather than a std::string to avoid having to
+     * construct and then destroy the prefix with each call.
+     */
+    void checkIndex(int index, int min, int max, const char* prefix) const;
+
+    /*
+     * Operator: ,
+     * -----------
+     * Adds an element to the vector passed as the left-hand operatand.
+     * This form makes it easier to initialize vectors in old versions of C++.
+     */
+
+    Vector& operator,(const ValueType& value);
+
+    /*
+     * Iterator support
+     * ----------------
+     * The classes in the StanfordCPPLib collection implement input
+     * iterators so that they work symmetrically with respect to the
+     * corresponding STL classes.
+     */
+
+    class iterator {
+    public:
+        using iterator_category = std::random_access_iterator_tag;
+        using value_type = ValueType;
+        using difference_type = std::ptrdiff_t;
+        using pointer = ValueType*;
+        using reference = ValueType&;
+
+        iterator() {
+            this->vp = nullptr;
+        }
+
+        iterator(const iterator& it) {
+            this->vp = it.vp;
+            this->index = it.index;
+        }
+
+        iterator(const Vector* vp, int index) {
+            this->vp = vp;
+            this->index = index;
+        }
+
+        iterator& operator++() {
+            index++;
+            return *this;
+        }
+
+        iterator operator++(int) {
+            iterator copy(*this);
+            operator++();
+            return copy;
+        }
+
+        iterator& operator--() {
+            index--;
+            return *this;
+        }
+
+        iterator operator--(int) {
+            iterator copy(*this);
+            operator--();
+            return copy;
+        }
+
+        bool operator==(const iterator& rhs) {
+            return vp == rhs.vp && index == rhs.index;
+        }
+
+        bool operator!=(const iterator& rhs) {
+            return !(*this == rhs);
+        }
+
+        bool operator<(const iterator& rhs) {
+            extern void error(std::string msg);
+            if (vp != rhs.vp)
+                error("Iterators are in different vectors");
+            return index < rhs.index;
+        }
+
+        bool operator<=(const iterator& rhs) {
+            extern void error(std::string msg);
+            if (vp != rhs.vp)
+                error("Iterators are in different vectors");
+            return index <= rhs.index;
+        }
+
+        bool operator>(const iterator& rhs) {
+            extern void error(std::string msg);
+            if (vp != rhs.vp)
+                error("Iterators are in different vectors");
+            return index > rhs.index;
+        }
+
+        bool operator>=(const iterator& rhs) {
+            extern void error(std::string msg);
+            if (vp != rhs.vp)
+                error("Iterators are in different vectors");
+            return index >= rhs.index;
+        }
+
+        iterator operator+(const int& rhs) {
+            return iterator(vp, index + rhs);
+        }
+
+        iterator operator+=(const int& rhs) {
+            index += rhs;
+            return *this;
+        }
+
+        iterator operator-(const int& rhs) {
+            return iterator(vp, index - rhs);
+        }
+
+        iterator operator-=(const int& rhs) {
+            index -= rhs;
+            return *this;
+        }
+
+        int operator-(const iterator& rhs) {
+            extern void error(std::string msg);
+            if (vp != rhs.vp)
+                error("Iterators are in different vectors");
+            return index - rhs.index;
+        }
+
+        ValueType& operator*() {
+            return vp->elements[index];
+        }
+
+        ValueType* operator->() {
+            return &vp->elements[index];
+        }
+
+        ValueType& operator[](int k) {
+            return vp->elements[index + k];
+        }
+
+    private:
+        const Vector* vp;
+        int index;
+    };
+
+    iterator begin() const {
+        return iterator(this, 0);
+    }
+
+    iterator end() const {
+        return iterator(this, count);
+    }
+};
+
+/* Implementation section */
+
+extern void error(std::string msg);
+
+/*
+ * Implementation notes: Vector constructor and destructor
+ * -------------------------------------------------------
+ * The constructor allocates storage for the dynamic array
+ * and initializes the other fields of the object.  The
+ * destructor frees the memory used for the array.
+ */
+
+template <typename ValueType>
+Vector<ValueType>::Vector() {
+    count = capacity = 0;
+    elements = nullptr;
+}
+
+template <typename ValueType>
+Vector<ValueType>::Vector(int n, ValueType value) {
+    count = capacity = n;
+    elements = (n == 0) ? nullptr : new ValueType[n];
+    for (int i = 0; i < n; i++) {
+        elements[i] = value;
+    }
+}
+
+template <typename ValueType>
+Vector<ValueType>::Vector(std::initializer_list<ValueType> list) {
+    capacity = list.size();
+    count = 0;
+    elements = new ValueType[capacity];
+    for (const ValueType& value : list) {
+        add(value);
+    }
+}
+
+template <typename ValueType>
+Vector<ValueType>::~Vector() {
+    if (elements != nullptr)
+        delete[] elements;
+}
+
+/*
+ * Implementation notes: Vector methods
+ * ------------------------------------
+ * The basic Vector methods are straightforward and should require
+ * no detailed documentation.
+ */
+
+template <typename ValueType>
+int Vector<ValueType>::size() const {
+    return count;
+}
+
+template <typename ValueType>
+Vector<ValueType> Vector<ValueType>::subList(int start, int length) const {
+    checkIndex(start, 0, size(), "subList");
+    checkIndex(start + length, 0, size(), "subList");
+    if (length < 0) {
+        error("Vector::subList: length cannot be negative");
+    }
+    Vector<ValueType> result;
+    for (int i = start; i < start + length; i++) {
+        result.add(get(i));
+    }
+    return result;
+}
+
+template <typename ValueType>
+Vector<ValueType> Vector<ValueType>::subList(int start) const {
+    return subList(start, size() - start);
+}
+
+template <typename ValueType>
+bool Vector<ValueType>::isEmpty() const {
+    return count == 0;
+}
+
+template <typename ValueType>
+void Vector<ValueType>::clear() {
+    if (elements != nullptr)
+        delete[] elements;
+    count = capacity = 0;
+    elements = nullptr;
+}
+
+template <typename ValueType>
+bool Vector<ValueType>::equals(const Vector<ValueType>& v) const {
+    if (this == &v) {
+        return true;
+    }
+    if (size() != v.size()) {
+        return false;
+    }
+    for (int i = 0, sz = size(); i < sz; i++) {
+        if (get(i) != v.get(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <typename ValueType>
+void Vector<ValueType>::sort() {
+    std::sort(begin(), end());
+}
+
+template <typename ValueType>
+const ValueType& Vector<ValueType>::get(int index) const {
+    checkIndex(index, 0, size() - 1, "get");
+    return elements[index];
+}
+
+template <typename ValueType>
+void Vector<ValueType>::set(int index, const ValueType& value) {
+    checkIndex(index, 0, size() - 1, "set");
+    elements[index] = value;
+}
+
+/*
+ * Implementation notes: insert, remove, add
+ * -----------------------------------------
+ * These methods must shift the existing elements in the array to
+ * make room for a new element or to close up the space left by a
+ * deleted one.
+ */
+
+template <typename ValueType>
+void Vector<ValueType>::insert(int index, ValueType value) {
+    if (count == capacity)
+        expandCapacity();
+    checkIndex(index, 0, size(), "insert");
+    for (int i = count; i > index; i--) {
+        elements[i] = elements[i - 1];
+    }
+    elements[index] = value;
+    count++;
+}
+
+template <typename ValueType>
+void Vector<ValueType>::insertAt(int index, ValueType value) {
+    insert(index, value);
+}
+
+template <typename ValueType>
+void Vector<ValueType>::remove(int index) {
+    checkIndex(index, 0, size() - 1, "remove");
+    for (int i = index; i < count - 1; i++) {
+        elements[i] = elements[i + 1];
+    }
+    count--;
+}
+
+template <typename ValueType>
+void Vector<ValueType>::removeAt(int index) {
+    remove(index);
+}
+
+template <typename ValueType>
+void Vector<ValueType>::add(ValueType value) {
+    insert(count, value);
+}
+
+template <typename ValueType>
+void Vector<ValueType>::push_back(ValueType value) {
+    insert(count, value);
+}
+
+/*
+ * Implementation notes: Vector selection
+ * --------------------------------------
+ * The following code implements traditional array selection using
+ * square brackets for the index.
+ */
+
+template <typename ValueType>
+ValueType& Vector<ValueType>::operator[](int index) {
+    checkIndex(index, 0, size() - 1, "operator []");
+    return elements[index];
+}
+
+template <typename ValueType>
+const ValueType& Vector<ValueType>::operator[](int index) const {
+    if (index < 0 || index >= count)
+        error("Selection index out of range");
+    return elements[index];
+}
+
+template <typename ValueType>
+Vector<ValueType> Vector<ValueType>::operator+(const Vector& v2) const {
+    Vector<ValueType> vec = *this;
+    for (const ValueType& value : v2) {
+        vec.add(value);
+    }
+    return vec;
+}
+
+template <typename ValueType>
+Vector<ValueType> Vector<ValueType>::operator+(const ValueType& elem) const {
+    Vector<ValueType> result = *this;
+    return result += elem;
+}
+
+template <typename ValueType>
+Vector<ValueType>& Vector<ValueType>::operator+=(const Vector& v2) {
+    for (const ValueType& value : v2) {
+        *this += value;
+    }
+    return *this;
+}
+
+template <typename ValueType>
+Vector<ValueType>& Vector<ValueType>::operator+=(const ValueType& value) {
+    add(value);
+    return *this;
+}
+
+template <typename ValueType>
+bool Vector<ValueType>::operator==(const Vector& v2) const {
+    return equals(v2);
+}
+
+template <typename ValueType>
+bool Vector<ValueType>::operator!=(const Vector& v2) const {
+    return !equals(v2);
+}
+
+template <typename ValueType>
+std::string Vector<ValueType>::toString() {
+    std::ostringstream os;
+    os << *this;
+    return os.str();
+}
+
+/*
+ * Implementation notes: copy constructor and assignment operator
+ * --------------------------------------------------------------
+ * The constructor and assignment operators follow a standard paradigm,
+ * as described in the associated textbook.
+ */
+
+template <typename ValueType>
+Vector<ValueType>::Vector(const Vector& src) {
+    deepCopy(src);
+}
+
+template <typename ValueType>
+Vector<ValueType>& Vector<ValueType>::operator=(const Vector& src) {
+    if (this != &src) {
+        if (elements != nullptr)
+            delete[] elements;
+        deepCopy(src);
+    }
+    return *this;
+}
+
+template <typename ValueType>
+void Vector<ValueType>::deepCopy(const Vector& src) {
+    count = capacity = src.count;
+    elements = (capacity == 0) ? nullptr : new ValueType[capacity];
+    for (int i = 0; i < count; i++) {
+        elements[i] = src.elements[i];
+    }
+}
+
+template <typename ValueType>
+void Vector<ValueType>::checkIndex(int index, int min, int max, const char* prefix) const {
+    if (index < min || index > max) {
+        std::ostringstream out;
+        out << "Vector::" << prefix << ": index of " << index << " is outside of valid range ";
+        if (isEmpty()) {
+            out << " (empty vector)";
+        } else {
+            out << "[";
+            if (min < max) {
+                out << min << ".." << max;
+            } else if (min == max) {
+                out << min;
+            }  // else min > max, no range, empty vector
+            out << "]";
+        }
+        error(out.str());
+    }
+}
+
+/*
+ * Implementation notes: The , operator
+ * ------------------------------------
+ * The comma operator works adding the right operand to the vector and
+ * then returning the vector by reference so that it is set for the next
+ * value in the chain.
+ */
+
+template <typename ValueType>
+Vector<ValueType>&Vector<ValueType>::operator,(const ValueType& value) {
+    this->add(value);
+    return *this;
+}
+
+/*
+ * Implementation notes: mapAll
+ * ----------------------------
+ * The various versions of the mapAll function apply the function or
+ * function object to each element in ascending index order.
+ */
+
+template <typename ValueType>
+void Vector<ValueType>::mapAll(void (*fn)(ValueType)) const {
+    for (int i = 0; i < count; i++) {
+        fn(elements[i]);
+    }
+}
+
+template <typename ValueType>
+void Vector<ValueType>::mapAll(void (*fn)(const ValueType&)) const {
+    for (int i = 0; i < count; i++) {
+        fn(elements[i]);
+    }
+}
+
+template <typename ValueType>
+template <typename FunctorType>
+void Vector<ValueType>::mapAll(FunctorType fn) const {
+    for (int i = 0; i < count; i++) {
+        fn(elements[i]);
+    }
+}
+
+/*
+ * Implementation notes: expandCapacity
+ * ------------------------------------
+ * This function doubles the array capacity, copies the old elements
+ * into the new array, and then frees the old one.
+ */
+
+template <typename ValueType>
+void Vector<ValueType>::expandCapacity() {
+    capacity = std::max(1, capacity * 2);
+    ValueType* array = new ValueType[capacity];
+    for (int i = 0; i < count; i++) {
+        array[i] = elements[i];
+    }
+    if (elements != nullptr)
+        delete[] elements;
+    elements = array;
+}
+
+/*
+ * Implementation notes: << and >>
+ * -------------------------------
+ * The insertion and extraction operators use the template facilities in
+ * strlib.h to read and write generic values in a way that treats strings
+ * specially.
+ */
+
+template <typename ValueType>
+std::ostream& operator<<(std::ostream& os, const Vector<ValueType>& vec) {
+    os << "{";
+    int len = vec.size();
+    for (int i = 0; i < len; i++) {
+        if (i > 0)
+            os << ", ";
+        writeGenericValue(os, vec[i], true);
+    }
+    return os << "}";
+}
+
+template <typename ValueType>
+std::istream& operator>>(std::istream& is, Vector<ValueType>& vec) {
+    char ch;
+    is >> ch;
+    if (ch != '{')
+        error("operator >>: Missing {");
+    vec.clear();
+    is >> ch;
+    if (ch != '}') {
+        is.unget();
+        while (true) {
+            ValueType value;
+            readGenericValue(is, value);
+            vec += value;
+            is >> ch;
+            if (ch == '}')
+                break;
+            if (ch != ',') {
+                error(std::string("operator >>: Unexpected character ") + ch);
+            }
+        }
+    }
+    return is;
+}
+
+#endif

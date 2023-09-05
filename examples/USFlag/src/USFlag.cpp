@@ -24,6 +24,7 @@
 
 #include <cmath>
 #include <string>
+
 #include "gobjects.h"
 #include "gstar.h"
 #include "gwindow.h"
