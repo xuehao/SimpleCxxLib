@@ -1,4 +1,5 @@
 #include "hashcode.h"
+#include <stdint.h>
 
 const int HASH_SEED = 5381;               // Starting point for first cycle
 const int HASH_MULTIPLIER = 33;           // Multiplier for each cycle
