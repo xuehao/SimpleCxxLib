@@ -1263,9 +1263,10 @@ class GChooser_addItem extends JBECommand {
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
       if (gobj != null) {
-         JComboBox chooser = (JComboBox) ((GChooser) gobj).getInteractor();
+         @SuppressWarnings("unchecked")
+         JComboBox<String> chooser = (JComboBox<String>) ((GChooser) gobj).getInteractor();
          Class<?> c = chooser.getClass();
-         Class[] types = { Object.class };
+         Class<?>[] types = { Object.class };
          Object[] args = { item };
          try {
             Method addItem = c.getMethod("addItem", types);
@@ -1284,7 +1285,8 @@ class GChooser_getSelectedItem extends JBECommand {
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
       if (gobj != null) {
-         JComboBox chooser = (JComboBox) ((GChooser) gobj).getInteractor();
+         @SuppressWarnings("unchecked")
+         JComboBox<String> chooser = (JComboBox<String>) ((GChooser) gobj).getInteractor();
          System.out.println("result:" + chooser.getSelectedItem());
          System.out.flush();
       } else {
@@ -1303,7 +1305,8 @@ class GChooser_setSelectedItem extends JBECommand {
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
       if (gobj != null) {
-         JComboBox chooser = (JComboBox) ((GChooser) gobj).getInteractor();
+         @SuppressWarnings("unchecked")
+         JComboBox<String> chooser = (JComboBox<String>) ((GChooser) gobj).getInteractor();
          chooser.setSelectedItem(item);
       }
    }

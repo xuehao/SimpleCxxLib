@@ -12,7 +12,8 @@ EXPORTBIN = $(HOME)/bin
 
 JAVAC = javac -sourcepath src \
               -d classes \
-              -Xlint:-serial
+              -Xlint:-serial \
+              -Xlint:deprecation
 
 CLASSES = \
     classes/edu/stanford/cs/java/graphics/G3DRect.class \

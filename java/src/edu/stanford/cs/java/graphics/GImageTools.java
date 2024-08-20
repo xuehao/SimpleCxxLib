@@ -40,16 +40,13 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
@@ -123,7 +120,7 @@ public class GImageTools {
       if (image != null) return image;
       if (name.startsWith("http:")) {
          try {
-            image = loadImage(new URL(name));
+            image = loadImage(URI.create(name).toURL());
             if (cachingEnabled) imageTable.put(name, image);
             return image;
          } catch (MalformedURLException ex) {
@@ -389,7 +386,7 @@ public class GImageTools {
             try {
                cname = pkg + "." + suffix + "ImageSaver";
                Class<?> imageSaverClass = Class.forName(cname);
-               saver = (ImageSaver) imageSaverClass.newInstance();
+               saver = (ImageSaver) imageSaverClass.getDeclaredConstructor().newInstance();
             } catch (Exception ex) {
                return null;
             }

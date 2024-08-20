@@ -559,7 +559,7 @@ class GMouseEvent extends MouseEvent {
  */
 
    public GMouseEvent(Object gobj, int eventID, MouseEvent e) {
-      super(e.getComponent(), eventID, e.getWhen(), e.getModifiers(),
+      super(e.getComponent(), eventID, e.getWhen(), e.getModifiersEx(),
             e.getX(), e.getY(), e.getClickCount(), e.isPopupTrigger());
       effectiveSource = gobj;
    }

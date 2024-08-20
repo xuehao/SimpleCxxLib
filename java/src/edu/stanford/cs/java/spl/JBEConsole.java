@@ -23,20 +23,13 @@
 package edu.stanford.cs.java.spl;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.JViewport;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
@@ -54,7 +47,6 @@ public class JBEConsole extends JScrollPane {
  */
 
    public JBEConsole() {
-      listeners = new ArrayList<ActionListener>();
       ctp = new ConsoleTextPane(this);
       ctp.setFont(DEFAULT_FONT);
       ctp.setBackground(Color.WHITE);
@@ -134,7 +126,6 @@ public class JBEConsole extends JScrollPane {
 
 /* Private instance variables */
 
-   private ArrayList<ActionListener> listeners;
    private ConsoleTextPane ctp;
    private String inputLine;
    private boolean inputComplete;
@@ -147,7 +138,6 @@ class ConsoleTextPane extends JTextPane implements KeyListener {
       this.console = console;
       addKeyListener(this);
       document = getDocument();
-      lineSeparator = System.getProperty("line.separator");
       outputAttributes = new SimpleAttributeSet();
       inputAttributes = new SimpleAttributeSet();
       errorAttributes = new SimpleAttributeSet();
@@ -251,9 +241,9 @@ class ConsoleTextPane extends JTextPane implements KeyListener {
                                   "changed after I/O has started.");
       }
       inputAttributes.addAttribute(StyleConstants.Bold,
-                                   new Boolean((style & Font.BOLD) != 0));
+                                   Boolean.valueOf((style & Font.BOLD) != 0)); /* new Boolean((style & Font.BOLD) != 0)); */
       inputAttributes.addAttribute(StyleConstants.Italic,
-                                   new Boolean((style & Font.ITALIC) != 0));
+                                   Boolean.valueOf((style & Font.ITALIC) != 0)); /* new Boolean((style & Font.ITALIC) != 0)); */
    }
 
 /**
@@ -279,9 +269,9 @@ class ConsoleTextPane extends JTextPane implements KeyListener {
                                   "changed after I/O has started.");
       }
       errorAttributes.addAttribute(StyleConstants.Bold,
-                                   new Boolean((style & Font.BOLD) != 0));
+                                   Boolean.valueOf((style & Font.BOLD) != 0)); // new Boolean((style & Font.BOLD) != 0));
       errorAttributes.addAttribute(StyleConstants.Italic,
-                                   new Boolean((style & Font.ITALIC) != 0));
+                                   Boolean.valueOf((style & Font.ITALIC) != 0)); //new Boolean((style & Font.ITALIC) != 0));
    }
 
 /**
@@ -437,25 +427,6 @@ class ConsoleTextPane extends JTextPane implements KeyListener {
       return start;
    }
 
-/**
- * Sets the relevant components of the graphics context from the attribute set.
- */
-
-   private void setStyleFromAttributes(Graphics g, AttributeSet attributes) {
-      Font oldFont = getFont();
-      int style = 0;
-      if ((Boolean) attributes.getAttribute(StyleConstants.Bold)) {
-         style |= Font.BOLD;
-      }
-      if ((Boolean) attributes.getAttribute(StyleConstants.Italic)) {
-         style |= Font.ITALIC;
-      }
-      g.setFont(new Font(oldFont.getName(), style, oldFont.getSize()));
-      Color color = (Color) attributes.getAttribute(StyleConstants.Foreground);
-      if (color == null) color = getForeground();
-      g.setColor(color);
-   }
-
 /* Constants */
 
    public static final int OUTPUT_STYLE = 0;
@@ -464,13 +435,11 @@ class ConsoleTextPane extends JTextPane implements KeyListener {
 
 /* Private instance variables */
 
-   private ActionListener actionListener;
    private Document document;
    private JBEConsole console;
    private SimpleAttributeSet errorAttributes;
    private SimpleAttributeSet inputAttributes;
    private SimpleAttributeSet outputAttributes;
-   private String lineSeparator;
    private int base;
    private int lastChar;
 

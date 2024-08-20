@@ -163,8 +163,8 @@ public class GPoint implements Serializable {
  */
 
    public int hashCode() {
-      return new Float((float) xc).hashCode()
-               ^ (37 * new Float((float) yc).hashCode());
+      return Float.valueOf((float) xc).hashCode()
+               ^ (37 * Float.valueOf((float) yc).hashCode());
    }
 
 /**

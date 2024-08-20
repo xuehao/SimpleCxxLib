@@ -28,8 +28,9 @@ import javax.swing.JComboBox;
 public class GChooser extends GInteractor {
 
    public GChooser(ActionListener listener) {
-      super(new JComboBox());
-      JComboBox chooser = (JComboBox) getInteractor();
+      super(new JComboBox<String>());
+      @SuppressWarnings("unchecked")
+      JComboBox<String> chooser = (JComboBox<String>) getInteractor();
       if (listener != null) {
          chooser.setEditable(false);
          chooser.addActionListener(listener);

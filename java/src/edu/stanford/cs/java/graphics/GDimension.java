@@ -150,8 +150,8 @@ public class GDimension implements Serializable {
  */
 
    public int hashCode() {
-      return new Float((float) width).hashCode()
-                       ^ (37 * new Float((float) height).hashCode());
+      return Float.valueOf((float) width).hashCode()
+                       ^ (37 * Float.valueOf((float) height).hashCode());
    }
 
 /**

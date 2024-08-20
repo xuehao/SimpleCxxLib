@@ -55,7 +55,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import javax.sound.sampled.AudioInputStream;
@@ -156,7 +156,7 @@ public class JavaBackEnd implements WindowListener, MouseListener,
       console = new JBEConsole();
       if (exec != null) {
          try {
-            Process proc = Runtime.getRuntime().exec(exec);
+            Process proc = (new ProcessBuilder(exec)).start();
             System.setIn(proc.getInputStream());
             System.setOut(new PrintStream(proc.getOutputStream(), true));
          } catch (IOException ex) {
@@ -717,7 +717,7 @@ public class JavaBackEnd implements WindowListener, MouseListener,
       Toolkit toolkit = Toolkit.getDefaultToolkit();
       if (name.startsWith("http:")) {
          try {
-            image = toolkit.getImage(new URL(name));
+            image = toolkit.getImage(URI.create(name).toURL());
          } catch (MalformedURLException ex) {
             throw new RuntimeException("loadImage: Malformed URL");
          }
@@ -779,7 +779,7 @@ public class JavaBackEnd implements WindowListener, MouseListener,
       try {
          Class<?> applicationClass =
             Class.forName("com.apple.eawt.Application");
-         Class[] types = null;
+         Class<?>[] types = null;
          Object[] args = null;
          Object app = applicationClass.getConstructor(types).newInstance(args);
          Class<?> applicationListenerClass =

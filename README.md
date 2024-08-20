@@ -8,9 +8,9 @@
 
 ## Environment
 
-The `SimpleCxxLib` package interacts with Java graphics, so `Java SE 8 (LTS)` is needed for running programs properly.
+The `SimpleCxxLib` package interacts with Java graphics, so `Java` is needed for running programs properly.
 
-- [Install JDK 8](https://adoptium.net/temurin/releases/?version=8)
+- [Install JDK](https://adoptium.net/temurin/releases/?version=17)
 
 ## How to use it
 
