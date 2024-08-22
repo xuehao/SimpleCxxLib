@@ -3,7 +3,7 @@
 #****************************************************************
 
 PKGNAME = spl
-PKGPATH = edu/stanford/cs/java/$(PKGNAME)
+PKGPATH = $(PKGNAME)
 JARFILE = $(PKGNAME).jar
 TOOLS =
 
@@ -12,47 +12,46 @@ EXPORTBIN = $(HOME)/bin
 
 JAVAC = javac -sourcepath src \
               -d classes \
-              -Xlint:-serial \
-              -Xlint:deprecation
+              -Xlint:-serial
 
 CLASSES = \
-    classes/edu/stanford/cs/java/graphics/G3DRect.class \
-    classes/edu/stanford/cs/java/graphics/GArc.class \
-    classes/edu/stanford/cs/java/graphics/GCanvas.class \
-    classes/edu/stanford/cs/java/graphics/GCompound.class \
-    classes/edu/stanford/cs/java/graphics/GContainer.class \
-    classes/edu/stanford/cs/java/graphics/GDimension.class \
-    classes/edu/stanford/cs/java/graphics/GFillable.class \
-    classes/edu/stanford/cs/java/graphics/GImage.class \
-    classes/edu/stanford/cs/java/graphics/GImageTools.class \
-    classes/edu/stanford/cs/java/graphics/GLabel.class \
-    classes/edu/stanford/cs/java/graphics/GLine.class \
-    classes/edu/stanford/cs/java/graphics/GMath.class \
-    classes/edu/stanford/cs/java/graphics/GObject.class \
-    classes/edu/stanford/cs/java/graphics/GOval.class \
-    classes/edu/stanford/cs/java/graphics/GPoint.class \
-    classes/edu/stanford/cs/java/graphics/GPolygon.class \
-    classes/edu/stanford/cs/java/graphics/GRect.class \
-    classes/edu/stanford/cs/java/graphics/GRectangle.class \
-    classes/edu/stanford/cs/java/graphics/GResizable.class \
-    classes/edu/stanford/cs/java/graphics/GRoundRect.class \
-    classes/edu/stanford/cs/java/graphics/GScalable.class \
-    classes/edu/stanford/cs/java/graphics/GWindow.class \
-    classes/edu/stanford/cs/java/spl/GButton.class \
-    classes/edu/stanford/cs/java/spl/GCheckBox.class \
-    classes/edu/stanford/cs/java/spl/GChooser.class \
-    classes/edu/stanford/cs/java/spl/GInteractor.class \
-    classes/edu/stanford/cs/java/spl/GSlider.class \
-    classes/edu/stanford/cs/java/spl/GTextField.class \
-    classes/edu/stanford/cs/java/spl/JBECanvas.class \
-    classes/edu/stanford/cs/java/spl/JBECommand.class \
-    classes/edu/stanford/cs/java/spl/JBEConsole.class \
-    classes/edu/stanford/cs/java/spl/JBEFileFilter.class \
-    classes/edu/stanford/cs/java/spl/JBELabel.class \
-    classes/edu/stanford/cs/java/spl/JBETopCompound.class \
-    classes/edu/stanford/cs/java/spl/JBEWindow.class \
-    classes/edu/stanford/cs/java/spl/JavaBackEnd.class \
-    classes/edu/stanford/cs/java/tokenscanner/TokenScanner.class
+    classes/graphics/G3DRect.class \
+    classes/graphics/GArc.class \
+    classes/graphics/GCanvas.class \
+    classes/graphics/GCompound.class \
+    classes/graphics/GContainer.class \
+    classes/graphics/GDimension.class \
+    classes/graphics/GFillable.class \
+    classes/graphics/GImage.class \
+    classes/graphics/GImageTools.class \
+    classes/graphics/GLabel.class \
+    classes/graphics/GLine.class \
+    classes/graphics/GMath.class \
+    classes/graphics/GObject.class \
+    classes/graphics/GOval.class \
+    classes/graphics/GPoint.class \
+    classes/graphics/GPolygon.class \
+    classes/graphics/GRect.class \
+    classes/graphics/GRectangle.class \
+    classes/graphics/GResizable.class \
+    classes/graphics/GRoundRect.class \
+    classes/graphics/GScalable.class \
+    classes/graphics/GWindow.class \
+    classes/spl/GButton.class \
+    classes/spl/GCheckBox.class \
+    classes/spl/GChooser.class \
+    classes/spl/GInteractor.class \
+    classes/spl/GSlider.class \
+    classes/spl/GTextField.class \
+    classes/spl/JBECanvas.class \
+    classes/spl/JBECommand.class \
+    classes/spl/JBEConsole.class \
+    classes/spl/JBEFileFilter.class \
+    classes/spl/JBELabel.class \
+    classes/spl/JBETopCompound.class \
+    classes/spl/JBEWindow.class \
+    classes/spl/JavaBackEnd.class \
+    classes/tokenscanner/TokenScanner.class
 
 
 # ***************************************************************
@@ -90,573 +89,573 @@ scratch clean: tidy
 # ***************************************************************
 # Compilations for the Java classes
 
-classes/edu/stanford/cs/java/graphics/G3DRect.class: \
-          src/edu/stanford/cs/java/graphics/G3DRect.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRect.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/G3DRect.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/G3DRect.java
+classes/graphics/G3DRect.class: \
+          src/graphics/G3DRect.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRect.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/G3DRect.java
+	@$(JAVAC) src/graphics/G3DRect.java
 
-classes/edu/stanford/cs/java/graphics/GArc.class: \
-          src/edu/stanford/cs/java/graphics/GArc.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GArc.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GArc.java
+classes/graphics/GArc.class: \
+          src/graphics/GArc.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GArc.java
+	@$(JAVAC) src/graphics/GArc.java
 
-classes/edu/stanford/cs/java/graphics/GCanvas.class: \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GCanvas.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GCanvas.java
+classes/graphics/GCanvas.class: \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GCanvas.java
+	@$(JAVAC) src/graphics/GCanvas.java
 
-classes/edu/stanford/cs/java/graphics/GCompound.class: \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GCompound.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GCompound.java
+classes/graphics/GCompound.class: \
+          src/graphics/GCompound.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GCompound.java
+	@$(JAVAC) src/graphics/GCompound.java
 
-classes/edu/stanford/cs/java/graphics/GContainer.class: \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GContainer.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GContainer.java
+classes/graphics/GContainer.class: \
+          src/graphics/GContainer.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GContainer.java
+	@$(JAVAC) src/graphics/GContainer.java
 
-classes/edu/stanford/cs/java/graphics/GDimension.class: \
-          src/edu/stanford/cs/java/graphics/GDimension.java
-	@echo javac src/edu/stanford/cs/java/graphics/GDimension.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GDimension.java
+classes/graphics/GDimension.class: \
+          src/graphics/GDimension.java
+	@echo javac src/graphics/GDimension.java
+	@$(JAVAC) src/graphics/GDimension.java
 
-classes/edu/stanford/cs/java/graphics/GFillable.class: \
-          src/edu/stanford/cs/java/graphics/GFillable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GFillable.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GFillable.java
+classes/graphics/GFillable.class: \
+          src/graphics/GFillable.java
+	@echo javac src/graphics/GFillable.java
+	@$(JAVAC) src/graphics/GFillable.java
 
-classes/edu/stanford/cs/java/graphics/GImage.class: \
-          src/edu/stanford/cs/java/graphics/GImage.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GImageTools.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GImage.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GImage.java
+classes/graphics/GImage.class: \
+          src/graphics/GImage.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GImageTools.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GImage.java
+	@$(JAVAC) src/graphics/GImage.java
 
-classes/edu/stanford/cs/java/graphics/GImageTools.class: \
-          src/edu/stanford/cs/java/graphics/GImageTools.java
-	@echo javac src/edu/stanford/cs/java/graphics/GImageTools.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GImageTools.java
+classes/graphics/GImageTools.class: \
+          src/graphics/GImageTools.java
+	@echo javac src/graphics/GImageTools.java
+	@$(JAVAC) src/graphics/GImageTools.java
 
-classes/edu/stanford/cs/java/graphics/GLabel.class: \
-          src/edu/stanford/cs/java/graphics/GLabel.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GImageTools.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GLabel.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GLabel.java
+classes/graphics/GLabel.class: \
+          src/graphics/GLabel.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GImageTools.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GLabel.java
+	@$(JAVAC) src/graphics/GLabel.java
 
-classes/edu/stanford/cs/java/graphics/GLine.class: \
-          src/edu/stanford/cs/java/graphics/GLine.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GLine.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GLine.java
+classes/graphics/GLine.class: \
+          src/graphics/GLine.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GLine.java
+	@$(JAVAC) src/graphics/GLine.java
 
-classes/edu/stanford/cs/java/graphics/GMath.class: \
-          src/edu/stanford/cs/java/graphics/GMath.java
-	@echo javac src/edu/stanford/cs/java/graphics/GMath.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GMath.java
+classes/graphics/GMath.class: \
+          src/graphics/GMath.java
+	@echo javac src/graphics/GMath.java
+	@$(JAVAC) src/graphics/GMath.java
 
-classes/edu/stanford/cs/java/graphics/GObject.class: \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GObject.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GObject.java
+classes/graphics/GObject.class: \
+          src/graphics/GObject.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GObject.java
+	@$(JAVAC) src/graphics/GObject.java
 
-classes/edu/stanford/cs/java/graphics/GOval.class: \
-          src/edu/stanford/cs/java/graphics/GOval.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GOval.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GOval.java
+classes/graphics/GOval.class: \
+          src/graphics/GOval.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GOval.java
+	@$(JAVAC) src/graphics/GOval.java
 
-classes/edu/stanford/cs/java/graphics/GPoint.class: \
-          src/edu/stanford/cs/java/graphics/GPoint.java
-	@echo javac src/edu/stanford/cs/java/graphics/GPoint.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GPoint.java
+classes/graphics/GPoint.class: \
+          src/graphics/GPoint.java
+	@echo javac src/graphics/GPoint.java
+	@$(JAVAC) src/graphics/GPoint.java
 
-classes/edu/stanford/cs/java/graphics/GPolygon.class: \
-          src/edu/stanford/cs/java/graphics/GPolygon.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GPolygon.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GPolygon.java
+classes/graphics/GPolygon.class: \
+          src/graphics/GPolygon.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GPolygon.java
+	@$(JAVAC) src/graphics/GPolygon.java
 
-classes/edu/stanford/cs/java/graphics/GRect.class: \
-          src/edu/stanford/cs/java/graphics/GRect.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GRect.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GRect.java
+classes/graphics/GRect.class: \
+          src/graphics/GRect.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GRect.java
+	@$(JAVAC) src/graphics/GRect.java
 
-classes/edu/stanford/cs/java/graphics/GRectangle.class: \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java
-	@echo javac src/edu/stanford/cs/java/graphics/GRectangle.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GRectangle.java
+classes/graphics/GRectangle.class: \
+          src/graphics/GRectangle.java \
+          src/graphics/GDimension.java \
+          src/graphics/GMath.java \
+          src/graphics/GPoint.java
+	@echo javac src/graphics/GRectangle.java
+	@$(JAVAC) src/graphics/GRectangle.java
 
-classes/edu/stanford/cs/java/graphics/GResizable.class: \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java
-	@echo javac src/edu/stanford/cs/java/graphics/GResizable.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GResizable.java
+classes/graphics/GResizable.class: \
+          src/graphics/GResizable.java \
+          src/graphics/GDimension.java \
+          src/graphics/GMath.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java
+	@echo javac src/graphics/GResizable.java
+	@$(JAVAC) src/graphics/GResizable.java
 
-classes/edu/stanford/cs/java/graphics/GRoundRect.class: \
-          src/edu/stanford/cs/java/graphics/GRoundRect.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRect.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GRoundRect.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GRoundRect.java
+classes/graphics/GRoundRect.class: \
+          src/graphics/GRoundRect.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRect.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GRoundRect.java
+	@$(JAVAC) src/graphics/GRoundRect.java
 
-classes/edu/stanford/cs/java/graphics/GScalable.class: \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GScalable.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GScalable.java
+classes/graphics/GScalable.class: \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GScalable.java
+	@$(JAVAC) src/graphics/GScalable.java
 
-classes/edu/stanford/cs/java/graphics/GWindow.class: \
-          src/edu/stanford/cs/java/graphics/GWindow.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/graphics/GWindow.java
-	@$(JAVAC) src/edu/stanford/cs/java/graphics/GWindow.java
+classes/graphics/GWindow.class: \
+          src/graphics/GWindow.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/graphics/GWindow.java
+	@$(JAVAC) src/graphics/GWindow.java
 
-classes/edu/stanford/cs/java/spl/GButton.class: \
-          src/edu/stanford/cs/java/spl/GButton.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@echo javac src/edu/stanford/cs/java/spl/GButton.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/GButton.java
+classes/spl/GButton.class: \
+          src/spl/GButton.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/GInteractor.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBETopCompound.java
+	@echo javac src/spl/GButton.java
+	@$(JAVAC) src/spl/GButton.java
 
-classes/edu/stanford/cs/java/spl/GCheckBox.class: \
-          src/edu/stanford/cs/java/spl/GCheckBox.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@echo javac src/edu/stanford/cs/java/spl/GCheckBox.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/GCheckBox.java
+classes/spl/GCheckBox.class: \
+          src/spl/GCheckBox.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/GInteractor.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBETopCompound.java
+	@echo javac src/spl/GCheckBox.java
+	@$(JAVAC) src/spl/GCheckBox.java
 
-classes/edu/stanford/cs/java/spl/GChooser.class: \
-          src/edu/stanford/cs/java/spl/GChooser.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@echo javac src/edu/stanford/cs/java/spl/GChooser.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/GChooser.java
+classes/spl/GChooser.class: \
+          src/spl/GChooser.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/GInteractor.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBETopCompound.java
+	@echo javac src/spl/GChooser.java
+	@$(JAVAC) src/spl/GChooser.java
 
-classes/edu/stanford/cs/java/spl/GInteractor.class: \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@echo javac src/edu/stanford/cs/java/spl/GInteractor.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/GInteractor.java
+classes/spl/GInteractor.class: \
+          src/spl/GInteractor.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBETopCompound.java
+	@echo javac src/spl/GInteractor.java
+	@$(JAVAC) src/spl/GInteractor.java
 
-classes/edu/stanford/cs/java/spl/GSlider.class: \
-          src/edu/stanford/cs/java/spl/GSlider.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@echo javac src/edu/stanford/cs/java/spl/GSlider.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/GSlider.java
+classes/spl/GSlider.class: \
+          src/spl/GSlider.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/GInteractor.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBETopCompound.java
+	@echo javac src/spl/GSlider.java
+	@$(JAVAC) src/spl/GSlider.java
 
-classes/edu/stanford/cs/java/spl/GTextField.class: \
-          src/edu/stanford/cs/java/spl/GTextField.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@echo javac src/edu/stanford/cs/java/spl/GTextField.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/GTextField.java
+classes/spl/GTextField.class: \
+          src/spl/GTextField.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/GInteractor.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBETopCompound.java
+	@echo javac src/spl/GTextField.java
+	@$(JAVAC) src/spl/GTextField.java
 
-classes/edu/stanford/cs/java/spl/JBECanvas.class: \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@echo javac src/edu/stanford/cs/java/spl/JBECanvas.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JBECanvas.java
+classes/spl/JBECanvas.class: \
+          src/spl/JBECanvas.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/JBETopCompound.java
+	@echo javac src/spl/JBECanvas.java
+	@$(JAVAC) src/spl/JBECanvas.java
 
-classes/edu/stanford/cs/java/spl/JBECommand.class: \
-          src/edu/stanford/cs/java/spl/JBECommand.java \
-          src/edu/stanford/cs/java/graphics/G3DRect.java \
-          src/edu/stanford/cs/java/graphics/GArc.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GImage.java \
-          src/edu/stanford/cs/java/graphics/GImageTools.java \
-          src/edu/stanford/cs/java/graphics/GLabel.java \
-          src/edu/stanford/cs/java/graphics/GLine.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GOval.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GPolygon.java \
-          src/edu/stanford/cs/java/graphics/GRect.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GRoundRect.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GButton.java \
-          src/edu/stanford/cs/java/spl/GCheckBox.java \
-          src/edu/stanford/cs/java/spl/GChooser.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/GSlider.java \
-          src/edu/stanford/cs/java/spl/GTextField.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBEConsole.java \
-          src/edu/stanford/cs/java/spl/JBEFileFilter.java \
-          src/edu/stanford/cs/java/spl/JBELabel.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java \
-          src/edu/stanford/cs/java/spl/JBEWindow.java \
-          src/edu/stanford/cs/java/spl/JavaBackEnd.java \
-          src/edu/stanford/cs/java/tokenscanner/TokenScanner.java
-	@echo javac src/edu/stanford/cs/java/spl/JBECommand.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JBECommand.java
+classes/spl/JBECommand.class: \
+          src/spl/JBECommand.java \
+          src/graphics/G3DRect.java \
+          src/graphics/GArc.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GImage.java \
+          src/graphics/GImageTools.java \
+          src/graphics/GLabel.java \
+          src/graphics/GLine.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GOval.java \
+          src/graphics/GPoint.java \
+          src/graphics/GPolygon.java \
+          src/graphics/GRect.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GRoundRect.java \
+          src/graphics/GScalable.java \
+          src/spl/GButton.java \
+          src/spl/GCheckBox.java \
+          src/spl/GChooser.java \
+          src/spl/GInteractor.java \
+          src/spl/GSlider.java \
+          src/spl/GTextField.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBEConsole.java \
+          src/spl/JBEFileFilter.java \
+          src/spl/JBELabel.java \
+          src/spl/JBETopCompound.java \
+          src/spl/JBEWindow.java \
+          src/spl/JavaBackEnd.java \
+          src/tokenscanner/TokenScanner.java
+	@echo javac src/spl/JBECommand.java
+	@$(JAVAC) src/spl/JBECommand.java
 
-classes/edu/stanford/cs/java/spl/JBEConsole.class: \
-          src/edu/stanford/cs/java/spl/JBEConsole.java
-	@echo javac src/edu/stanford/cs/java/spl/JBEConsole.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JBEConsole.java
+classes/spl/JBEConsole.class: \
+          src/spl/JBEConsole.java
+	@echo javac src/spl/JBEConsole.java
+	@$(JAVAC) src/spl/JBEConsole.java
 
-classes/edu/stanford/cs/java/spl/JBEFileFilter.class: \
-          src/edu/stanford/cs/java/spl/JBEFileFilter.java
-	@echo javac src/edu/stanford/cs/java/spl/JBEFileFilter.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JBEFileFilter.java
+classes/spl/JBEFileFilter.class: \
+          src/spl/JBEFileFilter.java
+	@echo javac src/spl/JBEFileFilter.java
+	@$(JAVAC) src/spl/JBEFileFilter.java
 
-classes/edu/stanford/cs/java/spl/JBELabel.class: \
-          src/edu/stanford/cs/java/spl/JBELabel.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GImageTools.java \
-          src/edu/stanford/cs/java/graphics/GLabel.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java
-	@echo javac src/edu/stanford/cs/java/spl/JBELabel.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JBELabel.java
+classes/spl/JBELabel.class: \
+          src/spl/JBELabel.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GImageTools.java \
+          src/graphics/GLabel.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java
+	@echo javac src/spl/JBELabel.java
+	@$(JAVAC) src/spl/JBELabel.java
 
-classes/edu/stanford/cs/java/spl/JBETopCompound.class: \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java
-	@echo javac src/edu/stanford/cs/java/spl/JBETopCompound.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JBETopCompound.java
+classes/spl/JBETopCompound.class: \
+          src/spl/JBETopCompound.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GPoint.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GScalable.java \
+          src/spl/JBECanvas.java
+	@echo javac src/spl/JBETopCompound.java
+	@$(JAVAC) src/spl/JBETopCompound.java
 
-classes/edu/stanford/cs/java/spl/JBEWindow.class: \
-          src/edu/stanford/cs/java/spl/JBEWindow.java \
-          src/edu/stanford/cs/java/graphics/G3DRect.java \
-          src/edu/stanford/cs/java/graphics/GArc.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GImage.java \
-          src/edu/stanford/cs/java/graphics/GImageTools.java \
-          src/edu/stanford/cs/java/graphics/GLabel.java \
-          src/edu/stanford/cs/java/graphics/GLine.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GOval.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GPolygon.java \
-          src/edu/stanford/cs/java/graphics/GRect.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GRoundRect.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GButton.java \
-          src/edu/stanford/cs/java/spl/GCheckBox.java \
-          src/edu/stanford/cs/java/spl/GChooser.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/GSlider.java \
-          src/edu/stanford/cs/java/spl/GTextField.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBECommand.java \
-          src/edu/stanford/cs/java/spl/JBEConsole.java \
-          src/edu/stanford/cs/java/spl/JBEFileFilter.java \
-          src/edu/stanford/cs/java/spl/JBELabel.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java \
-          src/edu/stanford/cs/java/spl/JavaBackEnd.java \
-          src/edu/stanford/cs/java/tokenscanner/TokenScanner.java
-	@echo javac src/edu/stanford/cs/java/spl/JBEWindow.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JBEWindow.java
+classes/spl/JBEWindow.class: \
+          src/spl/JBEWindow.java \
+          src/graphics/G3DRect.java \
+          src/graphics/GArc.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GImage.java \
+          src/graphics/GImageTools.java \
+          src/graphics/GLabel.java \
+          src/graphics/GLine.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GOval.java \
+          src/graphics/GPoint.java \
+          src/graphics/GPolygon.java \
+          src/graphics/GRect.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GRoundRect.java \
+          src/graphics/GScalable.java \
+          src/spl/GButton.java \
+          src/spl/GCheckBox.java \
+          src/spl/GChooser.java \
+          src/spl/GInteractor.java \
+          src/spl/GSlider.java \
+          src/spl/GTextField.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBECommand.java \
+          src/spl/JBEConsole.java \
+          src/spl/JBEFileFilter.java \
+          src/spl/JBELabel.java \
+          src/spl/JBETopCompound.java \
+          src/spl/JavaBackEnd.java \
+          src/tokenscanner/TokenScanner.java
+	@echo javac src/spl/JBEWindow.java
+	@$(JAVAC) src/spl/JBEWindow.java
 
-classes/edu/stanford/cs/java/spl/JavaBackEnd.class: \
-          src/edu/stanford/cs/java/spl/JavaBackEnd.java \
-          src/edu/stanford/cs/java/graphics/G3DRect.java \
-          src/edu/stanford/cs/java/graphics/GArc.java \
-          src/edu/stanford/cs/java/graphics/GCanvas.java \
-          src/edu/stanford/cs/java/graphics/GCompound.java \
-          src/edu/stanford/cs/java/graphics/GContainer.java \
-          src/edu/stanford/cs/java/graphics/GDimension.java \
-          src/edu/stanford/cs/java/graphics/GFillable.java \
-          src/edu/stanford/cs/java/graphics/GImage.java \
-          src/edu/stanford/cs/java/graphics/GImageTools.java \
-          src/edu/stanford/cs/java/graphics/GLabel.java \
-          src/edu/stanford/cs/java/graphics/GLine.java \
-          src/edu/stanford/cs/java/graphics/GMath.java \
-          src/edu/stanford/cs/java/graphics/GObject.java \
-          src/edu/stanford/cs/java/graphics/GOval.java \
-          src/edu/stanford/cs/java/graphics/GPoint.java \
-          src/edu/stanford/cs/java/graphics/GPolygon.java \
-          src/edu/stanford/cs/java/graphics/GRect.java \
-          src/edu/stanford/cs/java/graphics/GRectangle.java \
-          src/edu/stanford/cs/java/graphics/GResizable.java \
-          src/edu/stanford/cs/java/graphics/GRoundRect.java \
-          src/edu/stanford/cs/java/graphics/GScalable.java \
-          src/edu/stanford/cs/java/spl/GButton.java \
-          src/edu/stanford/cs/java/spl/GCheckBox.java \
-          src/edu/stanford/cs/java/spl/GChooser.java \
-          src/edu/stanford/cs/java/spl/GInteractor.java \
-          src/edu/stanford/cs/java/spl/GSlider.java \
-          src/edu/stanford/cs/java/spl/GTextField.java \
-          src/edu/stanford/cs/java/spl/JBECanvas.java \
-          src/edu/stanford/cs/java/spl/JBECommand.java \
-          src/edu/stanford/cs/java/spl/JBEConsole.java \
-          src/edu/stanford/cs/java/spl/JBEFileFilter.java \
-          src/edu/stanford/cs/java/spl/JBELabel.java \
-          src/edu/stanford/cs/java/spl/JBETopCompound.java \
-          src/edu/stanford/cs/java/spl/JBEWindow.java \
-          src/edu/stanford/cs/java/tokenscanner/TokenScanner.java
-	@echo javac src/edu/stanford/cs/java/spl/JavaBackEnd.java
-	@$(JAVAC) src/edu/stanford/cs/java/spl/JavaBackEnd.java
+classes/spl/JavaBackEnd.class: \
+          src/spl/JavaBackEnd.java \
+          src/graphics/G3DRect.java \
+          src/graphics/GArc.java \
+          src/graphics/GCanvas.java \
+          src/graphics/GCompound.java \
+          src/graphics/GContainer.java \
+          src/graphics/GDimension.java \
+          src/graphics/GFillable.java \
+          src/graphics/GImage.java \
+          src/graphics/GImageTools.java \
+          src/graphics/GLabel.java \
+          src/graphics/GLine.java \
+          src/graphics/GMath.java \
+          src/graphics/GObject.java \
+          src/graphics/GOval.java \
+          src/graphics/GPoint.java \
+          src/graphics/GPolygon.java \
+          src/graphics/GRect.java \
+          src/graphics/GRectangle.java \
+          src/graphics/GResizable.java \
+          src/graphics/GRoundRect.java \
+          src/graphics/GScalable.java \
+          src/spl/GButton.java \
+          src/spl/GCheckBox.java \
+          src/spl/GChooser.java \
+          src/spl/GInteractor.java \
+          src/spl/GSlider.java \
+          src/spl/GTextField.java \
+          src/spl/JBECanvas.java \
+          src/spl/JBECommand.java \
+          src/spl/JBEConsole.java \
+          src/spl/JBEFileFilter.java \
+          src/spl/JBELabel.java \
+          src/spl/JBETopCompound.java \
+          src/spl/JBEWindow.java \
+          src/tokenscanner/TokenScanner.java
+	@echo javac src/spl/JavaBackEnd.java
+	@$(JAVAC) src/spl/JavaBackEnd.java
 
-classes/edu/stanford/cs/java/tokenscanner/TokenScanner.class: \
-          src/edu/stanford/cs/java/tokenscanner/TokenScanner.java
-	@echo javac src/edu/stanford/cs/java/tokenscanner/TokenScanner.java
-	@$(JAVAC) src/edu/stanford/cs/java/tokenscanner/TokenScanner.java
+classes/tokenscanner/TokenScanner.class: \
+          src/tokenscanner/TokenScanner.java
+	@echo javac src/tokenscanner/TokenScanner.java
+	@$(JAVAC) src/tokenscanner/TokenScanner.java
