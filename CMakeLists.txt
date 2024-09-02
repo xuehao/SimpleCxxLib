@@ -67,10 +67,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   add_subdirectory(examples)
 endif()
 
-# Build Java backend (depends on jdk and linux tools)
-
-add_dependencies(${PROJECT_NAME} JavaBackend)
-add_custom_target(
-  JavaBackend
-  COMMAND make
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/java)
+# Build Java backend
+add_subdirectory(java)
+add_dependencies(${PROJECT_NAME} JavaBackEnd)

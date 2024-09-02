@@ -26,8 +26,11 @@ target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} PRIVATE SimpleCxxLib)
 
 # Copy dependency
-file(COPY ${SimpleCxxLib_SOURCE_DIR}/java/spl.jar
-     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(
+  TARGET ${PROJECT_NAME}
+  POST_BUILD
+  COMMAND "${CMAKE_COMMAND}" -E copy ${SimpleCxxLib_BINARY_DIR}/java/spl.jar
+          ${CMAKE_CURRENT_BINARY_DIR})
 
 # Copy res files for testing
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
