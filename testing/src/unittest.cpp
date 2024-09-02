@@ -33,7 +33,7 @@ using namespace std;
 
 static int errorCount;
 static bool verbose;
-static istringstream sin;
+static istringstream issin;
 
 /* Exported entries */
 
@@ -78,8 +78,8 @@ void redirectConsoleInput(istream is) {
 }
 
 void redirectConsoleInput(string str) {
-    sin.str(str);
-    cin.rdbuf(sin.rdbuf());
+    issin.str(str);
+    cin.rdbuf(issin.rdbuf());
 }
 
 void redirectConsoleOutput(ostream os) {
